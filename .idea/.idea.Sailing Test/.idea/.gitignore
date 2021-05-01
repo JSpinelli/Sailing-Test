@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.Sailing Test.iml
+# Datasource local storage ignored files
+/../../../../../../../../:\Projects Unity\ML Examples\ml-agents\Sailing Test\.idea\.idea.Sailing Test\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
