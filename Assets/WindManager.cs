@@ -7,7 +7,7 @@ public class WindManager : MonoBehaviour
     public static WindManager instance;
 
     public Vector2 wind;
-
+    public float noGo = -0.45f;
     private void Awake()
     {
         if (instance == null)
