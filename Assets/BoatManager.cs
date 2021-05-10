@@ -2,12 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoatManager : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     public Sail mainSail;
     public Sail frontSail;
+    public bool torqueEnabled = true;
+    public float torqueMultiplier = 10;
+
+    public bool noSails = false;
+
+    public Text mainSailDisplay;
+    public Text frontSailDisplay;
 
     private void Awake()
     {
@@ -29,10 +37,30 @@ public class BoatManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.AddForce(
-            gameObject.transform.forward +
-            mainSail.SailForce() +
-            frontSail.SailForce() * 0.5f
-        );
+        if (noSails)
+        {
+            _rigidbody.AddForce(
+                gameObject.transform.forward.normalized
+            );
+        }
+        else
+        {
+            float mainSailForce = mainSail.SailForce();
+            float frontSailForce = frontSail.SailForce();
+            mainSailDisplay.text = "Main Sail: " + mainSailForce;
+            frontSailDisplay.text = "Front Sail: " + frontSailForce;
+            _rigidbody.AddForce(
+                gameObject.transform.forward.normalized * //THIS SHOULD CHANGE ACCORDING TO A&D, model the centerboard
+                (mainSailForce + (frontSailForce * 0.5f))
+            );
+            if (torqueEnabled)
+            {
+                float force = mainSail.TorqueForce() + frontSail.TorqueForce();
+                Debug.Log("Torque: " + force);
+                _rigidbody.AddRelativeTorque(0, 0,
+                    -force * torqueMultiplier
+                    , ForceMode.Force);
+            }
+        }
     }
 }

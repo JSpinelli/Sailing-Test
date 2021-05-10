@@ -1,22 +1,37 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 public class Sail : MonoBehaviour
 {
-    public Vector3 SailForce()
+
+    public float defaultTorque = 1.2f;
+    public float SailForce()
     {
         Vector2 sailDirection = new Vector2(gameObject.transform.forward.x, gameObject.transform.forward.z);
-        float dot = Vector2.Dot(sailDirection, WindManager.instance.wind);
+        float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
         if (dot < WindManager.instance.noGo)
         {
-            Debug.Log("IN NO GO");
-            return Vector3.zero;
+            return 0;
         }
-        return gameObject.transform.forward * (WindManager.instance.wind.magnitude * (1 - Math.Abs(dot)));
+        return (WindManager.instance.wind.magnitude * (1 - Math.Abs(dot)));
+    }
+
+    public float TorqueForce()
+    {
+        Vector2 sailDirection = new Vector2(gameObject.transform.right.x, gameObject.transform.right.z);
+        Vector2 sailPosition = new Vector2(gameObject.transform.right.x, gameObject.transform.right.y);
+        float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
+        float dotPos = Vector2.Dot(sailPosition.normalized, Vector2.up);
+        Debug.Log("Position:" + dotPos);
+        Debug.Log("Direction:" + dot);
+        if ((dotPos <= 0 && dot <= 0) || (dotPos >= 0 && dot >= 0))
+        {
+            return WindManager.instance.wind.magnitude * dot * defaultTorque;
+        }
+        else
+        {
+            return WindManager.instance.wind.magnitude * dot * (1 - Mathf.Abs(dotPos));
+        }
     }
 }
