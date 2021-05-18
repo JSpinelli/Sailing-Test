@@ -17,6 +17,10 @@ public class BoatManager : MonoBehaviour
     public Text mainSailDisplay;
     public Text frontSailDisplay;
 
+    public float turningFactor = 0.5f;
+
+    private float currentSpeed = 0;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -26,12 +30,12 @@ public class BoatManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            gameObject.transform.Rotate(0, -1 * _rigidbody.velocity.magnitude, 0);
+            gameObject.transform.Rotate(0, -1 * currentSpeed * turningFactor, 0);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            gameObject.transform.Rotate(0, 1 * _rigidbody.velocity.magnitude, 0);
+            gameObject.transform.Rotate(0, 1 * currentSpeed * turningFactor, 0);
         }
     }
 
@@ -49,6 +53,8 @@ public class BoatManager : MonoBehaviour
             float frontSailForce = frontSail.SailForce();
             mainSailDisplay.text = "Main Sail: " + mainSailForce;
             frontSailDisplay.text = "Front Sail: " + frontSailForce;
+
+            currentSpeed = mainSailForce + frontSailForce;
             _rigidbody.AddForce(
                 gameObject.transform.forward.normalized * //THIS SHOULD CHANGE ACCORDING TO A&D, model the centerboard
                 (mainSailForce + (frontSailForce * 0.5f))

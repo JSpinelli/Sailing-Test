@@ -6,6 +6,7 @@ public class Sail : MonoBehaviour
 {
 
     public float defaultTorque = 1.2f;
+    public float magnitudeMultiplier = 0.1f;
     public float SailForce()
     {
         Vector2 sailDirection = new Vector2(gameObject.transform.forward.x, gameObject.transform.forward.z);
@@ -27,11 +28,8 @@ public class Sail : MonoBehaviour
         Debug.Log("Direction:" + dot);
         if ((dotPos <= 0 && dot <= 0) || (dotPos >= 0 && dot >= 0))
         {
-            return WindManager.instance.wind.magnitude * dot * defaultTorque;
+            return WindManager.instance.wind.magnitude * magnitudeMultiplier * dot * defaultTorque;
         }
-        else
-        {
-            return WindManager.instance.wind.magnitude * dot * (1 - Mathf.Abs(dotPos));
-        }
+        return WindManager.instance.wind.magnitude * magnitudeMultiplier * dot * (1.2f - Mathf.Abs(dotPos));
     }
 }
