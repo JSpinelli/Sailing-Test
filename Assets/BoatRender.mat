@@ -55,6 +55,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Outline:
+        m_Texture: {fileID: 2800000, guid: 6e221dac330237c4cbbad6d187216b7c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -63,12 +67,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Skybox:
+        m_Texture: {fileID: 2800000, guid: d65f114ac3f03414ea2afe3c31bc2a01, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TextureSample1:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSample2:
-        m_Texture: {fileID: 2800000, guid: 750b1bd7ba8bd28489650de6d0a95cc5, type: 3}
+        m_Texture: {fileID: 2800000, guid: d65f114ac3f03414ea2afe3c31bc2a01, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -83,7 +91,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Mask: 3.17
+    - _Mask: 1
+    - _MaskLower: 254
+    - _MaskUpper: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -91,6 +101,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Thickness: -0.66
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
@@ -98,4 +109,5 @@ Material:
     - _ColorReplacement1: {r: 0.6415094, g: 0.48718402, b: 0.48718402, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LowerBound1: {r: 0.49056602, g: 0.18280526, b: 0.18280526, a: 0}
+    - _MaskColor: {r: 0, g: 0, b: 0, a: 0}
     - _UpperBound1: {r: 0.5754717, g: 0.2795924, b: 0.2795924, a: 0}
