@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rope.003
-  m_Shader: {fileID: 4800000, guid: b20e9fc5f3fa64d499a67654cb86c5e9, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -93,7 +93,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.39311448, g: 0.24128771, b: 0.15021382, a: 0.60688555}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.60688555}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _Tint: {r: 0.735849, g: 0.70461017, b: 0.70461017, a: 0}

@@ -147,10 +147,10 @@ Shader "Boat_ScreenSpace"
 }
 /*ASEBEGIN
 Version=18900
-251;73;1322;655;1931.513;332.3757;1;True;False
+251;73;1322;655;2104.194;500.0679;1;True;False
 Node;AmplifyShaderEditor.TemplateShaderPropertyNode;7;-2243.446,-233.1523;Inherit;False;0;0;_MainTex;Shader;True;0;5;SAMPLER2D;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;8;-2055.659,-250.5888;Inherit;True;Property;_TextureSample0;Texture Sample 0;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;0,0,0,0;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.Vector4Node;75;-2006.033,102.2113;Inherit;False;Constant;_Vector1;Vector 0;8;0;Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.Vector4Node;75;-2006.033,102.2113;Inherit;False;Constant;_Vector0;Vector 0;8;0;Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;71;-2068.905,-509.7652;Inherit;True;Property;_Mask;Mask;1;0;Create;True;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;22;-1943.255,-590.1843;Inherit;False;Constant;_Float1;Float 1;1;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;21;-1975.976,-686.2943;Inherit;False;Constant;_Float0;Float 0;1;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
@@ -182,4 +182,4 @@ WireConnection;18;0;23;0
 WireConnection;18;1;80;0
 WireConnection;10;0;18;0
 ASEEND*/
-//CHKSM=4EF461CD7A79833AA7FEE1AFCC794A0637F3DBEC
+//CHKSM=2A6DA9FEC173A8A29E54A03DEC68FBCCA847AF2D
