@@ -11,13 +11,14 @@ public class Centerboard : MonoBehaviour
     public float offset = 0f;
     private void FixedUpdate()
     {
-        float waveHeight = WaveManager.instance.GetWaveHeight(transform.position.x);
-        //float waveHeight = WavesGenerator.instance.GetWaterHeight(transform.position);
-        if (transform.position.y + offset < waveHeight)
-        {
-            float displacementMultiplier =
-                Mathf.Clamp01((waveHeight-transform.position.y) / depthBeforeSubmerged) * displacementAmount;
-            rigidBody.AddTorque(-rigidBody.angularVelocity * (displacementMultiplier * waterAngularDrag * Time.fixedDeltaTime),ForceMode.VelocityChange);
-        }
+        // float waveHeight = WaveManager.instance.GetWaveHeight(transform.position.x);
+        // //float waveHeight = WavesGenerator.instance.GetWaterHeight(transform.position);
+        // if (transform.position.y + offset < waveHeight)
+        // {
+        //     float displacementMultiplier =
+        //         Mathf.Clamp01((waveHeight-transform.position.y) / depthBeforeSubmerged) * displacementAmount;
+        //     rigidBody.AddTorque(-rigidBody.angularVelocity * (displacementMultiplier * waterAngularDrag * Time.fixedDeltaTime),ForceMode.VelocityChange);
+        // }
+        rigidBody.velocity = Vector3.Project(rigidBody.velocity, transform.forward);
     }
 }
