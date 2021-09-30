@@ -433,95 +433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultTorque: 1.2
   magnitudeMultiplier: 0.5
---- !u!1001 &195501067
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955376, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955378, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: oceanMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 79f16f7e2e961cc46828737b584510ee, type: 2}
-    - target: {fileID: 4422388351842955378, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: updateMaterialProperties
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955379, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: alwaysRecalculateInitials
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955389, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_Name
-      value: Ocean
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422388351842955389, guid: 9ccf4c02e5046194cbb9a684e1f7b007,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9ccf4c02e5046194cbb9a684e1f7b007, type: 3}
 --- !u!1001 &377252523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -748,7 +659,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382616103}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98d2efbf8ab31924ea446349a8547289, type: 3}
   m_Name: 
@@ -757,10 +668,20 @@ MonoBehaviour:
   frontSail: {fileID: 27382828}
   torqueEnabled: 1
   torqueMultiplier: 50
+  leftGenoaLine: {fileID: 0}
+  rightGenoaLine: {fileID: 0}
+  mainSailLine: {fileID: 0}
   noSails: 0
-  mainSailDisplay: {fileID: 0}
-  frontSailDisplay: {fileID: 0}
+  speedText: {fileID: 0}
+  mainSailSpeed: {fileID: 0}
+  genoaSpeed: {fileID: 0}
+  typeOfSailing: {fileID: 0}
+  mainSailRope: {fileID: 0}
+  leftGenoaRope: {fileID: 0}
+  rightGenoaRope: {fileID: 0}
   turningFactor: 0.5
+  debuggingForward: {x: 0, y: 0, z: 0}
+  front: {fileID: 0}
 --- !u!1 &503905472 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d2ab9bd3df44cd24081e1420ebd56677,
@@ -891,7 +812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &709915325
 Transform:
   m_ObjectHideFlags: 0
@@ -1166,7 +1087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &889987670
 Transform:
   m_ObjectHideFlags: 0
@@ -1963,7 +1884,7 @@ Transform:
   m_LocalScale: {x: 5.786706, y: 0.9999994, z: 6.0595784}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954355531
 GameObject:
@@ -2233,7 +2154,7 @@ PrefabInstance:
     - target: {fileID: 5796393759085770666, guid: b089d996a0fe8f6489df75414fa5fce0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5796393759085770666, guid: b089d996a0fe8f6489df75414fa5fce0,
         type: 3}

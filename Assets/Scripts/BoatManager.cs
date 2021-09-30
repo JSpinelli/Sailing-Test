@@ -17,7 +17,7 @@ public class BoatManager : MonoBehaviour
     public SpringJoint rightGenoaLine;
     public SpringJoint mainSailLine;
 
-    public bool noSails = false;
+    public float speedFactor = 50f;
 
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI mainSailSpeed;
@@ -37,6 +37,8 @@ public class BoatManager : MonoBehaviour
 
     public Vector3 debuggingForward;
 
+    public GameObject front;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -44,7 +46,7 @@ public class BoatManager : MonoBehaviour
 
     private void Update()
     {
-        debuggingForward = gameObject.transform.forward;
+        debuggingForward =  front.transform.position - gameObject.transform.position;
         if (Input.GetKey(KeyCode.A))
         {
             gameObject.transform.Rotate(0, -1 * _rigidbody.velocity.magnitude * turningFactor, 0);
@@ -183,7 +185,7 @@ public class BoatManager : MonoBehaviour
                 if (0.85f <= mainSailForce && mainSailForce <= 0.9f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.87f - mainSailForce) / 0.03f);
-                    currentSpeed = mainSailContribution;
+                    currentSpeed += mainSailContribution;
                 }
 
                 if (0.85f <= frontSailForce && frontSailForce <= 0.9f)
@@ -199,7 +201,7 @@ public class BoatManager : MonoBehaviour
                 if (0.8f <= mainSailForce && mainSailForce <= 0.9f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.05f);
-                    currentSpeed = mainSailContribution;
+                    currentSpeed += mainSailContribution;
                 }
 
                 if (0.8f <= frontSailForce && frontSailForce <= 0.9f)
@@ -215,7 +217,7 @@ public class BoatManager : MonoBehaviour
                 if (0.3f <= mainSailForce && mainSailForce <= 0.7f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.5f - mainSailForce) / 0.2f);
-                    currentSpeed = mainSailContribution;
+                    currentSpeed += mainSailContribution;
                 }
 
                 if (0.3f <= frontSailForce && frontSailForce <= 0.7f)
@@ -231,7 +233,7 @@ public class BoatManager : MonoBehaviour
                 if (0.01f <= mainSailForce && mainSailForce <= 0.5f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.25f - mainSailForce) / 0.25f);
-                    currentSpeed = mainSailContribution;
+                    currentSpeed += mainSailContribution;
                 }
 
                 if (0.01f <= frontSailForce && frontSailForce <= 0.5f)
@@ -247,7 +249,7 @@ public class BoatManager : MonoBehaviour
                 if (0.01f <= mainSailForce && mainSailForce <= 0.3f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.15f - mainSailForce) / 0.15f);
-                    currentSpeed = mainSailContribution;
+                    currentSpeed += mainSailContribution;
                 }
 
                 if (0.01f <= frontSailForce && frontSailForce <= 0.3f)
@@ -264,12 +266,12 @@ public class BoatManager : MonoBehaviour
         //Debug.Log(currentSpeed);
         currentSpeed = currentSpeed * WindManager.instance.windMagnitude;
         Vector3 forceDir =
-            transform.forward * (currentSpeed *100f);
+            debuggingForward * (currentSpeed * speedFactor);
         
-        Debug.Log("Force Dir: "+ forceDir);
-        Debug.Log("Forward: "+ transform.forward);
-        Debug.Log("Debug forward: "+ debuggingForward);
-        _rigidbody.AddRelativeForce(
+        // Debug.Log("Force Dir: "+ forceDir);
+        // Debug.Log("Forward: "+ transform.forward);
+        // Debug.Log("Debug forward: "+ debuggingForward);
+        _rigidbody.AddForce(
             forceDir, ForceMode.Force
         );
         // if (torqueEnabled)
