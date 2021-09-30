@@ -9,7 +9,6 @@ public class SailPhysics : MonoBehaviour
     private Rigidbody rb;
 
     public Rigidbody ship;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +22,6 @@ public class SailPhysics : MonoBehaviour
         //float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
         //rb.AddRelativeForce(Vector3.left * ((1-Math.Abs(dot)) * WindManager.instance.windMagnitude));
         Vector3 dir = new Vector3(WindManager.instance.wind.x, 0, WindManager.instance.wind.y);
-        Debug.Log(dir);
         Vector3 pos1 = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z - 0.5f);
         Vector3 pos2 = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z + 0.5f);
         Vector3 pos3 = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z - 0.5f);
@@ -32,5 +30,7 @@ public class SailPhysics : MonoBehaviour
         rb.AddForceAtPosition(dir / 4, pos2, ForceMode.Force);
         rb.AddForceAtPosition(dir / 4, pos3, ForceMode.Force);
         rb.AddForceAtPosition(dir / 4, pos4, ForceMode.Force);
+        
+        ship.AddForceAtPosition(-dir , transform.position, ForceMode.Force);
     }
 }

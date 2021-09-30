@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,10 @@ public class Centerboard : MonoBehaviour
         //     rigidBody.AddTorque(-rigidBody.angularVelocity * (displacementMultiplier * waterAngularDrag * Time.fixedDeltaTime),ForceMode.VelocityChange);
         // }
         rigidBody.velocity = Vector3.Project(rigidBody.velocity, transform.forward);
+        rigidBody.angularVelocity = new Vector3(
+            rigidBody.angularVelocity.x, 
+            rigidBody.angularVelocity.y * 0f,
+            rigidBody.angularVelocity.z);
         //rigidBody.velocity = Vector3.Project(rigidBody.velocity, transform.up);
         //rigidBody.velocity = Vector3.Project(rigidBody.velocity, transform.right);
     }
