@@ -5,8 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UnityEngine.InputSystem;
+
 public class BoatManager : MonoBehaviour
 {
+    private PlayerControls controls;
     private Rigidbody _rigidbody;
     public Sail mainSail;
     public Sail frontSail;
@@ -39,129 +42,19 @@ public class BoatManager : MonoBehaviour
 
     public GameObject front;
 
+    private bool leftGenoaGrabbed = false;
+    private bool rightGenoaGrabbed = false;
+    private bool mainSailGrabbed = false;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        controls = new PlayerControls();
     }
 
     private void Update()
     {
         debuggingForward =  front.transform.position - gameObject.transform.position;
-        if (Input.GetKey(KeyCode.A))
-        {
-            gameObject.transform.Rotate(0, -1 * _rigidbody.velocity.magnitude * turningFactor, 0);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            gameObject.transform.Rotate(0, 1 * _rigidbody.velocity.magnitude * turningFactor, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            //Release / Catch Left Genoa
-            if (leftGenoaLineAttached)
-            {
-                leftGenoaLine.minDistance = 80;
-                leftGenoaRope.text = " Left Genoa Detached";
-            }
-            else
-            {
-                leftGenoaLine.minDistance = 1.5f;
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-
-            leftGenoaLineAttached = !leftGenoaLineAttached;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //Release / Catch Right Genoa
-            if (rightGenoaLineAttached)
-            {
-                rightGenoaLine.minDistance = 80;
-                rightGenoaRope.text = " Right Genoa Detached";
-            }
-            else
-            {
-                rightGenoaLine.minDistance = 1.5f;
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-
-            rightGenoaLineAttached = !rightGenoaLineAttached;
-        }
-
-        if (Input.GetKey(KeyCode.Z))
-        {
-            if (mainSailLine.minDistance != 0)
-            {
-                mainSailLine.minDistance -= 0.01f;
-            }
-
-            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
-        }
-
-        if (Input.GetKey(KeyCode.C))
-        {
-            if (mainSailLine.minDistance != 10f)
-            {
-                mainSailLine.minDistance += 0.01f;
-            }
-
-            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
-        }
-
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-            if (rightGenoaLineAttached)
-            {
-                if (rightGenoaLine.minDistance != 0)
-                {
-                    rightGenoaLine.minDistance -= 0.01f;
-                }
-
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha4))
-        {
-            if (rightGenoaLineAttached)
-            {
-                if (rightGenoaLine.minDistance != 10f)
-                {
-                    rightGenoaLine.minDistance += 0.01f;
-                }
-
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            if (leftGenoaLineAttached)
-            {
-                if (leftGenoaLine.minDistance != 0)
-                {
-                    leftGenoaLine.minDistance -= 0.01f;
-                }
-
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            if (leftGenoaLineAttached)
-            {
-                if (leftGenoaLine.minDistance != 10f)
-                {
-                    leftGenoaLine.minDistance += 0.01f;
-                }
-
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-        }
     }
 
     private void FixedUpdate()
@@ -283,5 +176,226 @@ public class BoatManager : MonoBehaviour
         //         , ForceMode.Force);
         // }
         speedText.text = "Speed: " + _rigidbody.velocity.magnitude;
+    }
+
+    public void DefualtKeyBoardControls()
+    {
+         if (Input.GetKey(KeyCode.A))
+        {
+            gameObject.transform.Rotate(0, -1 * _rigidbody.velocity.magnitude * turningFactor, 0);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            gameObject.transform.Rotate(0, 1 * _rigidbody.velocity.magnitude * turningFactor, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //Release / Catch Left Genoa
+            if (leftGenoaLineAttached)
+            {
+                leftGenoaLine.minDistance = 80;
+                leftGenoaRope.text = " Left Genoa Detached";
+            }
+            else
+            {
+                leftGenoaLine.minDistance = 1.5f;
+                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
+            }
+
+            leftGenoaLineAttached = !leftGenoaLineAttached;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //Release / Catch Right Genoa
+            if (rightGenoaLineAttached)
+            {
+                rightGenoaLine.minDistance = 80;
+                rightGenoaRope.text = " Right Genoa Detached";
+            }
+            else
+            {
+                rightGenoaLine.minDistance = 1.5f;
+                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
+            }
+
+            rightGenoaLineAttached = !rightGenoaLineAttached;
+        }
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            if (mainSailLine.minDistance != 0)
+            {
+                mainSailLine.minDistance -= 0.01f;
+            }
+
+            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
+        }
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            if (mainSailLine.minDistance != 10f)
+            {
+                mainSailLine.minDistance += 0.01f;
+            }
+
+            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
+        }
+
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            if (rightGenoaLineAttached)
+            {
+                if (rightGenoaLine.minDistance != 0)
+                {
+                    rightGenoaLine.minDistance -= 0.01f;
+                }
+
+                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            if (rightGenoaLineAttached)
+            {
+                if (rightGenoaLine.minDistance != 10f)
+                {
+                    rightGenoaLine.minDistance += 0.01f;
+                }
+
+                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            if (leftGenoaLineAttached)
+            {
+                if (leftGenoaLine.minDistance != 0)
+                {
+                    leftGenoaLine.minDistance -= 0.01f;
+                }
+
+                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            if (leftGenoaLineAttached)
+            {
+                if (leftGenoaLine.minDistance != 10f)
+                {
+                    leftGenoaLine.minDistance += 0.01f;
+                }
+
+                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
+            }
+        }
+    }
+
+    public void GrabLeft(InputAction.CallbackContext cx)
+    {
+        leftGenoaGrabbed = cx.ReadValueAsButton();
+    }
+    
+    public void GrabRight(InputAction.CallbackContext cx)
+    {
+        rightGenoaGrabbed = cx.ReadValueAsButton();
+    }
+    
+    public void MainSail(InputAction.CallbackContext cx)
+    {
+        mainSailGrabbed = cx.ReadValueAsButton();
+    }
+
+    public void Release(InputAction.CallbackContext cx)
+    {
+        if (leftGenoaGrabbed)
+        {
+            //Release / Catch Left Genoa
+            if (leftGenoaLineAttached)
+            {
+                leftGenoaLine.minDistance = 80;
+                leftGenoaRope.text = " Left Genoa Detached";
+            }
+            else
+            {
+                leftGenoaLine.minDistance = 1.5f;
+                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
+            }
+
+            leftGenoaLineAttached = !leftGenoaLineAttached;
+        }
+
+        if (rightGenoaGrabbed)
+        {
+            //Release / Catch Right Genoa
+            if (rightGenoaLineAttached)
+            {
+                rightGenoaLine.minDistance = 80;
+                rightGenoaRope.text = " Right Genoa Detached";
+            }
+            else
+            {
+                rightGenoaLine.minDistance = 1.5f;
+                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
+            }
+
+            rightGenoaLineAttached = !rightGenoaLineAttached;
+        }
+    }
+
+    public void HandleRope(InputAction.CallbackContext cx)
+    {
+        Vector2 dir = cx.ReadValue<Vector2>();
+        if (leftGenoaGrabbed)
+        {
+            if (leftGenoaLineAttached)
+            {
+                
+                if (leftGenoaLine.minDistance >= 0 && dir.y < 0 )
+                {
+                    leftGenoaLine.minDistance += dir.y/10;
+                }
+                if (leftGenoaLine.minDistance < 5 && dir.y > 0 )
+                    leftGenoaLine.minDistance += dir.y/10;
+                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
+            }
+        }
+
+        if (rightGenoaGrabbed)
+        {
+            if (rightGenoaLineAttached)
+            {
+                if (rightGenoaLine.minDistance >= 0 && dir.y < 0 )
+                {
+                    rightGenoaLine.minDistance += dir.y/10;
+                }
+                if (rightGenoaLine.minDistance < 5 && dir.y > 0 )
+                    rightGenoaLine.minDistance += dir.y/10;
+                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
+            }
+        }
+
+        if (mainSailGrabbed)
+        {
+            if (mainSailLine.minDistance >= 0 && dir.y < 0 )
+            {
+                mainSailLine.minDistance += dir.y/10;
+            }
+            if (mainSailLine.minDistance < 5 && dir.y > 0 )
+                mainSailLine.minDistance += dir.y/10;
+            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
+        }
+    }
+
+    public void Tiller(InputAction.CallbackContext cx)
+    {
+        Vector2 dir = cx.ReadValue<Vector2>();
+        gameObject.transform.Rotate(0,  dir.x * _rigidbody.velocity.magnitude * turningFactor, 0);
     }
 }
