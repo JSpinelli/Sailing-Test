@@ -45,6 +45,12 @@ public class BoatManager : MonoBehaviour
     private bool leftGenoaGrabbed = false;
     private bool rightGenoaGrabbed = false;
     private bool mainSailGrabbed = false;
+
+
+    public ManualSailPhysics mainsail;
+    public ManualSailPhysics genoa;
+
+    public Vector2 dir;
     
     private void Awake()
     {
@@ -75,15 +81,15 @@ public class BoatManager : MonoBehaviour
             case float f when (f > WindManager.instance.noGo && f <= -0.7):
                 // CLOSE HAUL
                 typeOfSailing.text = "Close Haul";
-                if (0.85f <= mainSailForce && mainSailForce <= 0.9f)
+                if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.87f - mainSailForce) / 0.03f);
+                    mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
                     currentSpeed += mainSailContribution;
                 }
 
-                if (0.85f <= frontSailForce && frontSailForce <= 0.9f)
+                if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.87f - frontSailForce) / 0.03f);
+                    genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
                     currentSpeed += genoaContribution;
                 }
 
@@ -91,15 +97,15 @@ public class BoatManager : MonoBehaviour
             case float f when (f > -0.7 && f <= -0.1):
                 // CLOSE REACH
                 typeOfSailing.text = "Close Reach";
-                if (0.8f <= mainSailForce && mainSailForce <= 0.9f)
+                if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.05f);
+                    mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
                     currentSpeed += mainSailContribution;
                 }
 
-                if (0.8f <= frontSailForce && frontSailForce <= 0.9f)
+                if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.05f);
+                    genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
                     currentSpeed += genoaContribution;
                 }
 
@@ -139,15 +145,15 @@ public class BoatManager : MonoBehaviour
             case float f when (f > 0.9):
                 //RUNNING
                 typeOfSailing.text = "Running";
-                if (0.01f <= mainSailForce && mainSailForce <= 0.3f)
+                if (0.01f <= mainSailForce && mainSailForce <= 0.4f)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.15f - mainSailForce) / 0.15f);
+                    mainSailContribution = 1 - (Math.Abs(0.2f - mainSailForce) / 0.2f);
                     currentSpeed += mainSailContribution;
                 }
 
-                if (0.01f <= frontSailForce && frontSailForce <= 0.3f)
+                if (0.01f <= frontSailForce && frontSailForce <= 0.4f)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.15f - frontSailForce) / 0.15f);
+                    genoaContribution = 1 - (Math.Abs(0.2f - frontSailForce) / 0.2f);
                     currentSpeed += genoaContribution;
                 }
 
@@ -156,12 +162,9 @@ public class BoatManager : MonoBehaviour
 
         mainSailSpeed.text = "Main Sail Force: " + mainSailContribution;
         genoaSpeed.text = "Genoa Force: " + genoaContribution;
-        //Debug.Log(currentSpeed);
         currentSpeed = currentSpeed * WindManager.instance.windMagnitude;
         Vector3 forceDir =
             debuggingForward * (currentSpeed * speedFactor);
-        
-        // Debug.Log("Force Dir: "+ forceDir);
         // Debug.Log("Forward: "+ transform.forward);
         // Debug.Log("Debug forward: "+ debuggingForward);
         _rigidbody.AddForce(
@@ -176,6 +179,8 @@ public class BoatManager : MonoBehaviour
         //         , ForceMode.Force);
         // }
         speedText.text = "Speed: " + _rigidbody.velocity.magnitude;
+        
+        gameObject.transform.Rotate(0,  dir.x * turningFactor, 0);
     }
 
     public void DefualtKeyBoardControls()
@@ -348,6 +353,26 @@ public class BoatManager : MonoBehaviour
             rightGenoaLineAttached = !rightGenoaLineAttached;
         }
     }
+    
+    public void ReleaseManual(InputAction.CallbackContext cx)
+    {
+        if (leftGenoaGrabbed)
+        {
+            //Release / Catch Left Genoa
+            if (leftGenoaLineAttached)
+            {
+                genoa.rope = 1;
+                leftGenoaRope.text = " Left Genoa Detached";
+            }
+            else
+            {
+                genoa.rope = 0.1f;
+                leftGenoaRope.text = "Left Genoa: " + genoa.rope;
+            }
+
+            leftGenoaLineAttached = !leftGenoaLineAttached;
+        }
+    }
 
     public void HandleRope(InputAction.CallbackContext cx)
     {
@@ -393,9 +418,38 @@ public class BoatManager : MonoBehaviour
         }
     }
 
-    public void Tiller(InputAction.CallbackContext cx)
+    public void HandleRopeManual(InputAction.CallbackContext cx)
     {
         Vector2 dir = cx.ReadValue<Vector2>();
-        gameObject.transform.Rotate(0,  dir.x * _rigidbody.velocity.magnitude * turningFactor, 0);
+        if (leftGenoaGrabbed)
+        {
+            if (leftGenoaLineAttached)
+            {
+                
+                if (genoa.rope >= 0 && dir.y < 0 )
+                {
+                    genoa.rope += dir.y/1000;
+                }
+                if (genoa.rope < 0.20 && dir.y > 0 )
+                    genoa.rope += dir.y/1000;
+                leftGenoaRope.text = "Left Genoa: " + genoa.rope;
+            }
+        }
+
+        if (mainSailGrabbed)
+        {
+            if (mainsail.rope >= 0 && dir.y < 0 )
+            {
+                mainsail.rope += dir.y/1000;
+            }
+            if (mainsail.rope < 0.20 && dir.y > 0 )
+                mainsail.rope += dir.y/1000;
+            mainSailRope.text = "Main Sail: " + mainsail.rope;
+        }
+    }
+    
+    public void Tiller(InputAction.CallbackContext cx)
+    {
+        dir = (Vector2) cx.ReadValueAsObject();
     }
 }

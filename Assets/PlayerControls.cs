@@ -46,7 +46,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""Tiller"",
                     ""type"": ""Value"",
                     ""id"": ""686b5b8d-bbcc-40eb-8db2-5fa0f28936d7"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
