@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: InkOceanMat
-  m_Shader: {fileID: 4800000, guid: a845c5754303b2b488642e57adaa311c, type: 3}
+  m_Name: Just Water
+  m_Shader: {fileID: 4800000, guid: 05e1b2df9bbad9d40a13edb0b325bec3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -43,27 +43,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Displace_3D:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _FoamTexture:
-        m_Texture: {fileID: 2800000, guid: 85e2496d0caa1d14884d80beb63b2957, type: 3}
-        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normals_3D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -75,22 +63,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _TextureSample0:
-        m_Texture: {fileID: 2800000, guid: 26bad33503aebc440b9572ec6fb06a75, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _texcoord:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _Distort: 0
     - _DstBlend: 0
-    - _Float0: 1.57
-    - _FoamSpeed: 0.01
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -98,12 +76,7 @@ Material:
     - _Mode: 0
     - _NormalPower: 0
     - _OcclusionStrength: 1
-    - _OffsetEdge: 0.24
     - _Parallax: 0.02
-    - _Ripple: 1
-    - _RippleDensity: 1.5
-    - _RippleDensityfoam: 1
-    - _Ripplefoam: 0.1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -118,11 +91,6 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _BaseColor: {r: 0.3773585, g: 0.2857987, b: 0.033819854, a: 0.4745098}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RippleColor: {r: 4.08176, g: 4.1341715, b: 0, a: 0.30588236}
-    - _RippleColor1: {r: 0.4056604, g: 0.380785, b: 0.380785, a: 0}
-    - _RippleColorFoam: {r: 10.242023, g: 8.937614, b: 8.937614, a: 0}
-    - _SeaColor: {r: 0.117746525, g: 0.12451376, b: 0.16981131, a: 0}
-    - _TestColor: {r: 0.6132076, g: 0.5987451, b: 0.5987451, a: 0.83137256}
+    - _SeaColor: {r: 0, g: 0, b: 0, a: 0}

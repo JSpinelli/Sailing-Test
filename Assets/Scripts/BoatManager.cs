@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class BoatManager : MonoBehaviour
 {
@@ -416,6 +417,11 @@ public class BoatManager : MonoBehaviour
                 mainSailLine.minDistance += dir.y/10;
             mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
         }
+    }
+
+    public void Reload(InputAction.CallbackContext cx)
+    {
+        SceneManager.LoadScene("BoatMechanics");
     }
 
     public void HandleRopeManual(InputAction.CallbackContext cx)

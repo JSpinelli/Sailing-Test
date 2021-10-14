@@ -23,6 +23,7 @@ public class WaterManager : MonoBehaviour
         }
 
         _meshFilter.mesh.vertices = vertices;
+        _meshFilter.mesh.RecalculateBounds();
         _meshFilter.mesh.RecalculateNormals();
     }
 }

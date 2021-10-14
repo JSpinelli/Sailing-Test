@@ -21,7 +21,8 @@ public class Centerboard : MonoBehaviour
         //     rigidBody.AddTorque(-rigidBody.angularVelocity * (displacementMultiplier * waterAngularDrag * Time.fixedDeltaTime),ForceMode.VelocityChange);
         // }
         rigidBody.AddForce(-Vector3.Project(rigidBody.velocity, transform.forward));
-        rigidBody.AddTorque(Vector3.Project(rigidBody.angularVelocity, Vector3.up));
+        rigidBody.AddTorque(-Vector3.Project(rigidBody.angularVelocity, Vector3.up));
+        //rigidBody.AddTorque(-Vector3.Project(rigidBody.angularVelocity, Vector3.up));
         
         // rigidBody.AddForce(-Vector3.Project(rigidBody.velocity, transform.forward) * Time.fixedDeltaTime);
         // rigidBody.AddTorque(-Vector3.Project(rigidBody.angularVelocity, Vector3.up) * Time.fixedDeltaTime);

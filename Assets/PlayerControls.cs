@@ -65,6 +65,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""46759ebc-627b-4452-936d-2a4c1640aa7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -133,6 +141,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Release"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b9f40e9-19bd-4c69-a0f9-6d632f22b7d7"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -147,6 +166,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Boat_Tiller = m_Boat.FindAction("Tiller", throwIfNotFound: true);
         m_Boat_GrabMainSail = m_Boat.FindAction("Grab Main Sail", throwIfNotFound: true);
         m_Boat_Release = m_Boat.FindAction("Release", throwIfNotFound: true);
+        m_Boat_Restart = m_Boat.FindAction("Restart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,6 +222,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Boat_Tiller;
     private readonly InputAction m_Boat_GrabMainSail;
     private readonly InputAction m_Boat_Release;
+    private readonly InputAction m_Boat_Restart;
     public struct BoatActions
     {
         private @PlayerControls m_Wrapper;
@@ -212,6 +233,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Tiller => m_Wrapper.m_Boat_Tiller;
         public InputAction @GrabMainSail => m_Wrapper.m_Boat_GrabMainSail;
         public InputAction @Release => m_Wrapper.m_Boat_Release;
+        public InputAction @Restart => m_Wrapper.m_Boat_Restart;
         public InputActionMap Get() { return m_Wrapper.m_Boat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -239,6 +261,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Release.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRelease;
                 @Release.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRelease;
                 @Release.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRelease;
+                @Restart.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRestart;
+                @Restart.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRestart;
+                @Restart.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRestart;
             }
             m_Wrapper.m_BoatActionsCallbackInterface = instance;
             if (instance != null)
@@ -261,6 +286,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Release.started += instance.OnRelease;
                 @Release.performed += instance.OnRelease;
                 @Release.canceled += instance.OnRelease;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
         }
     }
@@ -273,5 +301,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnTiller(InputAction.CallbackContext context);
         void OnGrabMainSail(InputAction.CallbackContext context);
         void OnRelease(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
     }
 }
