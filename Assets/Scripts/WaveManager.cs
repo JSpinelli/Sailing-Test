@@ -33,6 +33,6 @@ public class WaveManager : MonoBehaviour
 
     public float GetWaveHeight(float x)
     {
-        return amplitude * Mathf.Sin(x / length + offset);
+        return (amplitude * Mathf.Sin(x / length + offset))+ amplitude * Mathf.Cos(x / length + offset+2);
     }
 }

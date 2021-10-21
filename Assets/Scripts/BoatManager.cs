@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -17,10 +16,6 @@ public class BoatManager : MonoBehaviour
     public bool torqueEnabled = true;
     public float torqueMultiplier = 10;
 
-    public SpringJoint leftGenoaLine;
-    public SpringJoint rightGenoaLine;
-    public SpringJoint mainSailLine;
-
     public float speedFactor = 50f;
 
     public TextMeshProUGUI speedText;
@@ -32,16 +27,15 @@ public class BoatManager : MonoBehaviour
     public TextMeshProUGUI leftGenoaRope;
     public TextMeshProUGUI rightGenoaRope;
 
+    public AudioSource ropeTight;
+    public AudioSource ropeUnwind;
+
     public float turningFactor = 0.5f;
 
     private float currentSpeed = 0;
 
     private bool leftGenoaLineAttached = true;
     private bool rightGenoaLineAttached = true;
-
-    public Vector3 debuggingForward;
-
-    public GameObject front;
 
     private bool leftGenoaGrabbed = false;
     private bool rightGenoaGrabbed = false;
@@ -51,17 +45,17 @@ public class BoatManager : MonoBehaviour
     public ManualSailPhysics mainsail;
     public ManualSailPhysics genoa;
 
-    public Vector2 dir;
-    
+    private Vector2 dir;
+
+    private Vector2 dirRope;
+
+    public bool mainSailWorking = false;
+    public bool frontSailWorking = false;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         controls = new PlayerControls();
-    }
-
-    private void Update()
-    {
-        debuggingForward =  front.transform.position - gameObject.transform.position;
     }
 
     private void FixedUpdate()
@@ -77,21 +71,31 @@ public class BoatManager : MonoBehaviour
         switch (dot)
         {
             case float f when (f <= WindManager.instance.noGo):
-                typeOfSailing.text = "NO GO";
+                typeOfSailing.text = "In Irons";
                 break;
             case float f when (f > WindManager.instance.noGo && f <= -0.7):
                 // CLOSE HAUL
-                typeOfSailing.text = "Close Haul";
+                typeOfSailing.text = "Close Hauled";
                 if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
                     currentSpeed += mainSailContribution;
+                    mainSailWorking = true;
+                }
+                else
+                {
+                    mainSailWorking = false;
                 }
 
                 if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
                     currentSpeed += genoaContribution;
+                    frontSailWorking = true;
+                }
+                else
+                {
+                    frontSailWorking = false;
                 }
 
                 break;
@@ -102,12 +106,22 @@ public class BoatManager : MonoBehaviour
                 {
                     mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
                     currentSpeed += mainSailContribution;
+                    mainSailWorking = true;
+                }
+                else
+                {
+                    mainSailWorking = false;
                 }
 
                 if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
                     currentSpeed += genoaContribution;
+                    frontSailWorking = true;
+                }
+                else
+                {
+                    frontSailWorking = false;
                 }
 
                 break;
@@ -118,12 +132,22 @@ public class BoatManager : MonoBehaviour
                 {
                     mainSailContribution = 1 - (Math.Abs(0.5f - mainSailForce) / 0.2f);
                     currentSpeed += mainSailContribution;
+                    mainSailWorking = true;
+                }
+                else
+                {
+                    mainSailWorking = false;
                 }
 
                 if (0.3f <= frontSailForce && frontSailForce <= 0.7f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.5f - frontSailForce) / 0.2f);
                     currentSpeed += genoaContribution;
+                    frontSailWorking = true;
+                }
+                else
+                {
+                    frontSailWorking = false;
                 }
 
                 break;
@@ -134,12 +158,22 @@ public class BoatManager : MonoBehaviour
                 {
                     mainSailContribution = 1 - (Math.Abs(0.25f - mainSailForce) / 0.25f);
                     currentSpeed += mainSailContribution;
+                    mainSailWorking = true;
+                }
+                else
+                {
+                    mainSailWorking = false;
                 }
 
                 if (0.01f <= frontSailForce && frontSailForce <= 0.5f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.25f - frontSailForce) / 0.25f);
                     currentSpeed += genoaContribution;
+                    frontSailWorking = true;
+                }
+                else
+                {
+                    frontSailWorking = false;
                 }
 
                 break;
@@ -150,12 +184,22 @@ public class BoatManager : MonoBehaviour
                 {
                     mainSailContribution = 1 - (Math.Abs(0.2f - mainSailForce) / 0.2f);
                     currentSpeed += mainSailContribution;
+                    mainSailWorking = true;
+                }
+                else
+                {
+                    mainSailWorking = false;
                 }
 
                 if (0.01f <= frontSailForce && frontSailForce <= 0.4f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.2f - frontSailForce) / 0.2f);
                     currentSpeed += genoaContribution;
+                    frontSailWorking = true;
+                }
+                else
+                {
+                    frontSailWorking = false;
                 }
 
                 break;
@@ -165,9 +209,7 @@ public class BoatManager : MonoBehaviour
         genoaSpeed.text = "Genoa Force: " + genoaContribution;
         currentSpeed = currentSpeed * WindManager.instance.windMagnitude;
         Vector3 forceDir =
-            debuggingForward * (currentSpeed * speedFactor);
-        // Debug.Log("Forward: "+ transform.forward);
-        // Debug.Log("Debug forward: "+ debuggingForward);
+            transform.forward * (currentSpeed * speedFactor);
         _rigidbody.AddForce(
             forceDir, ForceMode.Force
         );
@@ -179,127 +221,82 @@ public class BoatManager : MonoBehaviour
         //         -force * torqueMultiplier
         //         , ForceMode.Force);
         // }
-        speedText.text = "Speed: " + _rigidbody.velocity.magnitude;
-        
-        gameObject.transform.Rotate(0,  dir.x * turningFactor, 0);
-    }
+        speedText.text = "Speed: " + (int) (_rigidbody.velocity.magnitude * 100) ;
 
-    public void DefualtKeyBoardControls()
-    {
-         if (Input.GetKey(KeyCode.A))
+        gameObject.transform.Rotate(0, dir.x * turningFactor, 0);
+        if (rightGenoaGrabbed)
         {
-            gameObject.transform.Rotate(0, -1 * _rigidbody.velocity.magnitude * turningFactor, 0);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            gameObject.transform.Rotate(0, 1 * _rigidbody.velocity.magnitude * turningFactor, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            //Release / Catch Left Genoa
-            if (leftGenoaLineAttached)
+            if (genoa.rope >= 0.002 && dirRope.y < 0)
             {
-                leftGenoaLine.minDistance = 80;
-                leftGenoaRope.text = " Left Genoa Detached";
-            }
-            else
-            {
-                leftGenoaLine.minDistance = 1.5f;
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-
-            leftGenoaLineAttached = !leftGenoaLineAttached;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //Release / Catch Right Genoa
-            if (rightGenoaLineAttached)
-            {
-                rightGenoaLine.minDistance = 80;
-                rightGenoaRope.text = " Right Genoa Detached";
-            }
-            else
-            {
-                rightGenoaLine.minDistance = 1.5f;
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-
-            rightGenoaLineAttached = !rightGenoaLineAttached;
-        }
-
-        if (Input.GetKey(KeyCode.Z))
-        {
-            if (mainSailLine.minDistance != 0)
-            {
-                mainSailLine.minDistance -= 0.01f;
-            }
-
-            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
-        }
-
-        if (Input.GetKey(KeyCode.C))
-        {
-            if (mainSailLine.minDistance != 10f)
-            {
-                mainSailLine.minDistance += 0.01f;
-            }
-
-            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
-        }
-
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-            if (rightGenoaLineAttached)
-            {
-                if (rightGenoaLine.minDistance != 0)
+                genoa.rope += dirRope.y / 1000;
+                if (!ropeTight.isPlaying)
                 {
-                    rightGenoaLine.minDistance -= 0.01f;
+                    ropeTight.Play();
                 }
 
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha4))
-        {
-            if (rightGenoaLineAttached)
-            {
-                if (rightGenoaLine.minDistance != 10f)
+                if (ropeUnwind.isPlaying)
                 {
-                    rightGenoaLine.minDistance += 0.01f;
+                    ropeUnwind.Stop();
+                }
+            }
+
+            if (genoa.rope < 0.20 && dirRope.y > 0)
+            {
+                genoa.rope += dirRope.y / 1000;
+                if (ropeTight.isPlaying)
+                {
+                    ropeTight.Stop();
                 }
 
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            if (leftGenoaLineAttached)
-            {
-                if (leftGenoaLine.minDistance != 0)
+                if (!ropeUnwind.isPlaying)
                 {
-                    leftGenoaLine.minDistance -= 0.01f;
+                    ropeUnwind.Play();
+                }
+            }
+
+            if (genoa.rope < 0.002) genoa.rope = 0.002f;
+        }
+        leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope * 100);
+
+        if (mainSailGrabbed)
+        {
+            if (mainsail.rope >= 0.002 && dirRope.y < 0)
+            {
+                mainsail.rope += dirRope.y / 1000;
+                if (!ropeTight.isPlaying)
+                {
+                    ropeTight.Play();
                 }
 
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            if (leftGenoaLineAttached)
-            {
-                if (leftGenoaLine.minDistance != 10f)
+                if (ropeUnwind.isPlaying)
                 {
-                    leftGenoaLine.minDistance += 0.01f;
+                    ropeUnwind.Stop();
+                }
+            }
+
+            if (mainsail.rope < 0.20 && dirRope.y > 0)
+            {
+                mainsail.rope += dirRope.y / 1000;
+                if (ropeTight.isPlaying)
+                {
+                    ropeTight.Stop();
                 }
 
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
+                if (!ropeUnwind.isPlaying)
+                {
+                    ropeUnwind.Play();
+                }
             }
+
+            if (mainsail.rope < 0.002) mainsail.rope = 0.002f;
+
+        }
+        mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope * 100);
+
+        if (!mainSailGrabbed && !rightGenoaGrabbed)
+        {
+            ropeTight.Stop();
+            ropeUnwind.Stop();
         }
     }
 
@@ -307,54 +304,17 @@ public class BoatManager : MonoBehaviour
     {
         leftGenoaGrabbed = cx.ReadValueAsButton();
     }
-    
+
     public void GrabRight(InputAction.CallbackContext cx)
     {
         rightGenoaGrabbed = cx.ReadValueAsButton();
     }
-    
+
     public void MainSail(InputAction.CallbackContext cx)
     {
         mainSailGrabbed = cx.ReadValueAsButton();
     }
 
-    public void Release(InputAction.CallbackContext cx)
-    {
-        if (leftGenoaGrabbed)
-        {
-            //Release / Catch Left Genoa
-            if (leftGenoaLineAttached)
-            {
-                leftGenoaLine.minDistance = 80;
-                leftGenoaRope.text = " Left Genoa Detached";
-            }
-            else
-            {
-                leftGenoaLine.minDistance = 1.5f;
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-
-            leftGenoaLineAttached = !leftGenoaLineAttached;
-        }
-
-        if (rightGenoaGrabbed)
-        {
-            //Release / Catch Right Genoa
-            if (rightGenoaLineAttached)
-            {
-                rightGenoaLine.minDistance = 80;
-                rightGenoaRope.text = " Right Genoa Detached";
-            }
-            else
-            {
-                rightGenoaLine.minDistance = 1.5f;
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-
-            rightGenoaLineAttached = !rightGenoaLineAttached;
-        }
-    }
-    
     public void ReleaseManual(InputAction.CallbackContext cx)
     {
         if (leftGenoaGrabbed)
@@ -375,50 +335,6 @@ public class BoatManager : MonoBehaviour
         }
     }
 
-    public void HandleRope(InputAction.CallbackContext cx)
-    {
-        Vector2 dir = cx.ReadValue<Vector2>();
-        if (leftGenoaGrabbed)
-        {
-            if (leftGenoaLineAttached)
-            {
-                
-                if (leftGenoaLine.minDistance >= 0 && dir.y < 0 )
-                {
-                    leftGenoaLine.minDistance += dir.y/10;
-                }
-                if (leftGenoaLine.minDistance < 5 && dir.y > 0 )
-                    leftGenoaLine.minDistance += dir.y/10;
-                leftGenoaRope.text = "Left Genoa: " + leftGenoaLine.minDistance;
-            }
-        }
-
-        if (rightGenoaGrabbed)
-        {
-            if (rightGenoaLineAttached)
-            {
-                if (rightGenoaLine.minDistance >= 0 && dir.y < 0 )
-                {
-                    rightGenoaLine.minDistance += dir.y/10;
-                }
-                if (rightGenoaLine.minDistance < 5 && dir.y > 0 )
-                    rightGenoaLine.minDistance += dir.y/10;
-                rightGenoaRope.text = "Right Genoa: " + rightGenoaLine.minDistance;
-            }
-        }
-
-        if (mainSailGrabbed)
-        {
-            if (mainSailLine.minDistance >= 0 && dir.y < 0 )
-            {
-                mainSailLine.minDistance += dir.y/10;
-            }
-            if (mainSailLine.minDistance < 5 && dir.y > 0 )
-                mainSailLine.minDistance += dir.y/10;
-            mainSailRope.text = "Main Sail: " + mainSailLine.minDistance;
-        }
-    }
-
     public void Reload(InputAction.CallbackContext cx)
     {
         SceneManager.LoadScene("BoatMechanics");
@@ -426,34 +342,9 @@ public class BoatManager : MonoBehaviour
 
     public void HandleRopeManual(InputAction.CallbackContext cx)
     {
-        Vector2 dir = cx.ReadValue<Vector2>();
-        if (leftGenoaGrabbed)
-        {
-            if (leftGenoaLineAttached)
-            {
-                
-                if (genoa.rope >= 0 && dir.y < 0 )
-                {
-                    genoa.rope += dir.y/1000;
-                }
-                if (genoa.rope < 0.20 && dir.y > 0 )
-                    genoa.rope += dir.y/1000;
-                leftGenoaRope.text = "Left Genoa: " + genoa.rope;
-            }
-        }
-
-        if (mainSailGrabbed)
-        {
-            if (mainsail.rope >= 0 && dir.y < 0 )
-            {
-                mainsail.rope += dir.y/1000;
-            }
-            if (mainsail.rope < 0.20 && dir.y > 0 )
-                mainsail.rope += dir.y/1000;
-            mainSailRope.text = "Main Sail: " + mainsail.rope;
-        }
+        dirRope = (Vector2) cx.ReadValueAsObject();
     }
-    
+
     public void Tiller(InputAction.CallbackContext cx)
     {
         dir = (Vector2) cx.ReadValueAsObject();
