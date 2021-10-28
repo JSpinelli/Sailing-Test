@@ -52,8 +52,8 @@ public class OceanSpawner : MonoBehaviour
             {
                 mapData mp = new mapData();
                 mp.windValue = new Vector2(Random.Range(0, 20), Random.Range(0, 20));
-                mp.waveAmplitude = Random.Range(-10, 10);
-                mp.waveLength = Random.Range(5, 10);
+                mp.waveAmplitude = 4; //Random.Range(-10, 10);
+                mp.waveLength = 4;//Random.Range(5, 5);
                 world[x, z] = mp;
             }
         }

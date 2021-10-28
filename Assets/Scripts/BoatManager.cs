@@ -52,6 +52,15 @@ public class BoatManager : MonoBehaviour
     public bool mainSailWorking = false;
     public bool frontSailWorking = false;
 
+    public Transform tillerPos;
+    public Transform tillerOrigin;
+
+    private float currentTillerPos = 0;
+
+    private Vector3 currentAngle;
+
+    public float tillerSensitivity=2f;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -221,9 +230,23 @@ public class BoatManager : MonoBehaviour
         //         -force * torqueMultiplier
         //         , ForceMode.Force);
         // }
-        speedText.text = "Speed: " + (int) (_rigidbody.velocity.magnitude * 100) ;
+        speedText.text = "Speed: " + (int) (_rigidbody.velocity.magnitude * 100);
 
-        gameObject.transform.Rotate(0, dir.x * turningFactor, 0);
+        //gameObject.transform.Rotate(0, dir.x * turningFactor, 0);
+        //_rigidbody.AddForceAtPosition(transform.right * (dir.x * turningFactor) / 100f, tillerPos.position);
+        if (dir.x > 0 && (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
+        {
+            tillerPos.RotateAround(tillerOrigin.position, Vector3.up, dir.x*tillerSensitivity);
+        }
+
+        if (dir.x < 0 && (tillerPos.localRotation.eulerAngles.y > 280 || tillerPos.localRotation.eulerAngles.y < 85))
+        {
+            tillerPos.RotateAround(tillerOrigin.position, Vector3.up, dir.x*tillerSensitivity);
+        }
+        
+        currentTillerPos = tillerPos.localRotation.y;
+        _rigidbody.AddForceAtPosition(transform.right * (currentTillerPos * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude,1,100)), tillerPos.position);
+
         if (rightGenoaGrabbed)
         {
             if (genoa.rope >= 0.002 && dirRope.y < 0)
@@ -256,6 +279,7 @@ public class BoatManager : MonoBehaviour
 
             if (genoa.rope < 0.002) genoa.rope = 0.002f;
         }
+
         leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope * 100);
 
         if (mainSailGrabbed)
@@ -289,8 +313,8 @@ public class BoatManager : MonoBehaviour
             }
 
             if (mainsail.rope < 0.002) mainsail.rope = 0.002f;
-
         }
+
         mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope * 100);
 
         if (!mainSailGrabbed && !rightGenoaGrabbed)
