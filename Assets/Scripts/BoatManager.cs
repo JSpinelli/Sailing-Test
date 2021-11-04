@@ -219,7 +219,7 @@ public class BoatManager : MonoBehaviour
         speedText.text = "Speed: " + (int) (_rigidbody.velocity.magnitude * 100);
 
         TillerUpdate();
-        SailUpdate();
+        SailUpdateDegrees();
     }
 
     private void TillerUpdate()
@@ -316,6 +316,85 @@ public class BoatManager : MonoBehaviour
         }
 
         mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope * 100);
+
+        if (!PlayerController.rightGenoaGrabbed && !PlayerController.mainSailGrabbed)
+        {
+            ropeTight.Stop();
+            ropeUnwind.Stop();
+        }
+    }    
+    
+    private void SailUpdateDegrees()
+    {
+        if (PlayerController.rightGenoaGrabbed)
+        {
+            if (genoa.rope >= 2 && PlayerController.ropeDir.y < 0)
+            {
+                genoa.rope += PlayerController.ropeDir.y;
+                if (!ropeTight.isPlaying)
+                {
+                    ropeTight.Play();
+                }
+
+                if (ropeUnwind.isPlaying)
+                {
+                    ropeUnwind.Stop();
+                }
+            }
+
+            if (genoa.rope < 80 && PlayerController.ropeDir.y > 0)
+            {
+                genoa.rope += PlayerController.ropeDir.y;
+                if (ropeTight.isPlaying)
+                {
+                    ropeTight.Stop();
+                }
+
+                if (!ropeUnwind.isPlaying)
+                {
+                    ropeUnwind.Play();
+                }
+            }
+
+            if (genoa.rope < 0.2) genoa.rope = 2f;
+        }
+
+        leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope);
+
+        if (PlayerController.mainSailGrabbed)
+        {
+            if (mainsail.rope >= 2 && PlayerController.ropeDir.y < 0)
+            {
+                mainsail.rope += PlayerController.ropeDir.y;
+                if (!ropeTight.isPlaying)
+                {
+                    ropeTight.Play();
+                }
+
+                if (ropeUnwind.isPlaying)
+                {
+                    ropeUnwind.Stop();
+                }
+            }
+
+            if (mainsail.rope < 80 && PlayerController.ropeDir.y > 0)
+            {
+                mainsail.rope += PlayerController.ropeDir.y;
+                if (ropeTight.isPlaying)
+                {
+                    ropeTight.Stop();
+                }
+
+                if (!ropeUnwind.isPlaying)
+                {
+                    ropeUnwind.Play();
+                }
+            }
+
+            if (mainsail.rope < 2) mainsail.rope = 2;
+        }
+
+        mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope);
 
         if (!PlayerController.rightGenoaGrabbed && !PlayerController.mainSailGrabbed)
         {

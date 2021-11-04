@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public static bool leftGenoaGrabbed;
-    public static bool rightGenoaGrabbed;
-    public static bool mainSailGrabbed;
+    public static bool leftGenoaGrabbed = false;
+    public static bool rightGenoaGrabbed = false;
+    public static bool mainSailGrabbed = false;
+    public static bool tillerGrabbed = false;
 
     public static Vector2 ropeDir;
     public static Vector2 tillerDir;
@@ -32,26 +33,6 @@ public class PlayerController : MonoBehaviour
         mainSailGrabbed = cx.ReadValueAsButton();
     }
 
-    // public void ReleaseManual(InputAction.CallbackContext cx)
-    // {
-    //     if (leftGenoaGrabbed)
-    //     {
-    //         //Release / Catch Left Genoa
-    //         if (leftGenoaLineAttached)
-    //         {
-    //             genoa.rope = 1;
-    //             leftGenoaRope.text = " Left Genoa Detached";
-    //         }
-    //         else
-    //         {
-    //             genoa.rope = 0.1f;
-    //             leftGenoaRope.text = "Left Genoa: " + genoa.rope;
-    //         }
-    //
-    //         leftGenoaLineAttached = !leftGenoaLineAttached;
-    //     }
-    // }
-
     public void Reload(InputAction.CallbackContext cx)
     {
         SceneManager.LoadScene("BoatMechanics");
@@ -63,17 +44,31 @@ public class PlayerController : MonoBehaviour
         {
             ropeDir = (Vector2) cx.ReadValueAsObject();
             tillerDir = Vector2.zero;
+            playerDir = Vector2.zero;
+        }
+        else if (tillerGrabbed)
+        {
+            ropeDir = Vector2.zero;
+            playerDir = Vector2.zero;
+            tillerDir = (Vector2) cx.ReadValueAsObject();
         }
         else
         {
+            tillerDir = Vector2.zero;
+            playerDir = (Vector2) cx.ReadValueAsObject();
             ropeDir = Vector2.zero;
-            tillerDir = (Vector2) cx.ReadValueAsObject();
         }
+
+        
+    }
+
+    public void South(InputAction.CallbackContext cx)
+    {
+        tillerGrabbed = cx.ReadValueAsButton();
     }
 
     public void RightStick(InputAction.CallbackContext cx)
     {
         cameraDir = (Vector2) cx.ReadValueAsObject();
-        playerDir = (Vector2) cx.ReadValueAsObject();
     }
 }

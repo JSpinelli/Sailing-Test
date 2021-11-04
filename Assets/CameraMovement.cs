@@ -1,32 +1,69 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
-    public float xLimits;
+    private Transform cameraPivot;
+    public Transform cameraBase;
+    public Transform cameraHead;
 
-    public float zMin;
+    public float lookSensitivity;
+    public float walkSpeed;
 
-    public float zMax;
-    
-    // Update is called once per frame
+    float orbitAngle;
+    float pitchAngle;
+    float tForHeight;
+
+    public float mindDist;
+    public float maxDist;
+    public float minHeight;
+    public float maxHeight;
+
+    public float heightOffset;
+
+    private float tempMinHeight;
+    public float deathZone;
+    public Camera cam;
+    public Transform boat;
+
+    private void Awake()
+    {
+        cameraPivot = transform;
+    }
+
     void Update()
     {
-        Vector3 pos = transform.localPosition;
-        
-        if (transform.localPosition.x <= xLimits && transform.localPosition.x >= -xLimits && PlayerController.cameraDir.x!=0)
+        //Moving Camera with right click hold with added deadZone to avoid involuntary movement
+        // Read the mouse input axis
+        if (Math.Abs(PlayerController.cameraDir.x) > deathZone)
+            orbitAngle += PlayerController.cameraDir.x * lookSensitivity * Time.deltaTime;
+        if (Math.Abs(PlayerController.cameraDir.y) > deathZone)
+            pitchAngle -= PlayerController.cameraDir.y * lookSensitivity * Time.deltaTime;
+
+        pitchAngle = Mathf.Clamp(pitchAngle, -45, 40);
+
+        //Adjust height and FOV when adjusting pitch 
+        if (pitchAngle >= 0)
         {
-            pos.x += PlayerController.cameraDir.x/10;
-            pos.x = Mathf.Clamp(pos.x, -xLimits, xLimits);
+            tForHeight = (pitchAngle / 50) + heightOffset;
+        }
+        else
+        {
+            tForHeight = (1 - (Mathf.Abs(pitchAngle) / 25)) * heightOffset;
         }
 
-        if (transform.localPosition.z >= zMin && transform.localPosition.z <= zMax && PlayerController.cameraDir.y!=0)
-        {
-            pos.z += PlayerController.cameraDir.y/10;
-            pos.z = Mathf.Clamp(pos.z, zMin, zMax);
-        }
-        transform.localPosition = pos;
+        cameraPivot.localRotation = Quaternion.Euler(0, orbitAngle, 0);
+
+        cameraBase.localPosition = -Vector3.forward * Mathf.Lerp(mindDist, maxDist, tForHeight);
+
+        cameraHead.localRotation = Quaternion.Euler(pitchAngle, 0, 0);
+        cameraHead.localPosition = Vector3.up * Mathf.Lerp(minHeight, maxHeight, tForHeight);
+        
+        Vector3 movement = Quaternion.Euler(0, cam.transform.eulerAngles.y - boat.transform.eulerAngles.y, 0) * new Vector3(PlayerController.playerDir.x * walkSpeed * Time.deltaTime, 0, PlayerController.playerDir.y * walkSpeed * Time.deltaTime);
+        movement = transform.localPosition + movement;
+        movement.x = Mathf.Clamp(movement.x, -2, 2);
+        movement.z = Mathf.Clamp(movement.z, -7, 7);
+        transform.localPosition = movement;
+
     }
 }

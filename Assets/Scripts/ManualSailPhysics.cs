@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,8 @@ public class ManualSailPhysics : MonoBehaviour
     public GameObject mast;
     public float adjustmentFactor = 2f;
     public float windAttachmentFactor = 1.5f;
-    [Range(0.0001f, 0.15f)] public float rope;
+    //[Range(0.0001f, 0.15f)] public float rope;
+    public float rope;
     public TextMeshProUGUI text;
     public string mySail;
     public Transform shipForward;
@@ -18,20 +20,20 @@ public class ManualSailPhysics : MonoBehaviour
     {
         float dotRight = Vector2.Dot(transform.right, WindManager.instance.wind.normalized);
         float dotForward = Vector2.Dot(transform.forward, WindManager.instance.wind.normalized);
-        float rad = Mathf.Abs(transform.localRotation.y * Mathf.Deg2Rad * 10);
         float angle = Vector3.Angle(transform.forward, shipForward.forward);
-        rad = rad * 100;
-        
-        transform.RotateAround(mast.transform.position, transform.up,
-            Mathf.Sign(-dotRight) * WindManager.instance.windMagnitude * (1 - dotForward) * Time.deltaTime *
-            windAttachmentFactor * ((rope * 100) - rad));
 
-        if (rad > (rope * 100))
+        if (angle > rope)
         {
             transform.RotateAround(mast.transform.position, transform.up,
-                (Mathf.Sign(-transform.localRotation.y) * adjustmentFactor * Time.deltaTime)/ WindManager.instance.windMagnitude);
+                (Mathf.Sign(-transform.localRotation.y) * adjustmentFactor)/ WindManager.instance.windMagnitude);
         }
-        
+        else
+        {
+            transform.RotateAround(mast.transform.position, transform.up,
+                -Mathf.Sign(dotRight) * WindManager.instance.windMagnitude * (1 - dotForward) *
+                windAttachmentFactor * (Math.Abs((rope-angle) / rope)));
+        }
+
         text.text = mySail + " Fwd: " + dotForward + " Right: " + dotRight;
     }
 }
