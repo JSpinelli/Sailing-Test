@@ -324,8 +324,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721721055}
   m_LocalRotation: {x: -0.14164796, y: -0, z: -0, w: 0.9899171}
-  m_LocalPosition: {x: -0.0267, y: 2.0165, z: -5.225}
-  m_LocalScale: {x: 0.0998447, y: 0.09657106, z: 3.2809289}
+  m_LocalPosition: {x: -0.0267, y: 1.892, z: -5.689}
+  m_LocalScale: {x: 0.0998447, y: 0.09657106, z: 2.033661}
   m_Children:
   - {fileID: 1297094910}
   m_Father: {fileID: 2943313813597880612}
@@ -357,7 +357,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0d32506f94a5567488ca0f2115bcad8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -529,7 +529,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297094909}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.59, z: -0.4011}
+  m_LocalPosition: {x: 0, y: 0.74, z: -0.426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 721721056}
@@ -1078,7 +1078,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2943313813597880612}
   - component: {fileID: 3409921101168117194}
-  - component: {fileID: 3409921101168117205}
   - component: {fileID: 3409921101168117204}
   m_Layer: 0
   m_Name: Sailboat
@@ -1133,142 +1132,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3409921101168117205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2563411292399393694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 1b77439ee76586742bea934c3a85244c,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: MainSail
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 030f139d-fca1-47d2-8895-aea6408b10c8
-    m_ActionName: Boat/Grab Left[/XInputControllerWindows/leftTrigger]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: GrabRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 82a23630-d86b-4542-beba-2d7d8470cde2
-    m_ActionName: Boat/Grab Right[/XInputControllerWindows/rightTrigger]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: HandleRopeManual
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 552a1291-4636-4f01-bc5c-c67f9348f599
-    m_ActionName: Boat/Rope Handling[/XInputControllerWindows/leftStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: Tiller
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 686b5b8d-bbcc-40eb-8db2-5fa0f28936d7
-    m_ActionName: Boat/Camera Look[/XInputControllerWindows/rightStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 54a54790-1a6f-4d67-ac18-4cceac1c2dad
-    m_ActionName: Boat/Grab Main Sail[/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e6c36b7e-67d4-434c-9a88-91845345db02
-    m_ActionName: Boat/New action
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3409921101168117204}
-        m_MethodName: Reload
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 46759ebc-627b-4452-936d-2a4c1640aa7b
-    m_ActionName: Boat/New action
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Boat
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &3409921101168117204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1295,13 +1158,14 @@ MonoBehaviour:
   rightGenoaRope: {fileID: 0}
   ropeTight: {fileID: 337573408}
   ropeUnwind: {fileID: 681668150}
-  turningFactor: 100
+  turningFactor: 350
   mainsail: {fileID: 3409921101193406155}
   genoa: {fileID: 3409921101193406165}
   mainSailWorking: 0
   frontSailWorking: 0
   tillerPos: {fileID: 721721056}
   tillerOrigin: {fileID: 1297094910}
+  tillerSensitivity: 3
 --- !u!1 &3409921100066290042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3409921100066289989}
+  - component: {fileID: 49546218}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1326,13 +1191,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3409921100066290042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 3.436, z: -5.48}
+  m_LocalPosition: {x: 0, y: 2.5, z: -5.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 693923331}
   m_Father: {fileID: 2943313813597880612}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &49546218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3409921100066290042}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700503b983c26dd4e8e9d75f33c5950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xLimits: 1.5
+  zMin: -6
+  zMax: -2.9
 --- !u!1 &3409921100221306948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,7 +2801,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 50f8cf0bd01fd9340bf0cbf5adf262b6, type: 2}
+  - {fileID: 2100000, guid: 0d32506f94a5567488ca0f2115bcad8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

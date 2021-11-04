@@ -6,7 +6,7 @@
             "id": "69d45496-64c5-4f9b-99ea-736b16435621",
             "actions": [
                 {
-                    "name": "Grab Left",
+                    "name": "Left Trigger",
                     "type": "Button",
                     "id": "030f139d-fca1-47d2-8895-aea6408b10c8",
                     "expectedControlType": "Button",
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Grab Right",
+                    "name": "Right Trigger",
                     "type": "Button",
                     "id": "82a23630-d86b-4542-beba-2d7d8470cde2",
                     "expectedControlType": "Button",
@@ -22,7 +22,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Rope Handling",
+                    "name": "Left Stick",
                     "type": "Value",
                     "id": "552a1291-4636-4f01-bc5c-c67f9348f599",
                     "expectedControlType": "Vector2",
@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Tiller",
+                    "name": "Right Stick",
                     "type": "Value",
                     "id": "686b5b8d-bbcc-40eb-8db2-5fa0f28936d7",
                     "expectedControlType": "Axis",
@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Grab Main Sail",
+                    "name": "Button South",
                     "type": "Button",
                     "id": "54a54790-1a6f-4d67-ac18-4cceac1c2dad",
                     "expectedControlType": "Button",
@@ -46,7 +46,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Release",
+                    "name": "Button East",
                     "type": "Button",
                     "id": "e6c36b7e-67d4-434c-9a88-91845345db02",
                     "expectedControlType": "Button",
@@ -54,7 +54,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Restart",
+                    "name": "Button North",
                     "type": "Button",
                     "id": "46759ebc-627b-4452-936d-2a4c1640aa7b",
                     "expectedControlType": "Button",
@@ -70,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grab Left",
+                    "action": "Left Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -81,7 +81,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grab Right",
+                    "action": "Right Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -92,7 +92,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rope Handling",
+                    "action": "Left Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -103,7 +103,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tiller",
+                    "action": "Right Stick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -114,7 +114,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grab Main Sail",
+                    "action": "Button South",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -125,7 +125,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Release",
+                    "action": "Button East",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -136,7 +136,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Restart",
+                    "action": "Button North",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

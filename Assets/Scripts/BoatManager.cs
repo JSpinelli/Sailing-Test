@@ -13,8 +13,6 @@ public class BoatManager : MonoBehaviour
     private Rigidbody _rigidbody;
     public Sail mainSail;
     public Sail frontSail;
-    public bool torqueEnabled = true;
-    public float torqueMultiplier = 10;
 
     public float speedFactor = 50f;
 
@@ -34,14 +32,6 @@ public class BoatManager : MonoBehaviour
 
     private float currentSpeed = 0;
 
-    private bool leftGenoaLineAttached = true;
-    private bool rightGenoaLineAttached = true;
-
-    private bool leftGenoaGrabbed = false;
-    private bool rightGenoaGrabbed = false;
-    private bool mainSailGrabbed = false;
-
-
     public ManualSailPhysics mainsail;
     public ManualSailPhysics genoa;
 
@@ -59,12 +49,15 @@ public class BoatManager : MonoBehaviour
 
     private Vector3 currentAngle;
 
-    public float tillerSensitivity=2f;
+    public float tillerSensitivity = 2f;
+
+    public AnimationCurve tillerVelocity;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         controls = new PlayerControls();
+        _rigidbody.inertiaTensor = new Vector3(1, 1, 1);
     }
 
     private void FixedUpdate()
@@ -222,36 +215,43 @@ public class BoatManager : MonoBehaviour
         _rigidbody.AddForce(
             forceDir, ForceMode.Force
         );
-        // if (torqueEnabled)
-        // {
-        //     float force = mainSail.TorqueForce() + frontSail.TorqueForce();
-        //     //Debug.Log("Torque: " + force);
-        //     _rigidbody.AddRelativeTorque(0, 0,
-        //         -force * torqueMultiplier
-        //         , ForceMode.Force);
-        // }
+
         speedText.text = "Speed: " + (int) (_rigidbody.velocity.magnitude * 100);
 
-        //gameObject.transform.Rotate(0, dir.x * turningFactor, 0);
-        //_rigidbody.AddForceAtPosition(transform.right * (dir.x * turningFactor) / 100f, tillerPos.position);
-        if (dir.x > 0 && (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
+        TillerUpdate();
+        SailUpdate();
+    }
+
+    private void TillerUpdate()
+    {
+        if (PlayerController.tillerDir.x > 0 &&
+            (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
         {
-            tillerPos.RotateAround(tillerOrigin.position, Vector3.up, dir.x*tillerSensitivity);
+            tillerPos.RotateAround(tillerOrigin.position, tillerOrigin.up,
+                PlayerController.tillerDir.x * tillerSensitivity);
         }
 
-        if (dir.x < 0 && (tillerPos.localRotation.eulerAngles.y > 280 || tillerPos.localRotation.eulerAngles.y < 85))
+        if (PlayerController.tillerDir.x < 0 &&
+            (tillerPos.localRotation.eulerAngles.y > 280 || tillerPos.localRotation.eulerAngles.y < 85))
         {
-            tillerPos.RotateAround(tillerOrigin.position, Vector3.up, dir.x*tillerSensitivity);
+            tillerPos.RotateAround(tillerOrigin.position, tillerOrigin.up,
+                PlayerController.tillerDir.x * tillerSensitivity);
         }
-        
+
         currentTillerPos = tillerPos.localRotation.y;
-        _rigidbody.AddForceAtPosition(transform.right * (currentTillerPos * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude,1,100)), tillerPos.position);
+        float tillerVal = Mathf.Sign(currentTillerPos) * tillerVelocity.Evaluate(Mathf.Abs(currentTillerPos));
+        _rigidbody.AddForceAtPosition(
+            transform.right * (tillerVal * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude, 1, 50)),
+            tillerPos.position);
+    }
 
-        if (rightGenoaGrabbed)
+    private void SailUpdate()
+    {
+        if (PlayerController.rightGenoaGrabbed)
         {
-            if (genoa.rope >= 0.002 && dirRope.y < 0)
+            if (genoa.rope >= 0.002 && PlayerController.ropeDir.y < 0)
             {
-                genoa.rope += dirRope.y / 1000;
+                genoa.rope += PlayerController.ropeDir.y / 1000;
                 if (!ropeTight.isPlaying)
                 {
                     ropeTight.Play();
@@ -263,9 +263,9 @@ public class BoatManager : MonoBehaviour
                 }
             }
 
-            if (genoa.rope < 0.20 && dirRope.y > 0)
+            if (genoa.rope < 0.15 && PlayerController.ropeDir.y > 0)
             {
-                genoa.rope += dirRope.y / 1000;
+                genoa.rope += PlayerController.ropeDir.y / 1000;
                 if (ropeTight.isPlaying)
                 {
                     ropeTight.Stop();
@@ -282,11 +282,11 @@ public class BoatManager : MonoBehaviour
 
         leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope * 100);
 
-        if (mainSailGrabbed)
+        if (PlayerController.mainSailGrabbed)
         {
-            if (mainsail.rope >= 0.002 && dirRope.y < 0)
+            if (mainsail.rope >= 0.002 && PlayerController.ropeDir.y < 0)
             {
-                mainsail.rope += dirRope.y / 1000;
+                mainsail.rope += PlayerController.ropeDir.y / 1000;
                 if (!ropeTight.isPlaying)
                 {
                     ropeTight.Play();
@@ -298,9 +298,9 @@ public class BoatManager : MonoBehaviour
                 }
             }
 
-            if (mainsail.rope < 0.20 && dirRope.y > 0)
+            if (mainsail.rope < 0.15 && PlayerController.ropeDir.y > 0)
             {
-                mainsail.rope += dirRope.y / 1000;
+                mainsail.rope += PlayerController.ropeDir.y / 1000;
                 if (ropeTight.isPlaying)
                 {
                     ropeTight.Stop();
@@ -317,60 +317,10 @@ public class BoatManager : MonoBehaviour
 
         mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope * 100);
 
-        if (!mainSailGrabbed && !rightGenoaGrabbed)
+        if (!PlayerController.rightGenoaGrabbed && !PlayerController.mainSailGrabbed)
         {
             ropeTight.Stop();
             ropeUnwind.Stop();
         }
-    }
-
-    public void GrabLeft(InputAction.CallbackContext cx)
-    {
-        leftGenoaGrabbed = cx.ReadValueAsButton();
-    }
-
-    public void GrabRight(InputAction.CallbackContext cx)
-    {
-        rightGenoaGrabbed = cx.ReadValueAsButton();
-    }
-
-    public void MainSail(InputAction.CallbackContext cx)
-    {
-        mainSailGrabbed = cx.ReadValueAsButton();
-    }
-
-    public void ReleaseManual(InputAction.CallbackContext cx)
-    {
-        if (leftGenoaGrabbed)
-        {
-            //Release / Catch Left Genoa
-            if (leftGenoaLineAttached)
-            {
-                genoa.rope = 1;
-                leftGenoaRope.text = " Left Genoa Detached";
-            }
-            else
-            {
-                genoa.rope = 0.1f;
-                leftGenoaRope.text = "Left Genoa: " + genoa.rope;
-            }
-
-            leftGenoaLineAttached = !leftGenoaLineAttached;
-        }
-    }
-
-    public void Reload(InputAction.CallbackContext cx)
-    {
-        SceneManager.LoadScene("BoatMechanics");
-    }
-
-    public void HandleRopeManual(InputAction.CallbackContext cx)
-    {
-        dirRope = (Vector2) cx.ReadValueAsObject();
-    }
-
-    public void Tiller(InputAction.CallbackContext cx)
-    {
-        dir = (Vector2) cx.ReadValueAsObject();
     }
 }

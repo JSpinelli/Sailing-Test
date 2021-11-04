@@ -24,13 +24,8 @@ public class WindManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        windMagnitude = wind.magnitude;
-    }
-
     public Vector2 GetWind(float x)
     {
-        return wind;
+        return wind.normalized;
     }
 }

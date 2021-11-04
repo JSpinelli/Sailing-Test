@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -19,7 +19,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""id"": ""69d45496-64c5-4f9b-99ea-736b16435621"",
             ""actions"": [
                 {
-                    ""name"": ""Grab Left"",
+                    ""name"": ""Left Trigger"",
                     ""type"": ""Button"",
                     ""id"": ""030f139d-fca1-47d2-8895-aea6408b10c8"",
                     ""expectedControlType"": ""Button"",
@@ -27,7 +27,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Grab Right"",
+                    ""name"": ""Right Trigger"",
                     ""type"": ""Button"",
                     ""id"": ""82a23630-d86b-4542-beba-2d7d8470cde2"",
                     ""expectedControlType"": ""Button"",
@@ -35,7 +35,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Rope Handling"",
+                    ""name"": ""Left Stick"",
                     ""type"": ""Value"",
                     ""id"": ""552a1291-4636-4f01-bc5c-c67f9348f599"",
                     ""expectedControlType"": ""Vector2"",
@@ -43,7 +43,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Tiller"",
+                    ""name"": ""Right Stick"",
                     ""type"": ""Value"",
                     ""id"": ""686b5b8d-bbcc-40eb-8db2-5fa0f28936d7"",
                     ""expectedControlType"": ""Axis"",
@@ -51,7 +51,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Grab Main Sail"",
+                    ""name"": ""Button South"",
                     ""type"": ""Button"",
                     ""id"": ""54a54790-1a6f-4d67-ac18-4cceac1c2dad"",
                     ""expectedControlType"": ""Button"",
@@ -59,7 +59,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Release"",
+                    ""name"": ""Button East"",
                     ""type"": ""Button"",
                     ""id"": ""e6c36b7e-67d4-434c-9a88-91845345db02"",
                     ""expectedControlType"": ""Button"",
@@ -67,7 +67,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Restart"",
+                    ""name"": ""Button North"",
                     ""type"": ""Button"",
                     ""id"": ""46759ebc-627b-4452-936d-2a4c1640aa7b"",
                     ""expectedControlType"": ""Button"",
@@ -83,7 +83,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grab Left"",
+                    ""action"": ""Left Trigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -94,7 +94,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grab Right"",
+                    ""action"": ""Right Trigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -105,7 +105,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rope Handling"",
+                    ""action"": ""Left Stick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -116,7 +116,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Tiller"",
+                    ""action"": ""Right Stick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -127,7 +127,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grab Main Sail"",
+                    ""action"": ""Button South"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -138,7 +138,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Release"",
+                    ""action"": ""Button East"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -149,7 +149,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Restart"",
+                    ""action"": ""Button North"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -160,13 +160,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
 }");
         // Boat
         m_Boat = asset.FindActionMap("Boat", throwIfNotFound: true);
-        m_Boat_GrabLeft = m_Boat.FindAction("Grab Left", throwIfNotFound: true);
-        m_Boat_GrabRight = m_Boat.FindAction("Grab Right", throwIfNotFound: true);
-        m_Boat_RopeHandling = m_Boat.FindAction("Rope Handling", throwIfNotFound: true);
-        m_Boat_Tiller = m_Boat.FindAction("Tiller", throwIfNotFound: true);
-        m_Boat_GrabMainSail = m_Boat.FindAction("Grab Main Sail", throwIfNotFound: true);
-        m_Boat_Release = m_Boat.FindAction("Release", throwIfNotFound: true);
-        m_Boat_Restart = m_Boat.FindAction("Restart", throwIfNotFound: true);
+        m_Boat_LeftTrigger = m_Boat.FindAction("Left Trigger", throwIfNotFound: true);
+        m_Boat_RightTrigger = m_Boat.FindAction("Right Trigger", throwIfNotFound: true);
+        m_Boat_LeftStick = m_Boat.FindAction("Left Stick", throwIfNotFound: true);
+        m_Boat_RightStick = m_Boat.FindAction("Right Stick", throwIfNotFound: true);
+        m_Boat_ButtonSouth = m_Boat.FindAction("Button South", throwIfNotFound: true);
+        m_Boat_ButtonEast = m_Boat.FindAction("Button East", throwIfNotFound: true);
+        m_Boat_ButtonNorth = m_Boat.FindAction("Button North", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,24 +216,24 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     // Boat
     private readonly InputActionMap m_Boat;
     private IBoatActions m_BoatActionsCallbackInterface;
-    private readonly InputAction m_Boat_GrabLeft;
-    private readonly InputAction m_Boat_GrabRight;
-    private readonly InputAction m_Boat_RopeHandling;
-    private readonly InputAction m_Boat_Tiller;
-    private readonly InputAction m_Boat_GrabMainSail;
-    private readonly InputAction m_Boat_Release;
-    private readonly InputAction m_Boat_Restart;
+    private readonly InputAction m_Boat_LeftTrigger;
+    private readonly InputAction m_Boat_RightTrigger;
+    private readonly InputAction m_Boat_LeftStick;
+    private readonly InputAction m_Boat_RightStick;
+    private readonly InputAction m_Boat_ButtonSouth;
+    private readonly InputAction m_Boat_ButtonEast;
+    private readonly InputAction m_Boat_ButtonNorth;
     public struct BoatActions
     {
         private @PlayerControls m_Wrapper;
         public BoatActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @GrabLeft => m_Wrapper.m_Boat_GrabLeft;
-        public InputAction @GrabRight => m_Wrapper.m_Boat_GrabRight;
-        public InputAction @RopeHandling => m_Wrapper.m_Boat_RopeHandling;
-        public InputAction @Tiller => m_Wrapper.m_Boat_Tiller;
-        public InputAction @GrabMainSail => m_Wrapper.m_Boat_GrabMainSail;
-        public InputAction @Release => m_Wrapper.m_Boat_Release;
-        public InputAction @Restart => m_Wrapper.m_Boat_Restart;
+        public InputAction @LeftTrigger => m_Wrapper.m_Boat_LeftTrigger;
+        public InputAction @RightTrigger => m_Wrapper.m_Boat_RightTrigger;
+        public InputAction @LeftStick => m_Wrapper.m_Boat_LeftStick;
+        public InputAction @RightStick => m_Wrapper.m_Boat_RightStick;
+        public InputAction @ButtonSouth => m_Wrapper.m_Boat_ButtonSouth;
+        public InputAction @ButtonEast => m_Wrapper.m_Boat_ButtonEast;
+        public InputAction @ButtonNorth => m_Wrapper.m_Boat_ButtonNorth;
         public InputActionMap Get() { return m_Wrapper.m_Boat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -243,64 +243,64 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_BoatActionsCallbackInterface != null)
             {
-                @GrabLeft.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabLeft;
-                @GrabLeft.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabLeft;
-                @GrabLeft.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabLeft;
-                @GrabRight.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabRight;
-                @GrabRight.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabRight;
-                @GrabRight.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabRight;
-                @RopeHandling.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRopeHandling;
-                @RopeHandling.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRopeHandling;
-                @RopeHandling.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRopeHandling;
-                @Tiller.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnTiller;
-                @Tiller.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnTiller;
-                @Tiller.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnTiller;
-                @GrabMainSail.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabMainSail;
-                @GrabMainSail.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabMainSail;
-                @GrabMainSail.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnGrabMainSail;
-                @Release.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRelease;
-                @Release.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRelease;
-                @Release.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRelease;
-                @Restart.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRestart;
-                @Restart.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRestart;
-                @Restart.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRestart;
+                @LeftTrigger.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnLeftTrigger;
+                @LeftTrigger.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnLeftTrigger;
+                @LeftTrigger.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnLeftTrigger;
+                @RightTrigger.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRightTrigger;
+                @RightTrigger.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRightTrigger;
+                @RightTrigger.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRightTrigger;
+                @LeftStick.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnLeftStick;
+                @LeftStick.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnLeftStick;
+                @LeftStick.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnLeftStick;
+                @RightStick.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRightStick;
+                @RightStick.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRightStick;
+                @RightStick.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRightStick;
+                @ButtonSouth.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonSouth;
+                @ButtonSouth.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonSouth;
+                @ButtonSouth.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonSouth;
+                @ButtonEast.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonEast;
+                @ButtonEast.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonEast;
+                @ButtonEast.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonEast;
+                @ButtonNorth.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonNorth;
+                @ButtonNorth.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonNorth;
+                @ButtonNorth.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonNorth;
             }
             m_Wrapper.m_BoatActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @GrabLeft.started += instance.OnGrabLeft;
-                @GrabLeft.performed += instance.OnGrabLeft;
-                @GrabLeft.canceled += instance.OnGrabLeft;
-                @GrabRight.started += instance.OnGrabRight;
-                @GrabRight.performed += instance.OnGrabRight;
-                @GrabRight.canceled += instance.OnGrabRight;
-                @RopeHandling.started += instance.OnRopeHandling;
-                @RopeHandling.performed += instance.OnRopeHandling;
-                @RopeHandling.canceled += instance.OnRopeHandling;
-                @Tiller.started += instance.OnTiller;
-                @Tiller.performed += instance.OnTiller;
-                @Tiller.canceled += instance.OnTiller;
-                @GrabMainSail.started += instance.OnGrabMainSail;
-                @GrabMainSail.performed += instance.OnGrabMainSail;
-                @GrabMainSail.canceled += instance.OnGrabMainSail;
-                @Release.started += instance.OnRelease;
-                @Release.performed += instance.OnRelease;
-                @Release.canceled += instance.OnRelease;
-                @Restart.started += instance.OnRestart;
-                @Restart.performed += instance.OnRestart;
-                @Restart.canceled += instance.OnRestart;
+                @LeftTrigger.started += instance.OnLeftTrigger;
+                @LeftTrigger.performed += instance.OnLeftTrigger;
+                @LeftTrigger.canceled += instance.OnLeftTrigger;
+                @RightTrigger.started += instance.OnRightTrigger;
+                @RightTrigger.performed += instance.OnRightTrigger;
+                @RightTrigger.canceled += instance.OnRightTrigger;
+                @LeftStick.started += instance.OnLeftStick;
+                @LeftStick.performed += instance.OnLeftStick;
+                @LeftStick.canceled += instance.OnLeftStick;
+                @RightStick.started += instance.OnRightStick;
+                @RightStick.performed += instance.OnRightStick;
+                @RightStick.canceled += instance.OnRightStick;
+                @ButtonSouth.started += instance.OnButtonSouth;
+                @ButtonSouth.performed += instance.OnButtonSouth;
+                @ButtonSouth.canceled += instance.OnButtonSouth;
+                @ButtonEast.started += instance.OnButtonEast;
+                @ButtonEast.performed += instance.OnButtonEast;
+                @ButtonEast.canceled += instance.OnButtonEast;
+                @ButtonNorth.started += instance.OnButtonNorth;
+                @ButtonNorth.performed += instance.OnButtonNorth;
+                @ButtonNorth.canceled += instance.OnButtonNorth;
             }
         }
     }
     public BoatActions @Boat => new BoatActions(this);
     public interface IBoatActions
     {
-        void OnGrabLeft(InputAction.CallbackContext context);
-        void OnGrabRight(InputAction.CallbackContext context);
-        void OnRopeHandling(InputAction.CallbackContext context);
-        void OnTiller(InputAction.CallbackContext context);
-        void OnGrabMainSail(InputAction.CallbackContext context);
-        void OnRelease(InputAction.CallbackContext context);
-        void OnRestart(InputAction.CallbackContext context);
+        void OnLeftTrigger(InputAction.CallbackContext context);
+        void OnRightTrigger(InputAction.CallbackContext context);
+        void OnLeftStick(InputAction.CallbackContext context);
+        void OnRightStick(InputAction.CallbackContext context);
+        void OnButtonSouth(InputAction.CallbackContext context);
+        void OnButtonEast(InputAction.CallbackContext context);
+        void OnButtonNorth(InputAction.CallbackContext context);
     }
 }
