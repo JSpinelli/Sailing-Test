@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityEngine.UI;
 
 public class ManualSailPhysics : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class ManualSailPhysics : MonoBehaviour
     public TextMeshProUGUI text;
     public string mySail;
     public Transform shipForward;
+
+    public Outline myOutline;
 
     void Update()
     {

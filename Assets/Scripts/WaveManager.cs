@@ -8,10 +8,15 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
 
-    public float amplitude = 1f;
-    public float length = 2f;
-    public float speed = 1f;
-    public float offset = 0f;
+    public float amplitudeX = 1f;
+    public float lengthX = 2f;
+    public float speedX = 1f;
+    private float offsetX = 0f;    
+    
+    public float amplitudeZ = 1f;
+    public float lengthZ = 2f;
+    public float speedZ = 1f;
+    private float offsetZ = 0f;
 
     private void Awake()
     {
@@ -28,11 +33,12 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        offset += Time.deltaTime * speed;
+        offsetX += Time.deltaTime * speedX;
+        offsetZ += Time.deltaTime * speedZ;
     }
 
-    public float GetWaveHeight(float x)
+    public float GetWaveHeight(float x, float z)
     {
-        return (amplitude * Mathf.Sin(x / length + offset))+ amplitude * Mathf.Cos(x / length + offset+2);
+        return (amplitudeX * Mathf.Sin(x / lengthX + offsetX)) + amplitudeZ * Mathf.Sin(z / lengthZ + offsetZ);
     }
 }

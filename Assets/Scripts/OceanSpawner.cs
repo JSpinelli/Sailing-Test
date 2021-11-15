@@ -194,10 +194,10 @@ public class OceanSpawner : MonoBehaviour
 
         currentData = CurrentMapData();
         
-        WaveManager.instance.amplitude =
-            Mathf.Lerp(WaveManager.instance.amplitude, currentData.waveAmplitude, Time.deltaTime);
-        WaveManager.instance.length =
-            Mathf.Lerp(WaveManager.instance.length, currentData.waveLength, Time.deltaTime);
+        // WaveManager.instance.amplitude =
+        //     Mathf.Lerp(WaveManager.instance.amplitude, currentData.waveAmplitude, Time.deltaTime);
+        // WaveManager.instance.length =
+        //     Mathf.Lerp(WaveManager.instance.length, currentData.waveLength, Time.deltaTime);
         
         //WindManager.instance.wind = Vector2.Lerp(WindManager.instance.wind,currentData.windValue,Time.deltaTime);
     }

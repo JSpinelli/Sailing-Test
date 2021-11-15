@@ -53,11 +53,24 @@ public class BoatManager : MonoBehaviour
 
     public AnimationCurve tillerVelocity;
 
+    public MeshRenderer tillerOutline;
+    public MeshRenderer mainSailOutline;
+    public MeshRenderer frontSailOutline;
+
+    private Material tillerColor;
+    private Material mainSailColor;
+    private Material frontSailColor;
+
+    public Material grabColor;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         controls = new PlayerControls();
         _rigidbody.inertiaTensor = new Vector3(1, 1, 1);
+        tillerColor = tillerOutline.material;
+        mainSailColor = mainSailOutline.material;
+        frontSailColor = frontSailOutline.material;
     }
 
     private void FixedUpdate()
@@ -224,6 +237,15 @@ public class BoatManager : MonoBehaviour
 
     private void TillerUpdate()
     {
+        if (PlayerController.tillerGrabbed)
+        {
+            tillerOutline.material = grabColor;
+        }
+        else
+        {
+            tillerOutline.material = tillerColor;
+        }
+
         if (PlayerController.tillerDir.x > 0 &&
             (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
         {
@@ -328,6 +350,7 @@ public class BoatManager : MonoBehaviour
     {
         if (PlayerController.rightGenoaGrabbed)
         {
+            frontSailOutline.material = grabColor;
             if (genoa.rope >= 2 && PlayerController.ropeDir.y < 0)
             {
                 genoa.rope += PlayerController.ropeDir.y;
@@ -358,11 +381,16 @@ public class BoatManager : MonoBehaviour
 
             if (genoa.rope < 0.2) genoa.rope = 2f;
         }
+        else
+        {
+            frontSailOutline.material = frontSailColor;
+        }
 
         leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope);
 
         if (PlayerController.mainSailGrabbed)
         {
+            mainSailOutline.material = grabColor;
             if (mainsail.rope >= 2 && PlayerController.ropeDir.y < 0)
             {
                 mainsail.rope += PlayerController.ropeDir.y;
@@ -392,7 +420,11 @@ public class BoatManager : MonoBehaviour
             }
 
             if (mainsail.rope < 2) mainsail.rope = 2;
+        }        else
+        {
+            mainSailOutline.material = mainSailColor;
         }
+
 
         mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope);
 
