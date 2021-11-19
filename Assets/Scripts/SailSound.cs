@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityAtoms.BaseAtoms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,7 @@ public class SailSound : MonoBehaviour
     public bool isMain = false;
 
     public float lerpFactor;
+    public StringReference pointOfSailing;
 
     private void Start()
     {
@@ -19,7 +21,7 @@ public class SailSound : MonoBehaviour
 
     void Update()
     {
-        switch (bm.typeOfSailing.text)
+        switch (pointOfSailing.Value)
         {
             case "In Irons":
             {

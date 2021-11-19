@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityAtoms.BaseAtoms;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,16 +14,23 @@ public class PointsOfSailingUI : MonoBehaviour
     public Texture[] Sailing;
 
     public RawImage display;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    public StringReference pointOfSailing;
+    public IntReference speedVal;
+    public TextMeshProUGUI typeOfSailing;
+    public TextMeshProUGUI speed;
+
+    public FloatReference mainSailRope;
+    public FloatReference frontSailRope;
+    public TextMeshProUGUI mainSailRopeUI;
+    public TextMeshProUGUI frontSailRopeUI;
     void Update()
     {
-        switch (bm.typeOfSailing.text)
+        typeOfSailing.text = pointOfSailing.Value;
+        speed.text = "Speed: "+speedVal.Value;
+        frontSailRopeUI.text = "Front Sail Rope: " + (int) (frontSailRope);
+        mainSailRopeUI.text = "Main Sail Rope: " + (int) (mainSailRope);
+        switch (pointOfSailing.Value)
         {
             case "In Irons":
             {

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityAtoms.BaseAtoms;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
@@ -12,17 +13,7 @@ public class BoatManager : MonoBehaviour
     private Rigidbody m_rigidbody;
     public Sail mainSail;
     public Sail frontSail;
-
     public float speedFactor = 50f;
-
-    public TextMeshProUGUI speedText;
-    public TextMeshProUGUI mainSailSpeed;
-    public TextMeshProUGUI genoaSpeed;
-    public TextMeshProUGUI typeOfSailing;
-
-    public TextMeshProUGUI mainSailRope;
-    public TextMeshProUGUI leftGenoaRope;
-    public TextMeshProUGUI rightGenoaRope;
 
     public AudioSource ropeTight;
     public AudioSource ropeUnwind;
@@ -30,9 +21,6 @@ public class BoatManager : MonoBehaviour
     public float turningFactor = 0.5f;
 
     private float m_currentSpeed = 0;
-
-    public ManualSailPhysics mainsail;
-    public ManualSailPhysics genoa;
 
     private Vector2 m_dir;
 
@@ -48,10 +36,6 @@ public class BoatManager : MonoBehaviour
 
     private Vector3 m_currentAngle;
 
-    public float tillerSensitivity = 2f;
-
-    public AnimationCurve tillerVelocity;
-
     public MeshRenderer tillerOutline;
     public MeshRenderer mainSailOutline;
     public MeshRenderer frontSailOutline;
@@ -63,6 +47,21 @@ public class BoatManager : MonoBehaviour
     public Color grabColor;
     private Color m_originalColor;
     private Color m_tilerOriginalColor;
+    private float curvePoint;
+    
+    public AnimationCurve sailForceCurve;
+    public AnimationCurve tillerVelocity;
+    
+    public FloatReference tillerSensitivity;
+    public Vector2Reference runningRange;
+    public Vector2Reference closeHauledRange;
+    public Vector2Reference closeReachRange;
+    public Vector2Reference beamReachRange;
+    public Vector2Reference broadReachRange;
+    public IntReference speed;
+    public StringReference typeOfSailing;
+    public FloatReference mainSailRope;
+    public FloatReference frontSailRope;
 
     private void Awake()
     {
@@ -90,14 +89,16 @@ public class BoatManager : MonoBehaviour
         switch (dot)
         {
             case float f when (f <= WindManager.instance.noGo):
-                typeOfSailing.text = "In Irons";
+                typeOfSailing.Value = "In Irons";
                 break;
             case float f when (f > WindManager.instance.noGo && f <= -0.7):
                 // CLOSE HAUL
-                typeOfSailing.text = "Close Hauled";
-                if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
+                typeOfSailing.Value = "Close Hauled";
+                if (closeHauledRange.Value.x <= mainSailForce && mainSailForce <= closeHauledRange.Value.y)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
+                    curvePoint = (mainSailForce - closeHauledRange.Value.x) /
+                                 (closeHauledRange.Value.y - closeHauledRange.Value.x);
+                    mainSailContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
@@ -106,9 +107,11 @@ public class BoatManager : MonoBehaviour
                     mainSailWorking = false;
                 }
 
-                if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
+                if (closeHauledRange.Value.x <= frontSailForce && frontSailForce <= closeHauledRange.Value.y)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
+                    curvePoint = (frontSailForce - closeHauledRange.Value.x) /
+                                 (closeHauledRange.Value.y - closeHauledRange.Value.x);
+                    genoaContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
@@ -120,10 +123,12 @@ public class BoatManager : MonoBehaviour
                 break;
             case float f when (f > -0.7 && f <= -0.1):
                 // CLOSE REACH
-                typeOfSailing.text = "Close Reach";
-                if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
+                typeOfSailing.Value = "Close Reach";
+                if (closeReachRange.Value.x <= mainSailForce && mainSailForce <= closeReachRange.Value.y)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
+                    curvePoint = (mainSailForce - closeReachRange.Value.x) /
+                                 (closeReachRange.Value.y - closeReachRange.Value.x);
+                    mainSailContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
@@ -132,9 +137,11 @@ public class BoatManager : MonoBehaviour
                     mainSailWorking = false;
                 }
 
-                if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
+                if (closeReachRange.Value.x <= frontSailForce && frontSailForce <= closeReachRange.Value.y)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
+                    curvePoint = (frontSailForce - closeReachRange.Value.x) /
+                                 (closeReachRange.Value.y - closeReachRange.Value.x);
+                    genoaContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
@@ -146,10 +153,12 @@ public class BoatManager : MonoBehaviour
                 break;
             case float f when (f > -0.1 && f <= 0.1):
                 // BEAM REACH
-                typeOfSailing.text = "Beam Reach";
-                if (0.3f <= mainSailForce && mainSailForce <= 0.7f)
+                typeOfSailing.Value = "Beam Reach";
+                if (beamReachRange.Value.x <= mainSailForce && mainSailForce <= beamReachRange.Value.y)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.5f - mainSailForce) / 0.2f);
+                    curvePoint = (mainSailForce - beamReachRange.Value.x) /
+                                 (beamReachRange.Value.y - beamReachRange.Value.x);
+                    mainSailContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
@@ -158,9 +167,11 @@ public class BoatManager : MonoBehaviour
                     mainSailWorking = false;
                 }
 
-                if (0.3f <= frontSailForce && frontSailForce <= 0.7f)
+                if (beamReachRange.Value.x <= frontSailForce && frontSailForce <= beamReachRange.Value.y)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.5f - frontSailForce) / 0.2f);
+                    curvePoint = (frontSailForce - beamReachRange.Value.x) /
+                                 (beamReachRange.Value.y - beamReachRange.Value.x);
+                    genoaContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
@@ -172,10 +183,12 @@ public class BoatManager : MonoBehaviour
                 break;
             case float f when (f > 0.1 && f <= 0.9):
                 //BROAD REACH
-                typeOfSailing.text = "Broad Reach";
-                if (0.01f <= mainSailForce && mainSailForce <= 0.5f)
+                typeOfSailing.Value = "Broad Reach";
+                if (broadReachRange.Value.x <= mainSailForce && mainSailForce <= broadReachRange.Value.y)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.25f - mainSailForce) / 0.25f);
+                    curvePoint = (mainSailForce - broadReachRange.Value.x) /
+                                 (broadReachRange.Value.y - broadReachRange.Value.x);
+                    mainSailContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
@@ -184,9 +197,11 @@ public class BoatManager : MonoBehaviour
                     mainSailWorking = false;
                 }
 
-                if (0.01f <= frontSailForce && frontSailForce <= 0.5f)
+                if (broadReachRange.Value.x <= frontSailForce && frontSailForce <= broadReachRange.Value.y)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.25f - frontSailForce) / 0.25f);
+                    curvePoint = (frontSailForce - broadReachRange.Value.x) /
+                                 (broadReachRange.Value.y - broadReachRange.Value.x);
+                    genoaContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
@@ -198,10 +213,12 @@ public class BoatManager : MonoBehaviour
                 break;
             case float f when (f > 0.9):
                 //RUNNING
-                typeOfSailing.text = "Running";
-                if (0.01f <= mainSailForce && mainSailForce <= 0.4f)
+                typeOfSailing.Value = "Running";
+                if (runningRange.Value.x <= mainSailForce && mainSailForce <= runningRange.Value.y)
                 {
-                    mainSailContribution = 1 - (Math.Abs(0.2f - mainSailForce) / 0.2f);
+                    curvePoint = (mainSailForce - runningRange.Value.x) /
+                                 (runningRange.Value.y - runningRange.Value.x);
+                    mainSailContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
@@ -210,9 +227,11 @@ public class BoatManager : MonoBehaviour
                     mainSailWorking = false;
                 }
 
-                if (0.01f <= frontSailForce && frontSailForce <= 0.4f)
+                if (runningRange.Value.x <= frontSailForce && frontSailForce <= runningRange.Value.y)
                 {
-                    genoaContribution = 1 - (Math.Abs(0.2f - frontSailForce) / 0.2f);
+                    curvePoint = (frontSailForce - runningRange.Value.x) /
+                                 (runningRange.Value.y - runningRange.Value.x);
+                    genoaContribution = sailForceCurve.Evaluate(curvePoint);
                     m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
@@ -225,8 +244,6 @@ public class BoatManager : MonoBehaviour
         }
         m_mainSailMat.SetFloat("_Magnitude",(1- mainSailContribution) *0.13f);
         m_frontSailMat.SetFloat("_Magnitude",(1 - genoaContribution) *0.13f);
-        mainSailSpeed.text = "Main Sail Force: " + mainSailContribution;
-        genoaSpeed.text = "Genoa Force: " + genoaContribution;
         m_currentSpeed = m_currentSpeed * WindManager.instance.windMagnitude;
         Vector3 forceDir =
             transform.forward * (m_currentSpeed * speedFactor);
@@ -234,7 +251,7 @@ public class BoatManager : MonoBehaviour
             forceDir, ForceMode.Force
         );
 
-        speedText.text = "Speed: " + (int) (m_rigidbody.velocity.magnitude * 100);
+        speed.Value = (int) (m_rigidbody.velocity.magnitude * 100);
 
         TillerUpdate();
         SailUpdateDegrees();
@@ -255,14 +272,14 @@ public class BoatManager : MonoBehaviour
             (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
         {
             tillerPos.RotateAround(tillerOrigin.position, tillerOrigin.up,
-                PlayerController.tillerDir.x * tillerSensitivity);
+                PlayerController.tillerDir.x * tillerSensitivity.Value);
         }
 
         if (PlayerController.tillerDir.x < 0 &&
             (tillerPos.localRotation.eulerAngles.y > 280 || tillerPos.localRotation.eulerAngles.y < 85))
         {
             tillerPos.RotateAround(tillerOrigin.position, tillerOrigin.up,
-                PlayerController.tillerDir.x * tillerSensitivity);
+                PlayerController.tillerDir.x * tillerSensitivity.Value);
         }
 
         m_currentTillerPos = tillerPos.localRotation.y;
@@ -277,9 +294,9 @@ public class BoatManager : MonoBehaviour
         if (PlayerController.rightGenoaGrabbed)
         {
             m_frontSailMat.SetColor("_Tint",grabColor);
-            if (genoa.rope >= 2 && PlayerController.ropeDir.y < 0)
+            if (frontSailRope.Value >= 2 && PlayerController.ropeDir.y < 0)
             {
-                genoa.rope += PlayerController.ropeDir.y;
+                frontSailRope.Value += PlayerController.ropeDir.y;
                 if (!ropeTight.isPlaying)
                 {
                     ropeTight.Play();
@@ -291,9 +308,9 @@ public class BoatManager : MonoBehaviour
                 }
             }
 
-            if (genoa.rope < 80 && PlayerController.ropeDir.y > 0)
+            if (frontSailRope.Value < 80 && PlayerController.ropeDir.y > 0)
             {
-                genoa.rope += PlayerController.ropeDir.y;
+                frontSailRope.Value += PlayerController.ropeDir.y;
                 if (ropeTight.isPlaying)
                 {
                     ropeTight.Stop();
@@ -305,21 +322,21 @@ public class BoatManager : MonoBehaviour
                 }
             }
 
-            if (genoa.rope < 0.2) genoa.rope = 2f;
+            if (frontSailRope.Value < 0.2) frontSailRope.Value = 2f;
         }
         else
         {
             m_frontSailMat.SetColor("_Tint",m_originalColor);
         }
 
-        leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope);
+        
 
         if (PlayerController.mainSailGrabbed)
         {
             m_mainSailMat.SetColor("_Tint",grabColor);
-            if (mainsail.rope >= 2 && PlayerController.ropeDir.y < 0)
+            if (mainSailRope.Value >= 2 && PlayerController.ropeDir.y < 0)
             {
-                mainsail.rope += PlayerController.ropeDir.y;
+                mainSailRope.Value  += PlayerController.ropeDir.y;
                 if (!ropeTight.isPlaying)
                 {
                     ropeTight.Play();
@@ -331,9 +348,9 @@ public class BoatManager : MonoBehaviour
                 }
             }
 
-            if (mainsail.rope < 80 && PlayerController.ropeDir.y > 0)
+            if (mainSailRope.Value  < 80 && PlayerController.ropeDir.y > 0)
             {
-                mainsail.rope += PlayerController.ropeDir.y;
+                mainSailRope.Value  += PlayerController.ropeDir.y;
                 if (ropeTight.isPlaying)
                 {
                     ropeTight.Stop();
@@ -345,14 +362,12 @@ public class BoatManager : MonoBehaviour
                 }
             }
 
-            if (mainsail.rope < 2) mainsail.rope = 2;
+            if (mainSailRope.Value  < 2) mainSailRope.Value  = 2;
         }        else
         {
             m_mainSailMat.SetColor("_Tint",m_originalColor);
         }
-
-
-        mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope);
+        
 
         if (!PlayerController.rightGenoaGrabbed && !PlayerController.mainSailGrabbed)
         {
