@@ -9,8 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class BoatManager : MonoBehaviour
 {
-    private PlayerControls controls;
-    private Rigidbody _rigidbody;
+    private Rigidbody m_rigidbody;
     public Sail mainSail;
     public Sail frontSail;
 
@@ -30,14 +29,14 @@ public class BoatManager : MonoBehaviour
 
     public float turningFactor = 0.5f;
 
-    private float currentSpeed = 0;
+    private float m_currentSpeed = 0;
 
     public ManualSailPhysics mainsail;
     public ManualSailPhysics genoa;
 
-    private Vector2 dir;
+    private Vector2 m_dir;
 
-    private Vector2 dirRope;
+    private Vector2 m_dirRope;
 
     public bool mainSailWorking = false;
     public bool frontSailWorking = false;
@@ -45,9 +44,9 @@ public class BoatManager : MonoBehaviour
     public Transform tillerPos;
     public Transform tillerOrigin;
 
-    private float currentTillerPos = 0;
+    private float m_currentTillerPos = 0;
 
-    private Vector3 currentAngle;
+    private Vector3 m_currentAngle;
 
     public float tillerSensitivity = 2f;
 
@@ -57,20 +56,25 @@ public class BoatManager : MonoBehaviour
     public MeshRenderer mainSailOutline;
     public MeshRenderer frontSailOutline;
 
-    private Material tillerColor;
-    private Material mainSailColor;
-    private Material frontSailColor;
+    private Material m_tillerMat;
+    private Material m_mainSailMat;
+    private Material m_frontSailMat;
 
-    public Material grabColor;
+    public Color grabColor;
+    private Color m_originalColor;
+    private Color m_tilerOriginalColor;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        controls = new PlayerControls();
-        _rigidbody.inertiaTensor = new Vector3(1, 1, 1);
-        tillerColor = tillerOutline.material;
-        mainSailColor = mainSailOutline.material;
-        frontSailColor = frontSailOutline.material;
+        m_rigidbody = GetComponent<Rigidbody>();
+        m_rigidbody.inertiaTensor = new Vector3(1, 1, 1);
+        m_tillerMat = tillerOutline.material;
+        m_mainSailMat = mainSailOutline.material;
+        m_frontSailMat = frontSailOutline.material;
+        m_mainSailMat.SetFloat("_Magnitude",0f);
+        m_frontSailMat.SetFloat("_Magnitude",0f);
+        m_originalColor = m_mainSailMat.GetColor("_Tint");
+        m_tilerOriginalColor = m_tillerMat.GetColor("_Tint");
     }
 
     private void FixedUpdate()
@@ -82,7 +86,7 @@ public class BoatManager : MonoBehaviour
 
         float mainSailContribution = 0;
         float genoaContribution = 0;
-        currentSpeed = 0;
+        m_currentSpeed = 0;
         switch (dot)
         {
             case float f when (f <= WindManager.instance.noGo):
@@ -94,7 +98,7 @@ public class BoatManager : MonoBehaviour
                 if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
-                    currentSpeed += mainSailContribution;
+                    m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
                 else
@@ -105,7 +109,7 @@ public class BoatManager : MonoBehaviour
                 if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
-                    currentSpeed += genoaContribution;
+                    m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
                 else
@@ -120,7 +124,7 @@ public class BoatManager : MonoBehaviour
                 if (0.75f <= mainSailForce && mainSailForce <= 0.95f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.85f - mainSailForce) / 0.1f);
-                    currentSpeed += mainSailContribution;
+                    m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
                 else
@@ -131,7 +135,7 @@ public class BoatManager : MonoBehaviour
                 if (0.75f <= frontSailForce && frontSailForce <= 0.95f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.85f - frontSailForce) / 0.1f);
-                    currentSpeed += genoaContribution;
+                    m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
                 else
@@ -146,7 +150,7 @@ public class BoatManager : MonoBehaviour
                 if (0.3f <= mainSailForce && mainSailForce <= 0.7f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.5f - mainSailForce) / 0.2f);
-                    currentSpeed += mainSailContribution;
+                    m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
                 else
@@ -157,7 +161,7 @@ public class BoatManager : MonoBehaviour
                 if (0.3f <= frontSailForce && frontSailForce <= 0.7f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.5f - frontSailForce) / 0.2f);
-                    currentSpeed += genoaContribution;
+                    m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
                 else
@@ -172,7 +176,7 @@ public class BoatManager : MonoBehaviour
                 if (0.01f <= mainSailForce && mainSailForce <= 0.5f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.25f - mainSailForce) / 0.25f);
-                    currentSpeed += mainSailContribution;
+                    m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
                 else
@@ -183,7 +187,7 @@ public class BoatManager : MonoBehaviour
                 if (0.01f <= frontSailForce && frontSailForce <= 0.5f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.25f - frontSailForce) / 0.25f);
-                    currentSpeed += genoaContribution;
+                    m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
                 else
@@ -198,7 +202,7 @@ public class BoatManager : MonoBehaviour
                 if (0.01f <= mainSailForce && mainSailForce <= 0.4f)
                 {
                     mainSailContribution = 1 - (Math.Abs(0.2f - mainSailForce) / 0.2f);
-                    currentSpeed += mainSailContribution;
+                    m_currentSpeed += mainSailContribution;
                     mainSailWorking = true;
                 }
                 else
@@ -209,7 +213,7 @@ public class BoatManager : MonoBehaviour
                 if (0.01f <= frontSailForce && frontSailForce <= 0.4f)
                 {
                     genoaContribution = 1 - (Math.Abs(0.2f - frontSailForce) / 0.2f);
-                    currentSpeed += genoaContribution;
+                    m_currentSpeed += genoaContribution;
                     frontSailWorking = true;
                 }
                 else
@@ -219,17 +223,18 @@ public class BoatManager : MonoBehaviour
 
                 break;
         }
-
+        m_mainSailMat.SetFloat("_Magnitude",(1- mainSailContribution) *0.13f);
+        m_frontSailMat.SetFloat("_Magnitude",(1 - genoaContribution) *0.13f);
         mainSailSpeed.text = "Main Sail Force: " + mainSailContribution;
         genoaSpeed.text = "Genoa Force: " + genoaContribution;
-        currentSpeed = currentSpeed * WindManager.instance.windMagnitude;
+        m_currentSpeed = m_currentSpeed * WindManager.instance.windMagnitude;
         Vector3 forceDir =
-            transform.forward * (currentSpeed * speedFactor);
-        _rigidbody.AddForce(
+            transform.forward * (m_currentSpeed * speedFactor);
+        m_rigidbody.AddForce(
             forceDir, ForceMode.Force
         );
 
-        speedText.text = "Speed: " + (int) (_rigidbody.velocity.magnitude * 100);
+        speedText.text = "Speed: " + (int) (m_rigidbody.velocity.magnitude * 100);
 
         TillerUpdate();
         SailUpdateDegrees();
@@ -239,11 +244,11 @@ public class BoatManager : MonoBehaviour
     {
         if (PlayerController.tillerGrabbed)
         {
-            tillerOutline.material = grabColor;
+            tillerOutline.material.SetColor("_Tint",grabColor);
         }
         else
         {
-            tillerOutline.material = tillerColor;
+            tillerOutline.material.SetColor("_Tint",m_tilerOriginalColor);
         }
 
         if (PlayerController.tillerDir.x > 0 &&
@@ -260,97 +265,18 @@ public class BoatManager : MonoBehaviour
                 PlayerController.tillerDir.x * tillerSensitivity);
         }
 
-        currentTillerPos = tillerPos.localRotation.y;
-        float tillerVal = Mathf.Sign(currentTillerPos) * tillerVelocity.Evaluate(Mathf.Abs(currentTillerPos));
-        _rigidbody.AddForceAtPosition(
-            transform.right * (tillerVal * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude, 1, 50)),
+        m_currentTillerPos = tillerPos.localRotation.y;
+        float tillerVal = Mathf.Sign(m_currentTillerPos) * tillerVelocity.Evaluate(Mathf.Abs(m_currentTillerPos));
+        m_rigidbody.AddForceAtPosition(
+            transform.right * (tillerVal * turningFactor * Mathf.Clamp(m_rigidbody.velocity.magnitude, 1, 50)),
             tillerPos.position);
     }
 
-    private void SailUpdate()
-    {
-        if (PlayerController.rightGenoaGrabbed)
-        {
-            if (genoa.rope >= 0.002 && PlayerController.ropeDir.y < 0)
-            {
-                genoa.rope += PlayerController.ropeDir.y / 1000;
-                if (!ropeTight.isPlaying)
-                {
-                    ropeTight.Play();
-                }
-
-                if (ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Stop();
-                }
-            }
-
-            if (genoa.rope < 0.15 && PlayerController.ropeDir.y > 0)
-            {
-                genoa.rope += PlayerController.ropeDir.y / 1000;
-                if (ropeTight.isPlaying)
-                {
-                    ropeTight.Stop();
-                }
-
-                if (!ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Play();
-                }
-            }
-
-            if (genoa.rope < 0.002) genoa.rope = 0.002f;
-        }
-
-        leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope * 100);
-
-        if (PlayerController.mainSailGrabbed)
-        {
-            if (mainsail.rope >= 0.002 && PlayerController.ropeDir.y < 0)
-            {
-                mainsail.rope += PlayerController.ropeDir.y / 1000;
-                if (!ropeTight.isPlaying)
-                {
-                    ropeTight.Play();
-                }
-
-                if (ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Stop();
-                }
-            }
-
-            if (mainsail.rope < 0.15 && PlayerController.ropeDir.y > 0)
-            {
-                mainsail.rope += PlayerController.ropeDir.y / 1000;
-                if (ropeTight.isPlaying)
-                {
-                    ropeTight.Stop();
-                }
-
-                if (!ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Play();
-                }
-            }
-
-            if (mainsail.rope < 0.002) mainsail.rope = 0.002f;
-        }
-
-        mainSailRope.text = "Main Sail Rope: " + (int) (mainsail.rope * 100);
-
-        if (!PlayerController.rightGenoaGrabbed && !PlayerController.mainSailGrabbed)
-        {
-            ropeTight.Stop();
-            ropeUnwind.Stop();
-        }
-    }    
-    
     private void SailUpdateDegrees()
     {
         if (PlayerController.rightGenoaGrabbed)
         {
-            frontSailOutline.material = grabColor;
+            m_frontSailMat.SetColor("_Tint",grabColor);
             if (genoa.rope >= 2 && PlayerController.ropeDir.y < 0)
             {
                 genoa.rope += PlayerController.ropeDir.y;
@@ -383,14 +309,14 @@ public class BoatManager : MonoBehaviour
         }
         else
         {
-            frontSailOutline.material = frontSailColor;
+            m_frontSailMat.SetColor("_Tint",m_originalColor);
         }
 
         leftGenoaRope.text = "Front Sail Rope: " + (int) (genoa.rope);
 
         if (PlayerController.mainSailGrabbed)
         {
-            mainSailOutline.material = grabColor;
+            m_mainSailMat.SetColor("_Tint",grabColor);
             if (mainsail.rope >= 2 && PlayerController.ropeDir.y < 0)
             {
                 mainsail.rope += PlayerController.ropeDir.y;
@@ -422,7 +348,7 @@ public class BoatManager : MonoBehaviour
             if (mainsail.rope < 2) mainsail.rope = 2;
         }        else
         {
-            mainSailOutline.material = mainSailColor;
+            m_mainSailMat.SetColor("_Tint",m_originalColor);
         }
 
 

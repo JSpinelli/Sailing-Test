@@ -73,6 +73,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""b699428b-c925-4574-8b90-337736ed84a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Looking Glass"",
+                    ""type"": ""Button"",
+                    ""id"": ""f29bbf60-e78a-400c-a101-cff8fcff9b53"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -152,6 +168,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Button North"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d7c6cb1-cf97-4278-8f41-f50dda485737"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9104f0c-d48d-49cb-9fe7-d4e7b94b3b23"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Looking Glass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -167,6 +205,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Boat_ButtonSouth = m_Boat.FindAction("Button South", throwIfNotFound: true);
         m_Boat_ButtonEast = m_Boat.FindAction("Button East", throwIfNotFound: true);
         m_Boat_ButtonNorth = m_Boat.FindAction("Button North", throwIfNotFound: true);
+        m_Boat_Interact = m_Boat.FindAction("Interact", throwIfNotFound: true);
+        m_Boat_LookingGlass = m_Boat.FindAction("Looking Glass", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -223,6 +263,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Boat_ButtonSouth;
     private readonly InputAction m_Boat_ButtonEast;
     private readonly InputAction m_Boat_ButtonNorth;
+    private readonly InputAction m_Boat_Interact;
+    private readonly InputAction m_Boat_LookingGlass;
     public struct BoatActions
     {
         private @PlayerControls m_Wrapper;
@@ -234,6 +276,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @ButtonSouth => m_Wrapper.m_Boat_ButtonSouth;
         public InputAction @ButtonEast => m_Wrapper.m_Boat_ButtonEast;
         public InputAction @ButtonNorth => m_Wrapper.m_Boat_ButtonNorth;
+        public InputAction @Interact => m_Wrapper.m_Boat_Interact;
+        public InputAction @LookingGlass => m_Wrapper.m_Boat_LookingGlass;
         public InputActionMap Get() { return m_Wrapper.m_Boat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +308,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @ButtonNorth.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonNorth;
                 @ButtonNorth.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonNorth;
                 @ButtonNorth.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnButtonNorth;
+                @Interact.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnInteract;
+                @LookingGlass.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnLookingGlass;
+                @LookingGlass.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnLookingGlass;
+                @LookingGlass.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnLookingGlass;
             }
             m_Wrapper.m_BoatActionsCallbackInterface = instance;
             if (instance != null)
@@ -289,6 +339,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @ButtonNorth.started += instance.OnButtonNorth;
                 @ButtonNorth.performed += instance.OnButtonNorth;
                 @ButtonNorth.canceled += instance.OnButtonNorth;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @LookingGlass.started += instance.OnLookingGlass;
+                @LookingGlass.performed += instance.OnLookingGlass;
+                @LookingGlass.canceled += instance.OnLookingGlass;
             }
         }
     }
@@ -302,5 +358,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnButtonSouth(InputAction.CallbackContext context);
         void OnButtonEast(InputAction.CallbackContext context);
         void OnButtonNorth(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnLookingGlass(InputAction.CallbackContext context);
     }
 }

@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public static bool rightGenoaGrabbed = false;
     public static bool mainSailGrabbed = false;
     public static bool tillerGrabbed = false;
+    public static bool looking;
+    public static bool interactionButton;
 
     public static Vector2 ropeDir;
     public static Vector2 tillerDir;
@@ -21,6 +23,15 @@ public class PlayerController : MonoBehaviour
     {
         leftGenoaGrabbed = cx.ReadValueAsButton();
         rightGenoaGrabbed = cx.ReadValueAsButton();
+    }
+
+    public void LookingGlass(InputAction.CallbackContext cx)
+    {
+        looking = cx.ReadValueAsButton();
+    }    
+    public void Interaction(InputAction.CallbackContext cx)
+    {
+        interactionButton = cx.ReadValueAsButton();
     }
 
     public void GrabRight(InputAction.CallbackContext cx)
