@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 4ff5ce4dd03b42a46b8b43aa97fa605d,
     type: 2}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -119,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -174,6 +176,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -307,6 +310,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -442,6 +446,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -661,6 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c41ac9245b87c4192012080077d830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Damping: 0
 --- !u!114 &386822284
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -810,13 +816,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3627229476821992086, guid: bf160a17c93a0204782d50b5b8485636,
         type: 3}
-      propertyPath: wind.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3627229476821992086, guid: bf160a17c93a0204782d50b5b8485636,
-        type: 3}
-      propertyPath: windMagnitude
-      value: 10
+      propertyPath: noGo
+      value: -0.86
       objectReference: {fileID: 0}
     - target: {fileID: 3627229476821992086, guid: bf160a17c93a0204782d50b5b8485636,
         type: 3}
@@ -825,8 +826,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3627229476821992086, guid: bf160a17c93a0204782d50b5b8485636,
         type: 3}
-      propertyPath: noGo
-      value: -0.86
+      propertyPath: wind.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627229476821992086, guid: bf160a17c93a0204782d50b5b8485636,
+        type: 3}
+      propertyPath: windMagnitude
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
         type: 3}
@@ -845,6 +856,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -857,16 +873,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3627229476821992087, guid: bf160a17c93a0204782d50b5b8485636,
         type: 3}
@@ -937,6 +943,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1070,6 +1077,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1205,6 +1213,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1338,6 +1347,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1496,7 +1506,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1790612060}
   m_Lens:
-    FieldOfView: 88.85467
+    FieldOfView: 89.99984
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 5000
@@ -1616,6 +1626,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1580620446
@@ -1684,6 +1695,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1829,6 +1841,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1969,6 +1982,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1631639802
 Canvas:
   m_ObjectHideFlags: 0
@@ -2078,6 +2092,7 @@ MonoBehaviour:
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -2127,7 +2142,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 88.85467
+  field of view: 89.99984
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2227,6 +2242,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2304,6 +2320,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2488,6 +2505,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: GrabLeft
         m_Mode: 0
         m_Arguments:
@@ -2503,6 +2521,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: MainSail
         m_Mode: 0
         m_Arguments:
@@ -2518,6 +2537,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: LeftStick
         m_Mode: 0
         m_Arguments:
@@ -2533,6 +2553,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: RightStick
         m_Mode: 0
         m_Arguments:
@@ -2548,6 +2569,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: South
         m_Mode: 0
         m_Arguments:
@@ -2563,6 +2585,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -2578,6 +2601,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Reload
         m_Mode: 0
         m_Arguments:
@@ -2593,6 +2617,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Interaction
         m_Mode: 0
         m_Arguments:
@@ -2608,6 +2633,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2147242529}
+        m_TargetAssemblyTypeName: 
         m_MethodName: LookingGlass
         m_Mode: 0
         m_Arguments:
@@ -2661,6 +2687,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2676,6 +2707,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.997723
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -2688,16 +2724,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.997723
-      objectReference: {fileID: 0}
-    - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
@@ -2721,19 +2747,9 @@ PrefabInstance:
       objectReference: {fileID: 1176900507}
     - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
-      propertyPath: mainSailSpeed
-      value: 
-      objectReference: {fileID: 1588318470}
-    - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
-        type: 3}
       propertyPath: genoaSpeed
       value: 
       objectReference: {fileID: 1812392487}
-    - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
-        type: 3}
-      propertyPath: typeOfSailing
-      value: 
-      objectReference: {fileID: 187900161}
     - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
       propertyPath: mainSailRope
@@ -2744,6 +2760,16 @@ PrefabInstance:
       propertyPath: leftGenoaRope
       value: 
       objectReference: {fileID: 145433509}
+    - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: mainSailSpeed
+      value: 
+      objectReference: {fileID: 1588318470}
+    - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: typeOfSailing
+      value: 
+      objectReference: {fileID: 187900161}
     - target: {fileID: 3409921101168117204, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
       propertyPath: rightGenoaRope
@@ -3005,6 +3031,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d30b2dae205fe0545ab10409e16ff854, type: 2}
     - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -75.1
       objectReference: {fileID: 0}
@@ -3020,6 +3051,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -3032,16 +3068,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7516603555783001245, guid: 7d23b198bef65ad44a066662d77a375a,
         type: 3}
