@@ -25,18 +25,17 @@ public class RopeRender : MonoBehaviour
     private void Update()
     {
         Vector3 dir = (transform.position - attachmentPoint.position).normalized;
-        Debug.Log(dir);
         positionsSin[0] = transform.position;
         for (int i = 1; i < SinSteps-1; i++)
         {
             float step = (float) i / SinSteps;
             Vector3 newPoint = transform.position + (step * dir);
-            if (notTight)
-            {
-                newPoint.z = newPoint.z + Mathf.Sin(newPoint.z * WaveScale);
-                //newPoint.x = newPoint.x + Mathf.Sin(newPoint.x * WaveScale);
-                newPoint.y = newPoint.y + Mathf.Sin(newPoint.y * WaveScale);
-            }
+            // if (notTight)
+            // {
+            //     newPoint.z = newPoint.z + Mathf.Sin(newPoint.z * WaveScale);
+            //     //newPoint.x = newPoint.x + Mathf.Sin(newPoint.x * WaveScale);
+            //     newPoint.y = newPoint.y + Mathf.Sin(newPoint.y * WaveScale);
+            // }
             positionsSin[i] = newPoint;
         }
         positionsSin[SinSteps-1] = attachmentPoint.position;

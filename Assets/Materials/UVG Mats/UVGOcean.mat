@@ -8,13 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: UVGOcean
-  m_Shader: {fileID: 4800000, guid: 69d67ae46b62d164087c6e05ae419715, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: efcaf526ceb1f4efd9eb4e4c30c6ade6, type: 3}
+  m_ShaderKeywords: _COLORMODE_LINEAR _FOAMMODE_GRADIENT_NOISE _OPAQUE_OFF _WAVEMODE_ROUND
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -25,6 +26,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorGradient:
+        m_Texture: {fileID: 2800000, guid: 3b079e1cda5c91a45a7516c6490ff0c2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -48,6 +53,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -97,16 +106,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ASEOutlineWidth: 0
+    - _AlphaCutoff: 0.5
     - _BumpScale: 1
+    - _ColorMode: 0
+    - _CrestSharpness: 0.107
+    - _CrestSize: 0.049
     - _Cutoff: 0.5
     - _Depth1: -4
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FadeDistance: 8.65
+    - _FoamAmount: 0.25
+    - _FoamDepth: 0.55
+    - _FoamDirection: 0
+    - _FoamMode: 1
+    - _FoamNoiseAmount: 1
+    - _FoamScale: 1
+    - _FoamSharpness: 0.607
+    - _FoamSpeed: 0.1
+    - _FoamStretchX: 1
+    - _FoamStretchY: 1
     - _Gloss: 0.042
     - _Gloss1: 0.099
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LightContribution: 0.18
     - _MaxTessallation: 250
     - _MaxTessallation1: 0
     - _Metallic: 0
@@ -121,10 +146,16 @@ Material:
     - _NormalTileBase: 0.5
     - _NormalTileBase1: 1
     - _OcclusionStrength: 1
+    - _Opaque: 0
     - _Parallax: 0.02
+    - _QueueOffset: 0
     - _RampScale: 0.4
     - _RampScale1: 0.25
     - _RefractAmount1: 0
+    - _RefractionAmplitude: 0.0303
+    - _RefractionFrequency: 35.89
+    - _RefractionScale: 3
+    - _RefractionSpeed: 1
     - _RimOffset: 0.7
     - _RimOffset1: -0.38
     - _RimPower: 0.827
@@ -132,6 +163,7 @@ Material:
     - _SeaFoamTile1: 0.33
     - _SecondTileFactor: 0.005
     - _SecondTileFactor1: 5
+    - _ShadowStrength: 0.776
     - _SmoothnessTextureChannel: 0
     - _SpecColorLightContribution: 0
     - _SpecColorLightContribution1: 0.058
@@ -142,24 +174,35 @@ Material:
     - _Tesselation: 5
     - _Tesselation1: 8
     - _UVSec: 0
+    - _WaterClearness: 0.3
+    - _WaterDepth: 33.12
     - _WaveAltitude: 2
+    - _WaveAmplitude: 0.12
+    - _WaveDirection: -0.28
+    - _WaveFrequency: 0.49
     - _WaveHeight: 0.3
     - _WaveHeight1: 2
     - _WaveHeights: 0.2
+    - _WaveMode: 1
+    - _WaveNoise: 0.533
     - _WaveScale: 0.6
     - _WaveScale1: 0.45
-    - _WaveSpeed: 0.1
+    - _WaveSpeed: 0.18
     - _WaveSpeed1: 0.5
     - _WaveTile: 10.28
     - _WaveTile1: 10
     - _WindPatternScale: 3.06
     - _WindPatternScale1: 0.84
-    - _ZWrite: 1
+    - _ZWrite: 0
     - __dirty: 0
     m_Colors:
     - _ASEOutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorDeep: {r: 0.31185475, g: 0.56087005, b: 0.9056604, a: 1}
+    - _ColorShallow: {r: 0.13861692, g: 0.8396226, b: 0.7818712, a: 1}
+    - _CrestColor: {r: 0.9803922, g: 0.74509805, b: 0.93725497, a: 0.9}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FoamColor: {r: 0.9811321, g: 0.745105, b: 0.9390201, a: 1}
     - _RimTint: {r: 0.28261837, g: 0.6771074, b: 0.6886792, a: 0}
     - _RimTint1: {r: 1, g: 0.33490568, b: 0.96203625, a: 0}
     - _SpecularColor: {r: 0.9528302, g: 0.15730685, b: 0.601839, a: 0}
@@ -174,3 +217,4 @@ Material:
     - _WaveStretch1: {r: 10, g: 10, b: 10, a: 10}
     - _WaveUp: {r: 0, g: 1, b: 0, a: 0}
     - _WaveUp1: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
