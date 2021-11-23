@@ -23,13 +23,13 @@ Material:
   m_Name: PoolScene_Water_08
   m_Shader: {fileID: 4800000, guid: efcaf526ceb1f4efd9eb4e4c30c6ade6, type: 3}
   m_ShaderKeywords: _ALLOWALPHAOVERFLOW_OFF _COLORMODE_GRADIENT_TEXTURE _FOAMMODE_GRADIENT_NOISE
-    _WAVEMODE_ROUND
+    _WAVEMODE_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Transparent
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -88,17 +88,17 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FadeDistance: 0.16
-    - _FoamAmount: 0.08
+    - _FoamAmount: 0.28
     - _FoamDepth: 0.07
     - _FoamDirection: 0
     - _FoamFromTexture: 1
     - _FoamMode: 1
     - _FoamNoiseAmount: 0.941
     - _FoamProcedural: 1
-    - _FoamScale: 0.244
-    - _FoamSharpness: 0.559
+    - _FoamScale: 0.69
+    - _FoamSharpness: 0.928
     - _FoamSpeed: 0.5
-    - _FoamStretchX: 1
+    - _FoamStretchX: 0.84
     - _FoamStretchY: 1
     - _FoamTexture: 1
     - _Frequency: 0.08
@@ -108,7 +108,7 @@ Material:
     - _LightContribution: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opaque: 0
+    - _Opaque: 1
     - _ProceduralFoam: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -133,11 +133,11 @@ Material:
     - _WaveAmplitude: 0.2
     - _WaveDirection: 0
     - _WaveFrequency: 25.59
-    - _WaveMode: 1
-    - _WaveNoise: 0.013
+    - _WaveMode: 0
+    - _WaveNoise: 0.12
     - _WaveSpeed: 0.39
     - _WorkflowMode: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 1, b: 0.7287984, a: 1}

@@ -97,11 +97,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ASEOutlineWidth: -2.13
+    - _AlphaCutoff: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Gloss: 0
+    - _Gloss: 0.102
     - _Gloss1: 0.33
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -117,12 +118,12 @@ Material:
     - _RampScale1: 0.69
     - _RimOffset: 0
     - _RimOffset1: 0.31
-    - _RimPower: 0
+    - _RimPower: 0.037
     - _RimPower1: 0.54
     - _SmoothnessTextureChannel: 0
     - _SpecColorLightContribution: 0
     - _SpecColorLightContribution1: 0.73
-    - _SpecIntensity: 0
+    - _SpecIntensity: 0.222
     - _SpecIntensity1: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -138,9 +139,10 @@ Material:
     - _ASEOutlineColor: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimTint: {r: 0, g: 0, b: 0, a: 0}
+    - _RimTint: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 0}
     - _RimTint1: {r: 0.9056604, g: 0.46086502, b: 0.31185475, a: 0.12941177}
-    - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecularColor: {r: 1, g: 0.9669811, b: 0.9669811, a: 0}
     - _SpecularColor1: {r: 0.9528302, g: 0.21124065, b: 0.935161, a: 0.21960784}
-    - _Tint: {r: 0.83899236, g: 0.8584906, b: 0.22272164, a: 0}
+    - _Tint: {r: 0.64024323, g: 0.6509434, b: 0.29783732, a: 0}
     - _Tint1: {r: 0.9433962, g: 0.85640854, b: 0.6096476, a: 0.07058824}
+  m_BuildTextureStacks: []
