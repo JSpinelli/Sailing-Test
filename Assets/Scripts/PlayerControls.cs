@@ -138,6 +138,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""52606d78-d14b-4ad5-ad55-ffaa7d23d765"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right Stick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""0696d999-7be9-42d8-b23b-84171dd4f453"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",

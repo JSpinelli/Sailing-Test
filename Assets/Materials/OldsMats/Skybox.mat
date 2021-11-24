@@ -140,12 +140,12 @@ Material:
     - _DirectionPitch: 0
     - _DirectionYaw: 0
     - _DstBlend: 0
-    - _Exponent: 1
+    - _Exponent: 1.16
     - _Exposure: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensity: 1.24
+    - _Intensity: 1.2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -159,8 +159,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.040138844, g: 0.73089755, b: 0.7735849, a: 0}
-    - _Color2: {r: 0.9056604, g: 0.42004183, b: 0.15806337, a: 0}
+    - _Color1: {r: 0.17885366, g: 0.39800873, b: 0.6037736, a: 0}
+    - _Color2: {r: 0.90588236, g: 0.1568627, b: 0.61745816, a: 0}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

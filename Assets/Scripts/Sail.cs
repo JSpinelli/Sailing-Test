@@ -11,10 +11,6 @@ public class Sail : MonoBehaviour
     {
         Vector2 sailDirection = new Vector2(gameObject.transform.forward.x, gameObject.transform.forward.z);
         float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
-        // if (dot < WindManager.instance.noGo)
-        // {
-        //     return 0;
-        // }
         return Math.Abs(dot);
     }
 
@@ -24,8 +20,6 @@ public class Sail : MonoBehaviour
         Vector2 sailPosition = new Vector2(gameObject.transform.right.x, gameObject.transform.right.y);
         float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
         float dotPos = Vector2.Dot(sailPosition.normalized, Vector2.up);
-        //Debug.Log("Position:" + dotPos);
-        //Debug.Log("Direction:" + dot);
         if ((dotPos <= 0 && dot <= 0) || (dotPos >= 0 && dot >= 0))
         {
             return WindManager.instance.wind.magnitude * magnitudeMultiplier * dot * defaultTorque;

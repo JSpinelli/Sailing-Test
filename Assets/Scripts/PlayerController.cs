@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public static bool leftGenoaGrabbed = false;
-    public static bool rightGenoaGrabbed = false;
-    public static bool mainSailGrabbed = false;
+    public static bool leftTrigger = false;
+    public static bool rightTrigger = false;
     public static bool tillerGrabbed = false;
     public static bool looking;
     public static bool interactionButton;
+    public static bool rightBumper;
+    public static bool leftBumper;
 
     public static Vector2 ropeDir;
     public static Vector2 tillerDir;
@@ -21,8 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public void GrabLeft(InputAction.CallbackContext cx)
     {
-        leftGenoaGrabbed = cx.ReadValueAsButton();
-        rightGenoaGrabbed = cx.ReadValueAsButton();
+        leftTrigger = cx.ReadValueAsButton();
     }
 
     public void LookingGlass(InputAction.CallbackContext cx)
@@ -36,22 +36,32 @@ public class PlayerController : MonoBehaviour
 
     public void GrabRight(InputAction.CallbackContext cx)
     {
-        rightGenoaGrabbed = cx.ReadValueAsButton();
+        rightTrigger = cx.ReadValueAsButton();
     }
 
     public void MainSail(InputAction.CallbackContext cx)
     {
-        mainSailGrabbed = cx.ReadValueAsButton();
+        rightTrigger = cx.ReadValueAsButton();
     }
 
     public void Reload(InputAction.CallbackContext cx)
     {
         SceneManager.LoadScene("BoatMechanics");
     }
+    
+    public void RightBumper(InputAction.CallbackContext cx)
+    {
+        rightBumper = cx.performed;
+
+    }    
+    public void LeftBumper(InputAction.CallbackContext cx)
+    {
+        leftBumper = cx.performed;
+    }
 
     public void LeftStick(InputAction.CallbackContext cx)
     {
-        if (leftGenoaGrabbed || mainSailGrabbed || rightGenoaGrabbed)
+        if (rightTrigger || leftTrigger )
         {
             ropeDir = (Vector2) cx.ReadValueAsObject();
             tillerDir = Vector2.zero;

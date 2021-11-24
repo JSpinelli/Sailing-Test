@@ -76,6 +76,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Right Bumper",
+                    "type": "Button",
+                    "id": "f06e99c0-c971-46a4-abfc-bb8c5f143378",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Left Bumper",
+                    "type": "Button",
+                    "id": "fe6c3955-2bb8-4fbd-8106-c8a379245a37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -175,6 +191,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Looking Glass",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ea12883-32bf-4122-a9e4-279066a474f0",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Bumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6baaa044-a565-469a-8987-4558e0bd292e",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Bumper",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
