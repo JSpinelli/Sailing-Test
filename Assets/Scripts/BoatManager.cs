@@ -8,6 +8,8 @@ public class BoatManager : MonoBehaviour
     public Sail frontSail;
     public float speedFactor = 50f;
 
+    public float torqueModifier;
+
     public AudioSource ropeTight;
     public AudioSource ropeUnwind;
 
@@ -68,7 +70,7 @@ public class BoatManager : MonoBehaviour
         m_mainSailMat.SetFloat("_Magnitude", 0f);
         m_frontSailMat.SetFloat("_Magnitude", 0f);
         m_originalColor = m_mainSailMat.GetColor("_Tint");
-        m_tilerOriginalColor = m_tillerMat.GetColor("_Tint");
+        //m_tilerOriginalColor = m_tillerMat.GetColor("_Tint");
     }
 
     private void FixedUpdate()
@@ -76,7 +78,13 @@ public class BoatManager : MonoBehaviour
         float mainSailForce = mainSail.SailForce();
         float frontSailForce = frontSail.SailForce();
         Vector2 sailDirection = new Vector2(gameObject.transform.forward.x, gameObject.transform.forward.z);
+        Vector2 sailDirection2 = new Vector2(gameObject.transform.right.x, gameObject.transform.right.z);
         float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
+        
+        //Direction of rotation of the hull
+        float dot2 = Vector2.Dot(sailDirection2.normalized, WindManager.instance.wind.normalized);
+        // Force of the rotation based on the position of the sails
+        float dot3 = Vector3.Dot(gameObject.transform.up, Vector3.right);
 
         float mainSailContribution = 0;
         float genoaContribution = 0;
@@ -302,12 +310,15 @@ public class BoatManager : MonoBehaviour
 
         m_mainSailMat.SetFloat("_Magnitude", (1 - mainSailContribution) * 0.13f);
         m_frontSailMat.SetFloat("_Magnitude", (1 - genoaContribution) * 0.13f);
+        
         m_currentSpeed = m_currentSpeed * WindManager.instance.windMagnitude;
         Vector3 forceDir =
             transform.forward * (m_currentSpeed * speedFactor);
         m_rigidbody.AddForce(
             forceDir, ForceMode.Force
         );
+        
+        m_rigidbody.AddTorque(new Vector3(0,0,-dot2).normalized * (torqueModifier * WindManager.instance.windMagnitude * m_rigidbody.mass * (1-Mathf.Abs(dot3))));
 
         speed.Value = (int) (m_rigidbody.velocity.magnitude * 100);
 
@@ -317,14 +328,14 @@ public class BoatManager : MonoBehaviour
 
     private void TillerUpdate()
     {
-        if (PlayerController.tillerGrabbed)
-        {
-            tillerOutline.material.SetColor("_Tint", grabColor);
-        }
-        else
-        {
-            tillerOutline.material.SetColor("_Tint", m_tilerOriginalColor);
-        }
+        // if (PlayerController.tillerGrabbed)
+        // {
+        //     tillerOutline.material.SetColor("_Tint", grabColor);
+        // }
+        // else
+        // {
+        //     tillerOutline.material.SetColor("_Tint", m_tilerOriginalColor);
+        // }
 
         if (PlayerController.tillerDir.x > 0 &&
             (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
