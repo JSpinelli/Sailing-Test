@@ -12,7 +12,8 @@ public class WindParticles : MonoBehaviour
         var emission = ps.emission;
         var main = ps.main;
         //emission.rateOverTime = WindManager.instance.windMagnitude / 10;
-        transform.forward = newWind;
-        main.startSpeed = WindManager.instance.windMagnitude;
+        transform.up = newWind;
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.Euler(newWind), 0);
+        main.startSpeed = WindManager.instance.windMagnitude/15;
     }
 }
