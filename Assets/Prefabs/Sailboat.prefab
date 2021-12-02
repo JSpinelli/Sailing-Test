@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 721721056}
   - component: {fileID: 721721059}
   - component: {fileID: 721721058}
+  - component: {fileID: 1304696989}
   m_Layer: 0
   m_Name: Tiller
   m_TagString: Untagged
@@ -411,6 +412,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1304696989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721721055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32201f33c416e4a419853256d5868be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: 8f00bde2c4e76407f9e853cd7cba5c25, type: 2}
+  grabbedMat: {fileID: 2100000, guid: ddefd5e92f255f146a7c7ca62a0f28f7, type: 2}
 --- !u!1 &986123368
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +1000,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04cbe1a96c0e468469991d49438615d7, type: 2}
+  - {fileID: 2100000, guid: c7f074556bea848c58544e11c2fcc5a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1165,7 +1180,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04cbe1a96c0e468469991d49438615d7, type: 2}
+  - {fileID: 2100000, guid: c7f074556bea848c58544e11c2fcc5a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1337,7 +1352,6 @@ MonoBehaviour:
   frontSailWorking: 0
   tillerPos: {fileID: 721721056}
   tillerOrigin: {fileID: 1297094910}
-  tillerOutline: {fileID: 721721058}
   mainSailOutline: {fileID: 4788681185566128733}
   frontSailOutline: {fileID: 238972312731518219}
   grabColor: {r: 0.34471142, g: 0.8679245, b: 0.19241722, a: 0}
@@ -1467,6 +1481,21 @@ MonoBehaviour:
     _constant: {fileID: 0}
     _variable: {fileID: 11400000, guid: f8d2c34eb39ee13449e152ab5766ef0c, type: 2}
     _variableInstancer: {fileID: 0}
+  mainSailContribution:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 52a8c42c8c2ef304793d84a19db64b6a, type: 2}
+    _variableInstancer: {fileID: 0}
+  frontSailContribution:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 3323ea2471655cf42bd5ab294423fb64, type: 2}
+    _variableInstancer: {fileID: 0}
+  autoSail: 1
+  mainSailContributionAuto: 1
+  frontSailContributionAuto: 1
   ropeStep: 0.2
 --- !u!136 &1863293267
 CapsuleCollider:
@@ -1708,8 +1737,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -1.783, y: 4.178, z: 6.19}
-  - {x: 0.107, y: 5.630987, z: 7.356099}
+  - {x: 132.7377, y: 4.178, z: -20.429474}
+  - {x: 134.6277, y: 5.630987, z: -19.263374}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2043,8 +2072,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0.055, y: 4.788, z: 3.059}
-  - {x: -0.10018312, y: 6.1092176, z: 1.6745672}
+  - {x: 134.5757, y: 4.788, z: -23.560474}
+  - {x: 134.42052, y: 6.1092176, z: -24.944906}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2294,8 +2323,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.569, y: 4.1540003, z: 6.981}
-  - {x: 0.107, y: 5.630987, z: 7.356099}
+  - {x: 136.0897, y: 4.1540003, z: -19.638474}
+  - {x: 134.6277, y: 5.630987, z: -19.263374}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -3583,6 +3612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindStreak
       objectReference: {fileID: 0}
+    - target: {fileID: 5277411790551040325, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: m_Time
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7538755853530678055, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
         type: 3}
       propertyPath: m_RootOrder
@@ -3638,6 +3672,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a8c42c8c2ef304793d84a19db64b6a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &7844062136784955732 stripped
@@ -3713,6 +3768,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 3323ea2471655cf42bd5ab294423fb64,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &8674163404107846239 stripped
@@ -3788,6 +3864,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 3323ea2471655cf42bd5ab294423fb64,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &9123326937556564413 stripped
@@ -3807,6 +3904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindStreak (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277411790551040325, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: m_Time
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7538755853530678055, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
         type: 3}
@@ -3863,6 +3965,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a8c42c8c2ef304793d84a19db64b6a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &5316330495784013001 stripped
@@ -3938,6 +4061,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 3323ea2471655cf42bd5ab294423fb64,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &5681982535473181344 stripped
@@ -4183,6 +4327,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindStreak (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5277411790551040325, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: m_Time
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7538755853530678055, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
         type: 3}
       propertyPath: m_RootOrder
@@ -4238,6 +4387,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a8c42c8c2ef304793d84a19db64b6a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &6789166870182040918 stripped
@@ -4313,6 +4483,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 3323ea2471655cf42bd5ab294423fb64,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &3315671966716581203 stripped
@@ -4332,6 +4523,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindStreak (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277411790551040325, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: m_Time
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7538755853530678055, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
         type: 3}
@@ -4388,6 +4584,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: magnitude
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097880398771380456, guid: 5ecb4dc6edb39b94093d4a1683fc37c1,
+        type: 3}
+      propertyPath: sailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a8c42c8c2ef304793d84a19db64b6a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecb4dc6edb39b94093d4a1683fc37c1, type: 3}
 --- !u!4 &1961245061009667720 stripped

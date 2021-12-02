@@ -52,7 +52,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a0e152bd97c6905428e4c5ef07e1bea7, type: 2}
+  - {fileID: 2100000, guid: 65b98d1b86db1b34986a7dd1bc9bc1bb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +82,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.20183563
+        value: 0.15898132
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -151,3 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ad3b47d3e964a469ff4fe251b84240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magnitude: 0
+  speed: 0
+  sailContribution:
+    _usage: 0
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}

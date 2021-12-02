@@ -10,8 +10,12 @@ public class PointsOfSailingUI : MonoBehaviour
     public BoatManager bm;
 
     public Texture[] correctSailing;
+    
+    public Texture[] correctSailingInverted;
 
     public Texture[] Sailing;
+    
+    public Texture[] SailingInverted;
 
     public RawImage display;
 
@@ -19,33 +23,58 @@ public class PointsOfSailingUI : MonoBehaviour
     public IntReference speedVal;
     public TextMeshProUGUI typeOfSailing;
     public TextMeshProUGUI speed;
+    public TextMeshProUGUI leftStickText;
 
     public FloatReference mainSailRope;
     public FloatReference frontSailRope;
     public TextMeshProUGUI mainSailRopeUI;
     public TextMeshProUGUI frontSailRopeUI;
+
+    private Texture[] mySailingNow;
+    private Texture[] mySailingCorrectNow;
+    
     void Update()
     {
         typeOfSailing.text = pointOfSailing.Value;
         speed.text = "Speed: "+speedVal.Value;
         frontSailRopeUI.text = "Front Sail Rope: " + (int) (frontSailRope);
         mainSailRopeUI.text = "Main Sail Rope: " + (int) (mainSailRope);
+        if (PlayerController.tillerGrabbed)
+        {
+            leftStickText.text = "Move Tiller";
+        }
+        else
+        {
+            leftStickText.text = "Move Character";
+        }
+
+        if (bm.dot2 < 0)
+        {
+            mySailingNow = Sailing;
+            mySailingCorrectNow = correctSailing;
+        }
+        else
+        {
+            mySailingNow = SailingInverted;
+            mySailingCorrectNow = correctSailingInverted;
+        }
+
         switch (pointOfSailing.Value)
         {
             case "In Irons":
             {
-                display.texture = Sailing[5];
+                display.texture = mySailingNow[5];
                 break;
             }
             case "Close Hauled":
             {
                 if (bm.mainSailWorking && bm.frontSailWorking)
                 {
-                    display.texture = correctSailing[0];
+                    display.texture = mySailingCorrectNow[0];
                 }
                 else
                 {
-                    display.texture = Sailing[0];
+                    display.texture = mySailingNow[0];
                 }
                 break;
             }
@@ -53,11 +82,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (bm.mainSailWorking && bm.frontSailWorking)
                 {
-                    display.texture = correctSailing[1];
+                    display.texture = mySailingCorrectNow[1];
                 }
                 else
                 {
-                    display.texture = Sailing[1];
+                    display.texture = mySailingNow[1];
                 }
                 break;
             }
@@ -65,11 +94,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (bm.mainSailWorking && bm.frontSailWorking)
                 {
-                    display.texture = correctSailing[2];
+                    display.texture = mySailingCorrectNow[2];
                 }
                 else
                 {
-                    display.texture = Sailing[2];
+                    display.texture = mySailingNow[2];
                 }
                 break;
             }
@@ -77,11 +106,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (bm.mainSailWorking && bm.frontSailWorking)
                 {
-                    display.texture = correctSailing[3];
+                    display.texture = mySailingCorrectNow[3];
                 }
                 else
                 {
-                    display.texture = Sailing[3];
+                    display.texture = mySailingNow[3];
                 }
                 break;
             }
@@ -89,11 +118,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (bm.mainSailWorking && bm.frontSailWorking)
                 {
-                    display.texture = correctSailing[4];
+                    display.texture = mySailingCorrectNow[4];
                 }
                 else
                 {
-                    display.texture = Sailing[4];
+                    display.texture = mySailingNow[4];
                 }
                 break;
             }

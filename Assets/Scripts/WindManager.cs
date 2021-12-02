@@ -84,8 +84,10 @@ public class WindManager : MonoBehaviour
 
     public Vector2 RandomizeWind()
     {
-        return new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
-        
+        Vector2 newWind = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        if (newWind == Vector2.zero) 
+            return RandomizeWind();
+        return newWind;
     }
 
     public void RotateWind()
