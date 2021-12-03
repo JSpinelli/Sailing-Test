@@ -59,7 +59,7 @@ MonoBehaviour:
   - {fileID: -6088551604455195741}
   - {fileID: -1344586528338988631}
   - {fileID: -2401278517541482506}
-  - {fileID: 3435090942183604528}
+  - {fileID: 6953535581749235647}
   m_RendererFeatureMap: a33bd003931e81aba9319428ad1157edf6cf292be9f1acde
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
---- !u!114 &3435090942183604528
+--- !u!114 &6953535581749235647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

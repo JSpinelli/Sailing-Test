@@ -11,8 +11,9 @@ public class PlayerController : MonoBehaviour
     public static bool tillerGrabbed = false;
     public static bool looking;
     public static bool interactionButton;
-    public static bool rightBumper;
-    public static bool leftBumper;
+    public static bool rightBumper = false;
+    public static bool leftBumper = false;
+    public static bool paused = false;
 
     public static Vector2 ropeDir;
     public static Vector2 tillerDir;
@@ -20,48 +21,48 @@ public class PlayerController : MonoBehaviour
     public static Vector2 playerDir;
 
 
-    public void GrabLeft(InputAction.CallbackContext cx)
+    public void LeftTrigger(InputAction.CallbackContext cx)
     {
-        leftTrigger = cx.ReadValueAsButton();
+        if (!GameManager.Instance.autoSailPositioning)
+            leftTrigger = cx.ReadValueAsButton();
     }
 
     public void LookingGlass(InputAction.CallbackContext cx)
     {
         looking = cx.ReadValueAsButton();
-    }    
+    }
+
     public void Interaction(InputAction.CallbackContext cx)
     {
         interactionButton = cx.ReadValueAsButton();
     }
 
-    public void GrabRight(InputAction.CallbackContext cx)
+    public void RightTrigger(InputAction.CallbackContext cx)
     {
-        rightTrigger = cx.ReadValueAsButton();
-    }
-
-    public void MainSail(InputAction.CallbackContext cx)
-    {
-        rightTrigger = cx.ReadValueAsButton();
+        if (!GameManager.Instance.autoSailPositioning)
+            rightTrigger = cx.ReadValueAsButton();
     }
 
     public void Reload(InputAction.CallbackContext cx)
     {
         SceneManager.LoadScene("BoatMechanics");
     }
-    
+
     public void RightBumper(InputAction.CallbackContext cx)
     {
-        rightBumper = cx.performed;
+        if (!GameManager.Instance.autoSailPositioning)
+            rightBumper = cx.performed;
+    }
 
-    }    
     public void LeftBumper(InputAction.CallbackContext cx)
     {
-        leftBumper = cx.performed;
+        if (!GameManager.Instance.autoSailPositioning)
+            leftBumper = cx.performed;
     }
 
     public void LeftStick(InputAction.CallbackContext cx)
     {
-        if (rightTrigger || leftTrigger )
+        if (rightTrigger || leftTrigger)
         {
             ropeDir = (Vector2) cx.ReadValueAsObject();
             tillerDir = Vector2.zero;
@@ -79,8 +80,6 @@ public class PlayerController : MonoBehaviour
             playerDir = (Vector2) cx.ReadValueAsObject();
             ropeDir = Vector2.zero;
         }
-
-        
     }
 
     public void South(InputAction.CallbackContext cx)
@@ -91,5 +90,11 @@ public class PlayerController : MonoBehaviour
     public void RightStick(InputAction.CallbackContext cx)
     {
         cameraDir = (Vector2) cx.ReadValueAsObject();
+    }
+
+    public void Pause(InputAction.CallbackContext cx)
+    {
+        if (cx.performed)
+            paused = !paused;
     }
 }

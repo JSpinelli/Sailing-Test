@@ -5,36 +5,48 @@ using UnityAtoms.BaseAtoms;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PointsOfSailingUI : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+    
+    private Texture[] _mySailingNow;
+    private Texture[] _mySailingCorrectNow;
+    
     public BoatManager bm;
-    
-    public Texture[] correctSailing;
-    
-    public Texture[] correctSailingInverted;
-
-    public Texture[] Sailing;
-    
-    public Texture[] SailingInverted;
-
     public RawImage display;
-
-    public StringReference pointOfSailing;
-    public IntReference speedVal;
+    public Texture[] correctSailing;
+    public Texture[] correctSailingInverted;
+    public Texture[] Sailing;
+    public Texture[] SailingInverted;
+    
     public TextMeshProUGUI typeOfSailing;
     public TextMeshProUGUI speed;
     public TextMeshProUGUI leftStickText;
-
+    public GameObject mainSailControls;
+    public GameObject frontSailControls;
+    
+    public IntReference speedVal;
     public FloatReference mainSailRope;
     public FloatReference frontSailRope;
     public TextMeshProUGUI mainSailRopeUI;
     public TextMeshProUGUI frontSailRopeUI;
     public BoolReference mainSailWorking;
     public BoolReference frontSailWorking;
+    public StringReference pointOfSailing;
 
-    private Texture[] mySailingNow;
-    private Texture[] mySailingCorrectNow;
-    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Debug.Log("Should not be another class");
+            Destroy(this);
+        }
+    }
+
     void Update()
     {
         typeOfSailing.text = pointOfSailing.Value;
@@ -52,31 +64,31 @@ public class PointsOfSailingUI : MonoBehaviour
 
         if (bm.dot2 < 0)
         {
-            mySailingNow = Sailing;
-            mySailingCorrectNow = correctSailing;
+            _mySailingNow = Sailing;
+            _mySailingCorrectNow = correctSailing;
         }
         else
         {
-            mySailingNow = SailingInverted;
-            mySailingCorrectNow = correctSailingInverted;
+            _mySailingNow = SailingInverted;
+            _mySailingCorrectNow = correctSailingInverted;
         }
 
         switch (pointOfSailing.Value)
         {
             case "In Irons":
             {
-                display.texture = mySailingNow[5];
+                display.texture = _mySailingNow[5];
                 break;
             }
             case "Close Hauled":
             {
                 if (mainSailWorking.Value && frontSailWorking.Value)
                 {
-                    display.texture = mySailingCorrectNow[0];
+                    display.texture = _mySailingCorrectNow[0];
                 }
                 else
                 {
-                    display.texture = mySailingNow[0];
+                    display.texture = _mySailingNow[0];
                 }
                 break;
             }
@@ -84,11 +96,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (mainSailWorking.Value && frontSailWorking.Value)
                 {
-                    display.texture = mySailingCorrectNow[1];
+                    display.texture = _mySailingCorrectNow[1];
                 }
                 else
                 {
-                    display.texture = mySailingNow[1];
+                    display.texture = _mySailingNow[1];
                 }
                 break;
             }
@@ -96,11 +108,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (mainSailWorking.Value && frontSailWorking.Value)
                 {
-                    display.texture = mySailingCorrectNow[2];
+                    display.texture = _mySailingCorrectNow[2];
                 }
                 else
                 {
-                    display.texture = mySailingNow[2];
+                    display.texture = _mySailingNow[2];
                 }
                 break;
             }
@@ -108,11 +120,11 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (mainSailWorking.Value && frontSailWorking.Value)
                 {
-                    display.texture = mySailingCorrectNow[3];
+                    display.texture = _mySailingCorrectNow[3];
                 }
                 else
                 {
-                    display.texture = mySailingNow[3];
+                    display.texture = _mySailingNow[3];
                 }
                 break;
             }
@@ -120,14 +132,20 @@ public class PointsOfSailingUI : MonoBehaviour
             {
                 if (mainSailWorking.Value && frontSailWorking.Value)
                 {
-                    display.texture = mySailingCorrectNow[4];
+                    display.texture = _mySailingCorrectNow[4];
                 }
                 else
                 {
-                    display.texture = mySailingNow[4];
+                    display.texture = _mySailingNow[4];
                 }
                 break;
             }
         }
+    }
+    
+    public void SetActiveSailControls(bool active)
+    {
+        mainSailControls.SetActive(active);
+        frontSailControls.SetActive(active);
     }
 }
