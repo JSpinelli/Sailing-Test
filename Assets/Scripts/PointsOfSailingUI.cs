@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PointsOfSailingUI : MonoBehaviour
 {
     public BoatManager bm;
-
+    
     public Texture[] correctSailing;
     
     public Texture[] correctSailingInverted;
@@ -29,6 +29,8 @@ public class PointsOfSailingUI : MonoBehaviour
     public FloatReference frontSailRope;
     public TextMeshProUGUI mainSailRopeUI;
     public TextMeshProUGUI frontSailRopeUI;
+    public BoolReference mainSailWorking;
+    public BoolReference frontSailWorking;
 
     private Texture[] mySailingNow;
     private Texture[] mySailingCorrectNow;
@@ -68,7 +70,7 @@ public class PointsOfSailingUI : MonoBehaviour
             }
             case "Close Hauled":
             {
-                if (bm.mainSailWorking && bm.frontSailWorking)
+                if (mainSailWorking.Value && frontSailWorking.Value)
                 {
                     display.texture = mySailingCorrectNow[0];
                 }
@@ -80,7 +82,7 @@ public class PointsOfSailingUI : MonoBehaviour
             }
             case "Close Reach":
             {
-                if (bm.mainSailWorking && bm.frontSailWorking)
+                if (mainSailWorking.Value && frontSailWorking.Value)
                 {
                     display.texture = mySailingCorrectNow[1];
                 }
@@ -92,7 +94,7 @@ public class PointsOfSailingUI : MonoBehaviour
             }
             case "Beam Reach":
             {
-                if (bm.mainSailWorking && bm.frontSailWorking)
+                if (mainSailWorking.Value && frontSailWorking.Value)
                 {
                     display.texture = mySailingCorrectNow[2];
                 }
@@ -104,7 +106,7 @@ public class PointsOfSailingUI : MonoBehaviour
             }
             case "Broad Reach":
             {
-                if (bm.mainSailWorking && bm.frontSailWorking)
+                if (mainSailWorking.Value && frontSailWorking.Value)
                 {
                     display.texture = mySailingCorrectNow[3];
                 }
@@ -116,7 +118,7 @@ public class PointsOfSailingUI : MonoBehaviour
             }
             case "Running":
             {
-                if (bm.mainSailWorking && bm.frontSailWorking)
+                if (mainSailWorking.Value && frontSailWorking.Value)
                 {
                     display.texture = mySailingCorrectNow[4];
                 }

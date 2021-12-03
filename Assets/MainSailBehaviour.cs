@@ -1,25 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
-public class FrontSailBehaviour : MonoBehaviour
+public class MainSailBehaviour : MonoBehaviour
 {
     public GameObject mast;
     public float adjustmentFactor = 2f;
     public float windAttachmentFactor = 1.5f;
+    //[Range(0.0001f, 0.15f)] public float rope;
     
     public FloatReference rope;
+    public FloatReference mainSailContribution;
     public StringReference pointOfSail;
+    
     public Transform shipForward;
     
-    public Vector2Reference runningRange;
-    public Vector2Reference closeHauledRange;
-    public Vector2Reference closeReachRange;
-    public Vector2Reference beamReachRange;
-    public Vector2Reference broadReachRange;
-    public FloatReference frontSailContribution;
+    public BoolReference mainSailWorking;
     
-    public AnimationCurve sailForceCurve;
-    public BoolReference frontSailWorking;
     
     private float curvePoint;
 
@@ -40,7 +38,6 @@ public class FrontSailBehaviour : MonoBehaviour
                 -Mathf.Sign(dotRight) * WindManager.instance.windMagnitude * (1 - dotForward) *
                 windAttachmentFactor * (Mathf.Abs((rope.Value-angle) / rope.Value)));
         }
-        
         UpdateContribution();
     }
     
@@ -53,52 +50,55 @@ public class FrontSailBehaviour : MonoBehaviour
 
     void UpdateContribution()
     {
-        Vector2 frontSailSpread = Vector2.zero;
+        float mainSailMin = 0;
+        float mainSailMax = 0;
         switch (pointOfSail.Value)
         {
             case "In Irons":
             {
-                frontSailContribution.Value = Mathf.Lerp(frontSailContribution.Value, 0, Time.deltaTime);
+                mainSailContribution.Value = Mathf.Lerp(mainSailContribution.Value, 0, Time.deltaTime);
                 break;
             }
             case "Close Hauled":
             {
-                frontSailSpread = closeHauledRange.Value;
+                mainSailMax = 15;
+                mainSailMin = 0;
                 break;
             }
             case "Close Reach":
             {
-                frontSailSpread = closeReachRange.Value;
+                mainSailMax = 25;
+                mainSailMin = 10;
                 break;
             }
             case "Beam Reach":
             {
-                frontSailSpread = beamReachRange.Value;
+                mainSailMax = 35;
+                mainSailMin = 20;
                 break;
             }
             case "Broad Reach":
             {
-                frontSailSpread = broadReachRange.Value;
+                mainSailMax = 45;
+                mainSailMin = 30;
                 break;
             }
             case "Running":
             {
-                frontSailSpread = runningRange.Value;
+                mainSailMax = 55;
+                mainSailMin = 40;
                 break;
             }
         }
-
-        float force = SailForce();
-        if (frontSailSpread.x <= force && force <= frontSailSpread.y)
+        if (rope.Value < mainSailMax && rope > mainSailMin)
         {
-            curvePoint = (force - frontSailSpread.x) /
-                         (frontSailSpread.y - frontSailSpread.x);
-            frontSailContribution.Value = sailForceCurve.Evaluate(curvePoint);
-            frontSailWorking.Value = true;
+            mainSailContribution.Value = Mathf.Lerp(mainSailContribution.Value, 1, Time.deltaTime);
+            mainSailWorking.Value = true;
         }
         else
         {
-            frontSailWorking.Value = false;
+            mainSailContribution.Value = Mathf.Lerp(mainSailContribution.Value, .5f, Time.deltaTime);
+            mainSailWorking.Value = false;
         }
     }
 }

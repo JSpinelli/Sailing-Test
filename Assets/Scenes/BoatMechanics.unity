@@ -1105,6 +1105,52 @@ Transform:
   m_Father: {fileID: 335356577}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &167258944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2440994579438721736, guid: 7cc00ff5b9e42ef449219134e1172a99,
+    type: 3}
+  m_PrefabInstance: {fileID: 3409921100632829925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &167258946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167258944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c41945895bc9f4cadd3d7a77b8e76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mast: {fileID: 1079848200}
+  adjustmentFactor: 2
+  windAttachmentFactor: 1.5
+  rope:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: d1ee904469f9e8e4e94291a895add5df, type: 2}
+    _variableInstancer: {fileID: 0}
+  mainSailContribution:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 52a8c42c8c2ef304793d84a19db64b6a, type: 2}
+    _variableInstancer: {fileID: 0}
+  pointOfSail:
+    _usage: 2
+    _value: 
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 6c74ce25fc6ada44e8ce6ddb0db20721, type: 2}
+    _variableInstancer: {fileID: 0}
+  shipForward: {fileID: 1863293266}
+  mainSailWorking:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 83d3ac81a25bde849a56a1e6c45e0fde, type: 2}
+    _variableInstancer: {fileID: 0}
 --- !u!1 &187900159
 GameObject:
   m_ObjectHideFlags: 0
@@ -6879,6 +6925,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064354726}
   m_CullTransparentMesh: 0
+--- !u!1 &1079848200 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3409921100440917382, guid: 7cc00ff5b9e42ef449219134e1172a99,
+    type: 3}
+  m_PrefabInstance: {fileID: 3409921100632829925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1083253567
 GameObject:
   m_ObjectHideFlags: 0
@@ -10738,6 +10790,18 @@ MonoBehaviour:
     _variableInstancer: {fileID: 0}
   mainSailRopeUI: {fileID: 192625289}
   frontSailRopeUI: {fileID: 145433509}
+  mainSailWorking:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 83d3ac81a25bde849a56a1e6c45e0fde, type: 2}
+    _variableInstancer: {fileID: 0}
+  frontSailWorking:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: a744c3cd4c458174dbe49c11b3825cd2, type: 2}
+    _variableInstancer: {fileID: 0}
 --- !u!1 &1636217200
 GameObject:
   m_ObjectHideFlags: 0
@@ -12069,6 +12133,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3409921100632829925}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1863293266 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2943313813597880612, guid: 7cc00ff5b9e42ef449219134e1172a99,
+    type: 3}
+  m_PrefabInstance: {fileID: 3409921100632829925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1910231160
 GameObject:
   m_ObjectHideFlags: 0
@@ -13037,6 +13107,193 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1737309637}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: rope._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: rope._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: f8d2c34eb39ee13449e152ab5766ef0c,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: pointOfSail._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: runningRange._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: beamReachRange._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: pointOfSail._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c74ce25fc6ada44e8ce6ddb0db20721,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: broadReachRange._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: closeReachRange._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: runningRange._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 65129f6d78348dd49bf7753c5494fb3a,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: closeHauledRange._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: frontSailWorking._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: beamReachRange._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 743e357718f4d6542a5a43c1fac7ccb5,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: broadReachRange._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: ab5f3cdf60ae9f54c84211dd916db12c,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: closeReachRange._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 271c2cec5a126ad4aadfab934a5cad15,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: closeHauledRange._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 070ec967682449e459ce731cfa57f7a1,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: frontSailWorking._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: a744c3cd4c458174dbe49c11b3825cd2,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: frontSailContribution._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: frontSailContribution._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 3323ea2471655cf42bd5ab294423fb64,
+        type: 2}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[0].time
+      value: -0.005713882
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].time
+      value: 0.4999844
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[2].time
+      value: 1.00354
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[0].value
+      value: 0.20269804
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].value
+      value: 1.0062282
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[2].value
+      value: 0.20180893
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[0].inSlope
+      value: 1.5889516
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].inSlope
+      value: -0.004263401
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[2].inSlope
+      value: -1.5974784
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[0].outSlope
+      value: 1.5889516
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].outSlope
+      value: -0.004263401
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[2].outSlope
+      value: -1.5974784
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 270081924, guid: 7cc00ff5b9e42ef449219134e1172a99, type: 3}
+      propertyPath: sailForceCurve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059012833834792238, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: mainSailWorking._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059012833834792238, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: frontSailWorking._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059012833834792238, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: mainSailWorking._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 83d3ac81a25bde849a56a1e6c45e0fde,
+        type: 2}
+    - target: {fileID: 1059012833834792238, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: frontSailWorking._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: a744c3cd4c458174dbe49c11b3825cd2,
+        type: 2}
     - target: {fileID: 1126333696803854129, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
       propertyPath: m_Autodestruct
@@ -13282,11 +13539,21 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1003211637}
+    - target: {fileID: 3409921101193406155, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3409921101193406165, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
       propertyPath: text
       value: 
       objectReference: {fileID: 741129889}
+    - target: {fileID: 3409921101193406165, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3409921101974868856, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
       propertyPath: m_IsActive
@@ -13377,6 +13644,28 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
       value: 0.10183716
       objectReference: {fileID: 0}
+    - target: {fileID: 4237762290696879015, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: mainSailWorking._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237762290696879015, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: frontSailWorking._usage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237762290696879015, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: mainSailWorking._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 83d3ac81a25bde849a56a1e6c45e0fde,
+        type: 2}
+    - target: {fileID: 4237762290696879015, guid: 7cc00ff5b9e42ef449219134e1172a99,
+        type: 3}
+      propertyPath: frontSailWorking._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: a744c3cd4c458174dbe49c11b3825cd2,
+        type: 2}
     - target: {fileID: 5582665173199465270, guid: 7cc00ff5b9e42ef449219134e1172a99,
         type: 3}
       propertyPath: m_Time
