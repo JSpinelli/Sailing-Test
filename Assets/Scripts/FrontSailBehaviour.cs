@@ -3,14 +3,9 @@ using UnityEngine;
 
 public class FrontSailBehaviour : MonoBehaviour
 {
-    public GameObject mast;
-    public float adjustmentFactor = 2f;
-    public float windAttachmentFactor = 1.5f;
-    
     public FloatReference rope;
     public StringReference pointOfSail;
-    public Transform shipForward;
-    
+
     public Vector2Reference runningRange;
     public Vector2Reference closeHauledRange;
     public Vector2Reference closeReachRange;
@@ -25,22 +20,6 @@ public class FrontSailBehaviour : MonoBehaviour
 
     void Update()
     {
-        float dotRight = Vector2.Dot(transform.right, WindManager.instance.wind.normalized);
-        float dotForward = Vector2.Dot(transform.forward, WindManager.instance.wind.normalized);
-        float angle = Vector3.Angle(transform.forward, shipForward.forward);
-
-        if (angle > rope.Value)
-        {
-            transform.RotateAround(mast.transform.position, transform.up,
-                (Mathf.Sign(-transform.localRotation.y) * adjustmentFactor)/ WindManager.instance.windMagnitude);
-        }
-        else
-        {
-            transform.RotateAround(mast.transform.position, transform.up,
-                -Mathf.Sign(dotRight) * WindManager.instance.windMagnitude * (1 - dotForward) *
-                windAttachmentFactor * (Mathf.Abs((rope.Value-angle) / rope.Value)));
-        }
-        
         UpdateContribution();
     }
     

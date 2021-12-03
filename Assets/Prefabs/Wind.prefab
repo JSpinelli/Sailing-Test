@@ -44,5 +44,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wind: {x: 1, y: 0}
-  windMagnitude: 1
-  noGo: -0.45
+  windMagnitude: 4
+  minimumTimeBeforeChange: 40
+  maximumTimeBeforeChange: 180
+  maximumWindChange: 90
+  minimumWindChange: -90
+  maximumWindMagnitude: 9
+  minimumWindMagnitude: 1
+  transitionTime: 10
+  noGo: -0.9
+  windChangeEnable: 0
+  randomizeStart: 0
+  lerpingSpeed: 0.2
