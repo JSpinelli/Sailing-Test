@@ -9,9 +9,8 @@ public class GameManager : MonoBehaviour
 
     public bool startTutorial = true;
 
-    public bool autoSailPositioning = true;
-    private bool _tillerTutorial = true;
-    private bool _windTutorial = false;
+    public bool autoMainSailPositioning = true;
+    public bool autoFrontSailPositioning = true;
     private void Awake()
     {
         if (Instance == null)
@@ -30,10 +29,10 @@ public class GameManager : MonoBehaviour
     {
         if (startTutorial)
         {
-            autoSailPositioning = true;
-            _tillerTutorial = true;
-            _windTutorial = false;
-            UIManager.Instance.SetActiveSailControls(false);
+            autoFrontSailPositioning = true;
+            autoMainSailPositioning = true;
+            UIManager.Instance.SetActiveFrontSailControls(false);
+            UIManager.Instance.SetActiveMainSailControls(false);
         }
     }
 

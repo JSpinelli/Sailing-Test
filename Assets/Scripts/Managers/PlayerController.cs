@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -23,10 +21,15 @@ public class PlayerController : MonoBehaviour
 
     public void LeftTrigger(InputAction.CallbackContext cx)
     {
-        if (!GameManager.Instance.autoSailPositioning)
+        if (!GameManager.Instance.autoFrontSailPositioning)
             leftTrigger = cx.ReadValueAsButton();
     }
-
+    public void RightTrigger(InputAction.CallbackContext cx)
+    {
+        if (!GameManager.Instance.autoFrontSailPositioning)
+            rightTrigger = cx.ReadValueAsButton();
+    }
+    
     public void LookingGlass(InputAction.CallbackContext cx)
     {
         looking = cx.ReadValueAsButton();
@@ -37,26 +40,21 @@ public class PlayerController : MonoBehaviour
         interactionButton = cx.ReadValueAsButton();
     }
 
-    public void RightTrigger(InputAction.CallbackContext cx)
-    {
-        if (!GameManager.Instance.autoSailPositioning)
-            rightTrigger = cx.ReadValueAsButton();
-    }
 
     public void Reload(InputAction.CallbackContext cx)
     {
-        SceneManager.LoadScene("BoatMechanics");
+        SceneManager.LoadScene("Tutorial Island");
     }
 
     public void RightBumper(InputAction.CallbackContext cx)
     {
-        if (!GameManager.Instance.autoSailPositioning)
+        if (!GameManager.Instance.autoMainSailPositioning)
             rightBumper = cx.performed;
     }
 
     public void LeftBumper(InputAction.CallbackContext cx)
     {
-        if (!GameManager.Instance.autoSailPositioning)
+        if (!GameManager.Instance.autoMainSailPositioning)
             leftBumper = cx.performed;
     }
 

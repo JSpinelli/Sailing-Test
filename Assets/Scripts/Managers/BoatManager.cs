@@ -8,10 +8,7 @@ public class BoatManager : MonoBehaviour
     private Rigidbody _rigidbody;
     private float _currentSpeed = 0;
     private float _currentTillerPos = 0;
-    private bool triggeredSplash = false;
-    private bool splashHappening = false;
-    private float splashtimer = 0;
-    
+
     public float speedFactor = 50f;
     public float torqueModifier;
     public float turningFactor = 0.5f;
@@ -20,6 +17,7 @@ public class BoatManager : MonoBehaviour
     public AnimationCurve tillerVelocity;
     
     public bool autoSail = false;
+    public bool torqueEnabled = false;
     [Range(0f, 1f)] public float mainSailContributionAuto;
     [Range(0f, 1f)] public float frontSailContributionAuto;
 
@@ -43,49 +41,7 @@ public class BoatManager : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         // HERE FOR BALANCING PURPOSES, THIS GET CHANGE AUTOMATICALLY WHEN ADDING A COLLIDER
         _rigidbody.inertiaTensor = new Vector3(1, 1, 1);
-        //previousYVel = _rigidbody.velocity.y;
     }
-
-    // private void Update()
-    // {
-    //     if (previousYVel < _rigidbody.velocity.y && !triggeredSplash)
-    //     {
-    //         Gamepad.current.SetMotorSpeeds(0.5f, 0);
-    //         splashHappening = true;
-    //         triggeredSplash = true;
-    //     }
-    //     if (previousYVel > _rigidbody.velocity.y && !triggeredSplash)
-    //     {
-    //         previousYVel = _rigidbody.velocity.y;
-    //     }
-    //     if (previousYVel > _rigidbody.velocity.y && triggeredSplash)
-    //     {
-    //         triggeredSplash = false;
-    //     }
-    //     if (previousYVel < _rigidbody.velocity.y && triggeredSplash)
-    //     {
-    //         previousYVel = _rigidbody.velocity.y;
-    //     }
-    //     Splash();
-    // }
-
-    private void Splash()
-    {
-        if (splashHappening)
-        {
-            if (splashtimer < splashDuration)
-            {
-                splashtimer += Time.deltaTime;
-            }
-            else
-            {
-                splashtimer = 0;
-                splashHappening = false;
-                Gamepad.current.SetMotorSpeeds(0, 0);
-            }
-        }
-    }
-
     private void FixedUpdate()
     {
         Vector2 sailDirection = new Vector2(transform.forward.x, transform.forward.z);
@@ -140,9 +96,12 @@ public class BoatManager : MonoBehaviour
             forceDir, ForceMode.Force
         );
 
-        _rigidbody.AddTorque(new Vector3(0, 0, -dot2).normalized *
-                             (torqueModifier * WindManager.instance.windMagnitude * _rigidbody.mass *
-                              (1 - Mathf.Abs(dot3))));
+        if (torqueEnabled)
+        {
+            _rigidbody.AddTorque(new Vector3(0, 0, -dot2).normalized *
+                                 (torqueModifier * WindManager.instance.windMagnitude * _rigidbody.mass *
+                                  (1 - Mathf.Abs(dot3))));   
+        }
 
         speed.Value = (int) (_rigidbody.velocity.magnitude * 100);
 
@@ -169,7 +128,7 @@ public class BoatManager : MonoBehaviour
         _currentTillerPos = tillerPos.localRotation.y;
         float tillerVal = Mathf.Sign(_currentTillerPos) * tillerVelocity.Evaluate(Mathf.Abs(_currentTillerPos));
         _rigidbody.AddForceAtPosition(
-            transform.right * (tillerVal * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude, 1, 50)),
+            transform.right * (tillerVal * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude, 10, 50)),
             tillerPos.position);
     }
 
@@ -177,7 +136,7 @@ public class BoatManager : MonoBehaviour
     {
         if (PlayerController.leftTrigger)
         {
-            //m_frontSailMat.SetColor("_Tint", grabColor);
+            Debug.Log("Doing Something");
             if (frontSailRope.Value >= 2)
             {
                 frontSailRope.Value -= ropeStep;
@@ -198,7 +157,7 @@ public class BoatManager : MonoBehaviour
 
         if (PlayerController.rightTrigger)
         {
-            //m_frontSailMat.SetColor("_Tint", grabColor);
+            Debug.Log("Doing Something 2");
             if (frontSailRope.Value < 80)
             {
                 frontSailRope.Value += ropeStep;
@@ -216,7 +175,6 @@ public class BoatManager : MonoBehaviour
 
         if (!PlayerController.rightTrigger && !PlayerController.leftTrigger)
         {
-            //m_frontSailMat.SetColor("_Tint", m_originalColor);
             ropeTight.Stop();
             ropeUnwind.Stop();
         }
@@ -224,7 +182,6 @@ public class BoatManager : MonoBehaviour
         if (PlayerController.rightBumper)
         {
             PlayerController.rightBumper = false;
-            //m_mainSailMat.SetColor("_Tint", grabColor);
             if (mainSailRope.Value < 52)
             {
                 mainSailRope.Value += 10;
@@ -243,7 +200,6 @@ public class BoatManager : MonoBehaviour
         if (PlayerController.leftBumper)
         {
             PlayerController.leftBumper = false;
-            //m_mainSailMat.SetColor("_Tint", grabColor);
             if (mainSailRope.Value >= 2)
             {
                 mainSailRope.Value -= 10;
@@ -261,7 +217,6 @@ public class BoatManager : MonoBehaviour
 
         if (!PlayerController.rightBumper && !PlayerController.leftBumper)
         {
-            //m_mainSailMat.SetColor("_Tint", m_originalColor);
             ropeTight.Stop();
             ropeUnwind.Stop();
         }

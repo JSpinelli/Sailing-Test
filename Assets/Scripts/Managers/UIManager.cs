@@ -142,10 +142,18 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    
-    public void SetActiveSailControls(bool active)
+
+    public void PointOfSailingViz(bool active)
+    {
+        display.gameObject.SetActive(active);
+    }
+
+    public void SetActiveFrontSailControls(bool active)
+    {
+        frontSailControls.SetActive(active);
+    }    
+    public void SetActiveMainSailControls(bool active)
     {
         mainSailControls.SetActive(active);
-        frontSailControls.SetActive(active);
     }
 }

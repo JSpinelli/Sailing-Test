@@ -38,37 +38,37 @@ public class FrontSailBehaviour : MonoBehaviour
             case "In Irons":
             {
                 frontSailContribution.Value = Mathf.Lerp(frontSailContribution.Value, 0, Time.deltaTime);
-                if (GameManager.Instance.autoSailPositioning) rope.Value = 5;
+                if (GameManager.Instance.autoFrontSailPositioning) rope.Value = 5;
                 break;
             }
             case "Close Hauled":
             {
                 frontSailSpread = closeHauledRange.Value;
-                if (GameManager.Instance.autoSailPositioning) rope.Value = 10;
+                if (GameManager.Instance.autoFrontSailPositioning) rope.Value = 10;
                 break;
             }
             case "Close Reach":
             {
                 frontSailSpread = closeReachRange.Value;
-                if (GameManager.Instance.autoSailPositioning) rope.Value = 20;
+                if (GameManager.Instance.autoFrontSailPositioning) rope.Value = 25;
                 break;
             }
             case "Beam Reach":
             {
                 frontSailSpread = beamReachRange.Value;
-                if (GameManager.Instance.autoSailPositioning) rope.Value = 35;
+                if (GameManager.Instance.autoFrontSailPositioning) rope.Value = 40;
                 break;
             }
             case "Broad Reach":
             {
                 frontSailSpread = broadReachRange.Value;
-                if (GameManager.Instance.autoSailPositioning) rope.Value = 50;
+                if (GameManager.Instance.autoFrontSailPositioning) rope.Value = 55;
                 break;
             }
             case "Running":
             {
                 frontSailSpread = runningRange.Value;
-                if (GameManager.Instance.autoSailPositioning) rope.Value = 60;
+                if (GameManager.Instance.autoFrontSailPositioning) rope.Value = 60;
                 break;
             }
         }
