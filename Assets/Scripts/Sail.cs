@@ -5,43 +5,45 @@ public class Sail : MonoBehaviour
 {
     public Transform ship;
     public GameObject mast;
-    public float adjustmentFactor = 2f;
-    public float windAttachmentFactor = 1.5f;
+    public float adjustmentFactor = 20f;
+    public float windAttachmentFactor = 15f;
     public FloatReference rope;
+
+    public float tolerance = 2;
+
+    private float _diff;
+    private float _angle;
+    private float _windDirectionShip;
+    private float _yRot;
 
     private void Update()
     {
-        float dotRight = Vector2.Dot(transform.right, WindManager.instance.wind.normalized);
-
-        float dotForward = Vector2.Dot(transform.forward, WindManager.instance.wind.normalized);
-
-        float windDirectionShip = Vector2.Dot(ship.right, WindManager.instance.wind.normalized);
-        float sailDirectionShip = Vector2.Dot(ship.forward, transform.right);
+        _windDirectionShip = Vector2.Dot(ship.right, WindManager.instance.wind.normalized);
+        _angle = Vector3.Angle(transform.forward, ship.forward);
+        _diff = rope.Value - _angle;
+        _yRot = transform.localRotation.y;
         
-
-        float angle = Vector3.Angle(transform.forward, ship.forward);
-        
-        // if ((Mathf.Sign(windDirectionShip) > 0) && (Mathf.Sign(sailDirectionShip) < 0))
-        // {
-        //     Debug.Log("Wrong Side");
-        // }
-        //
-        // if ((Mathf.Sign(windDirectionShip) > 0) && (Mathf.Sign(sailDirectionShip) < 0))
-        // {
-        //     Debug.Log("Wrong Side");
-        // }
-
-
-        if (angle > rope.Value)
+        // WENT TO FAR
+        if (_diff < -tolerance)
         {
             transform.RotateAround(mast.transform.position, transform.up,
-                (Mathf.Sign(-transform.localRotation.y) * adjustmentFactor) / WindManager.instance.windMagnitude);
+                ((Mathf.Sign( -_yRot) * adjustmentFactor) * WindManager.instance.windMagnitude) * Time.deltaTime);
+            return;
         }
-        else
+        
+        // WRONG SIDE
+        if ((Mathf.Sign(_windDirectionShip) * Mathf.Sign(_yRot)> 0))
         {
             transform.RotateAround(mast.transform.position, transform.up,
-                -Mathf.Sign(dotRight) * WindManager.instance.windMagnitude * (1 - dotForward) *
-                windAttachmentFactor * (Mathf.Abs((rope.Value - angle) / rope.Value)));
+                (Mathf.Sign(-_windDirectionShip) * windAttachmentFactor) * WindManager.instance.windMagnitude * Time.deltaTime);
+            return;
+        }
+        
+        // GOING WITH THE WIND
+        if (_diff > tolerance)
+        {
+            transform.RotateAround(mast.transform.position, transform.up,
+                ((Mathf.Sign(-_windDirectionShip) * windAttachmentFactor) * WindManager.instance.windMagnitude) * Time.deltaTime);
         }
     }
 }

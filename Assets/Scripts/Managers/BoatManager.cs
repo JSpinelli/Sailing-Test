@@ -136,7 +136,6 @@ public class BoatManager : MonoBehaviour
     {
         if (PlayerController.leftTrigger)
         {
-            Debug.Log("Doing Something");
             if (frontSailRope.Value >= 2)
             {
                 frontSailRope.Value -= ropeStep;
@@ -157,7 +156,6 @@ public class BoatManager : MonoBehaviour
 
         if (PlayerController.rightTrigger)
         {
-            Debug.Log("Doing Something 2");
             if (frontSailRope.Value < 80)
             {
                 frontSailRope.Value += ropeStep;
@@ -203,6 +201,10 @@ public class BoatManager : MonoBehaviour
             if (mainSailRope.Value >= 2)
             {
                 mainSailRope.Value -= 10;
+                if (mainSailRope.Value == 0)
+                {
+                    mainSailRope.Value = 2;
+                }
                 if (!ropeTight.isPlaying)
                 {
                     ropeTight.Play();

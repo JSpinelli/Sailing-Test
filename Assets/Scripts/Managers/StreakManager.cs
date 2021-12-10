@@ -28,7 +28,7 @@ public class StreakManager : MonoBehaviour
         {
             _positions[i].y = yPos;
             _transformVector = transform.worldToLocalMatrix * _positions[i];
-            _transformVector.x += Mathf.Sin(_transformVector.y + (Time.time * speed)) * ((1-sailContribution) * magnitude);
+            _transformVector.x = _transformVector.x + (Mathf.Sin(_transformVector.y + (Time.deltaTime * speed)) * ((1-sailContribution) * magnitude) * Time.timeScale);
             _positions[i] = transform.localToWorldMatrix * _transformVector;
         }
 

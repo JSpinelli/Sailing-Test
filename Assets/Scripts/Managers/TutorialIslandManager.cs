@@ -1,8 +1,11 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityAtoms.BaseAtoms;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class TutorialIslandManager : MonoBehaviour
 {
@@ -25,6 +28,9 @@ public class TutorialIslandManager : MonoBehaviour
     public TextMeshProUGUI text;
 
     public StringReference pointOfSailing;
+    
+    public bool startTutorial = true;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -39,6 +45,13 @@ public class TutorialIslandManager : MonoBehaviour
     }
     void Start()
     {
+        if (startTutorial)
+        {
+            GameManager.Instance.autoFrontSailPositioning = true;
+            GameManager.Instance.autoMainSailPositioning = true;
+            UIManager.Instance.SetActiveFrontSailControls(false);
+            UIManager.Instance.SetActiveMainSailControls(false);
+        }
         island.SetActive(false);
         WindManager.instance.SetWind(startingWind,startingMagnitude);
         foreach (var ring in rings)
@@ -67,18 +80,20 @@ public class TutorialIslandManager : MonoBehaviour
     public void UpdateRing(int index)
     {
         if (index >= rings.Count) return;
-        if ((index) == 3)
+        if ((index) == 2)
         {
             GameManager.Instance.autoMainSailPositioning = false;
             UIManager.Instance.SetActiveMainSailControls(true);
         }
         if ((index + 1) >= rings.Count)
         {
+            GameManager.Instance.autoMainSailPositioning = false;
+            UIManager.Instance.SetActiveMainSailControls(true);
             _finishedRings = true;
             GameManager.Instance.autoFrontSailPositioning = false;
             UIManager.Instance.SetActiveFrontSailControls(true);
             UIManager.Instance.PointOfSailingViz(true);
-            WindManager.instance.SetWind(new Vector2(0,-1),startingMagnitude+1);
+            WindManager.instance.SetWind(new Vector2(0.2f,-0.1f).normalized,startingMagnitude+1);
             island.SetActive(true);
         }
         else
@@ -88,3 +103,20 @@ public class TutorialIslandManager : MonoBehaviour
         }
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(TutorialIslandManager))]
+public class DrawTutorialIslandManager: Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        TutorialIslandManager manager = (TutorialIslandManager)target;
+        if(GUILayout.Button("Finish Tutorial"))
+        {
+            manager.UpdateRing(manager.rings.Count-1);
+        }
+    }
+}
+#endif

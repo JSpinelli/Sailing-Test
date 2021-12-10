@@ -38,6 +38,14 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _targetAmpX = amplitudeX;
+        _targetAmpZ = amplitudeZ;
+        _targetLenghtX = lengthX;
+        _targetLenghtZ = lengthZ;
+    }
+
     private void Update()
     {
         offsetX += Time.deltaTime * speedX;

@@ -5,10 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public BoatManager boatManager;
-
-    public bool startTutorial = true;
-
     public bool autoMainSailPositioning = true;
     public bool autoFrontSailPositioning = true;
     private void Awake()
@@ -23,19 +19,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (startTutorial)
-        {
-            autoFrontSailPositioning = true;
-            autoMainSailPositioning = true;
-            UIManager.Instance.SetActiveFrontSailControls(false);
-            UIManager.Instance.SetActiveMainSailControls(false);
-        }
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

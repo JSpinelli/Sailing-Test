@@ -1,7 +1,8 @@
-﻿using UnityAtoms.BaseAtoms;
-using UnityEngine;
+﻿using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
-[ExecuteInEditMode]
 public class WindManager : MonoBehaviour
 {
     public static WindManager instance;
@@ -53,8 +54,8 @@ public class WindManager : MonoBehaviour
 
     public void SetWind(Vector2 direction, float magnitude)
     {
-        wind = direction.normalized;
-        windMagnitude = magnitude;
+        targetDirection = direction.normalized;
+        targetMagnitude = magnitude;
     }
 
     private void RandomizeStart()
@@ -83,12 +84,12 @@ public class WindManager : MonoBehaviour
             }
         }
 
-        if (Vector2.Distance(targetDirection, wind) < 0.01f)
+        if (Vector2.Distance(targetDirection, wind) > 0.01f)
         {
             wind = Vector2.Lerp(wind, targetDirection, Time.deltaTime * lerpingSpeed);
         }
 
-        if (Mathf.Abs(targetMagnitude - windMagnitude) < 0.1f)
+        if (Mathf.Abs(targetMagnitude - windMagnitude) > 0.1f)
         {
             windMagnitude = Mathf.Lerp(windMagnitude, targetMagnitude, Time.deltaTime * lerpingSpeed);
         }
@@ -107,3 +108,20 @@ public class WindManager : MonoBehaviour
         targetDirection = Quaternion.Euler(0, 0, Random.Range(minimumWindChange, maximumWindChange)) * wind;
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(WindManager))]
+public class DrawWindManager: Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        WindManager manager = (WindManager)target;
+        if(GUILayout.Button("Change Wind"))
+        {
+            manager.RotateWind();
+        }
+    }
+}
+#endif
