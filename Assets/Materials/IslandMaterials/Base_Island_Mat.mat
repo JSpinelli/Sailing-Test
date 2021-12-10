@@ -7,18 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SailStreak
+  m_Name: Base_Island_Mat
   m_Shader: {fileID: 4800000, guid: bee44b4a58655ee4cbff107302a3e131, type: 3}
-  m_ShaderKeywords: _CELPRIMARYMODE_NONE _TEXTUREBLENDINGMODE_MULTIPLY _UNITYSHADOWMODE_NONE
+  m_ShaderKeywords: DR_SPECULAR_ON _CELPRIMARYMODE_SINGLE _TEXTUREBLENDINGMODE_MULTIPLY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - SRPDEFAULTUNLIT
-  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -70,22 +68,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
     - _Blend: 0
@@ -93,90 +75,91 @@ Material:
     - _CameraDistanceImpact: 0
     - _CelExtraEnabled: 0
     - _CelNumSteps: 3
-    - _CelPrimaryMode: 0
-    - _ClearCoatMask: 0
-    - _ClearCoatSmoothness: 0
+    - _CelPrimaryEnabled: 0
+    - _CelPrimaryMode: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 10
-    - _EnvironmentReflections: 1
-    - _FlatRimEdgeSmoothness: 0.5
+    - _DstBlend: 0
+    - _FlatRimAmount: 0.5
+    - _FlatRimEdgeSmoothness: 0.279
+    - _FlatRimEnabled: 1
     - _FlatRimLightAlign: 0
-    - _FlatRimSize: 0.5
-    - _FlatSpecularEdgeSmoothness: 0
+    - _FlatRimSize: 0.174
+    - _FlatShadowsEnabled: 1
+    - _FlatSmoothness: 0.362
+    - _FlatSpecularEdgeSmoothness: 0.172
+    - _FlatSpecularEnabled: 1
     - _FlatSpecularSize: 0.1
-    - _Flatness: 1
+    - _FlatSpecularSmoothness: 0.5
+    - _Flatness: 0.556
     - _FlatnessExtra: 1
-    - _GlossMapScale: 0
+    - _FlatnessSecondary: 1
+    - _GlossMapScale: 1
     - _Glossiness: 0
-    - _GlossyReflections: 0
+    - _GlossyReflections: 1
     - _GradientAngle: 0
     - _GradientCenterX: 0
     - _GradientCenterY: 0
     - _GradientEnabled: 0
+    - _GradientEnd: 0.55
     - _GradientSize: 10
-    - _LightContribution: 0
-    - _LightFalloffSize: 0
+    - _GradientStart: 1.17
+    - _LightContribution: 0.362
+    - _LightFalloffSize: 0.0001
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
     - _Metallic: 0
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineDepthOffset: 0
     - _OutlineEnabled: 0
     - _OutlineScale: 1
-    - _OutlineWidth: 0.01
+    - _OutlineWidth: 1
     - _OverrideLightmapDir: 0
-    - _Parallax: 0.005
+    - _OverrideShadows: 1
+    - _OverrideShadowsEnabled: 1
+    - _Parallax: 0.02
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
     - _RimEnabled: 0
-    - _SelfShadingSize: 1
-    - _SelfShadingSizeExtra: 0.6
-    - _ShadowEdgeSize: 0.05
+    - _SecondaryColor: 1
+    - _SecondaryColorEnabled: 1
+    - _SelfShadingSize: 0.456
+    - _SelfShadingSizeExtra: 0.5
+    - _ShadowEdgeSize: 0
     - _ShadowEdgeSizeExtra: 0.05
-    - _Smoothness: 0.5
+    - _ShadowEdgeSmoothness: 0.071
+    - _ShadowFalloff: 0.01
     - _SmoothnessTextureChannel: 0
-    - _SpecularEnabled: 0
+    - _SpecularEnabled: 1
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
-    - _Surface: 1
+    - _SrcBlend: 1
+    - _Surface: 0
     - _TextureBlendingMode: 0
     - _TextureImpact: 1
+    - _UVSec: 0
     - _UnityShadowMode: 0
     - _UnityShadowOcclusion: 0
     - _UnityShadowPower: 0.2
     - _UnityShadowSharpness: 1
     - _VertexColorsEnabled: 0
-    - _WorkflowMode: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.9150943, g: 0.15021355, b: 0.15021355, a: 0.9019608}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorDim: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorDimCurve: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
-    - _ColorDimExtra: {r: 0.28555536, g: 0.8773585, b: 0.85235274, a: 1}
-    - _ColorDimSteps: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
-    - _ColorGradient: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlatRimColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
-    - _FlatSpecularColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _BaseColor: {r: 0.9150943, g: 0.7182098, b: 0.2719384, a: 1}
+    - _Color: {r: 0.9450981, g: 0.7686275, b: 0.36862746, a: 1}
+    - _ColorCelShadow: {r: 0.49056602, g: 0.34478462, b: 0.4476891, a: 1}
+    - _ColorDim: {r: 0.8113208, g: 0.26406196, b: 0.29563445, a: 0.85}
+    - _ColorDimCurve: {r: 0.85, g: 0.85, b: 0.85, a: 0.85}
+    - _ColorDimExtra: {r: 1, g: 0.24056602, b: 0.26141328, a: 0.85}
+    - _ColorDimSteps: {r: 0.85, g: 0.85, b: 0.85, a: 0.85}
+    - _ColorGradient: {r: 1, g: 0.43189976, b: 0, a: 1}
+    - _ColorSecondary: {r: 1, g: 0.55879205, b: 0, a: 1}
+    - _ColorShadow: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _ColorShadows: {r: 0.5471698, g: 0.37346402, b: 0.26584196, a: 1}
+    - _EmissionColor: {r: 4.9245777, g: 0, b: 0, a: 1}
+    - _FlatRimColor: {r: 1, g: 0.91906786, b: 0.5518868, a: 1}
+    - _FlatSpecularColor: {r: 0.8207547, g: 0.62621325, b: 0.19744569, a: 1}
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _OutlineColor: {r: 0.43454072, g: 0.990566, b: 0.96985644, a: 1}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _UnityShadowColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _UnityShadowColor: {r: 0.65, g: 0.65, b: 0.65, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4428133910740162343
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
