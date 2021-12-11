@@ -1,7 +1,5 @@
-﻿using System;
-using UnityAtoms.BaseAtoms;
+﻿using UnityAtoms.BaseAtoms;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class BoatManager : MonoBehaviour
 {
@@ -13,9 +11,8 @@ public class BoatManager : MonoBehaviour
     public float torqueModifier;
     public float turningFactor = 0.5f;
     public float ropeStep = .5f;
-    public float splashDuration = 2;
     public AnimationCurve tillerVelocity;
-    
+
     public bool autoSail = false;
     public bool torqueEnabled = false;
     [Range(0f, 1f)] public float mainSailContributionAuto;
@@ -25,7 +22,7 @@ public class BoatManager : MonoBehaviour
     public AudioSource ropeUnwind;
     public Transform tillerPos;
     public Transform tillerOrigin;
-    
+
     public FloatReference tillerSensitivity;
     public IntReference speed;
     public StringReference typeOfSailing;
@@ -33,15 +30,16 @@ public class BoatManager : MonoBehaviour
     public FloatReference frontSailRope;
     public FloatReference mainSailContribution;
     public FloatReference frontSailContribution;
-    
+
     [HideInInspector] public float dot2;
-    
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         // HERE FOR BALANCING PURPOSES, THIS GET CHANGE AUTOMATICALLY WHEN ADDING A COLLIDER
         _rigidbody.inertiaTensor = new Vector3(1, 1, 1);
     }
+
     private void FixedUpdate()
     {
         Vector2 sailDirection = new Vector2(transform.forward.x, transform.forward.z);
@@ -86,10 +84,10 @@ public class BoatManager : MonoBehaviour
             mainSailContribution.Value = mainSailContributionAuto;
             frontSailContribution.Value = frontSailContributionAuto;
         }
-        
+
         _currentSpeed = mainSailContribution.Value + frontSailContribution.Value;
         _currentSpeed = _currentSpeed * WindManager.instance.windMagnitude;
-        
+
         Vector3 forceDir =
             transform.forward * (_currentSpeed * speedFactor);
         _rigidbody.AddForce(
@@ -100,7 +98,7 @@ public class BoatManager : MonoBehaviour
         {
             _rigidbody.AddTorque(new Vector3(0, 0, -dot2).normalized *
                                  (torqueModifier * WindManager.instance.windMagnitude * _rigidbody.mass *
-                                  (1 - Mathf.Abs(dot3))));   
+                                  (1 - Mathf.Abs(dot3))));
         }
 
         speed.Value = (int) (_rigidbody.velocity.magnitude * 100);
@@ -205,6 +203,7 @@ public class BoatManager : MonoBehaviour
                 {
                     mainSailRope.Value = 2;
                 }
+
                 if (!ropeTight.isPlaying)
                 {
                     ropeTight.Play();

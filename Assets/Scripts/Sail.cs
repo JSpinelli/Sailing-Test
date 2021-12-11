@@ -7,11 +7,12 @@ public class Sail : MonoBehaviour
     public GameObject mast;
     public float adjustmentFactor = 20f;
     public float windAttachmentFactor = 15f;
+    
     public FloatReference rope;
+    public FloatReference ropeDiff;
 
     public float tolerance = 2;
-
-    private float _diff;
+    
     private float _angle;
     private float _windDirectionShip;
     private float _yRot;
@@ -20,11 +21,11 @@ public class Sail : MonoBehaviour
     {
         _windDirectionShip = Vector2.Dot(ship.right, WindManager.instance.wind.normalized);
         _angle = Vector3.Angle(transform.forward, ship.forward);
-        _diff = rope.Value - _angle;
+        ropeDiff.Value = rope.Value - _angle;
         _yRot = transform.localRotation.y;
         
         // WENT TO FAR
-        if (_diff < -tolerance)
+        if (ropeDiff.Value  < -tolerance)
         {
             transform.RotateAround(mast.transform.position, transform.up,
                 ((Mathf.Sign( -_yRot) * adjustmentFactor) * WindManager.instance.windMagnitude) * Time.deltaTime);
@@ -40,7 +41,7 @@ public class Sail : MonoBehaviour
         }
         
         // GOING WITH THE WIND
-        if (_diff > tolerance)
+        if (ropeDiff.Value  > tolerance)
         {
             transform.RotateAround(mast.transform.position, transform.up,
                 ((Mathf.Sign(-_windDirectionShip) * windAttachmentFactor) * WindManager.instance.windMagnitude) * Time.deltaTime);

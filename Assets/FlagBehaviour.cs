@@ -16,13 +16,18 @@ public class FlagBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 newWind =  transform.worldToLocalMatrix * new Vector3(WindManager.instance.wind.x, 0, WindManager.instance.wind.y).normalized;
+#if UNITY_EDITOR
+        if (WindManager.instance == null) return;
+#endif
+        Vector3 newWind = transform.worldToLocalMatrix *
+                          new Vector3(WindManager.instance.wind.x, 0, WindManager.instance.wind.y).normalized;
         _positions[0] = transform.localPosition;
         for (int i = 1; i < _positions.Length; i++)
         {
             _positions[i] = _positions[i - 1] + (newWind * lineResolution);
             _positions[i].y = _positions[0].y;
         }
+
         _trail.SetPositions(_positions);
     }
 }
