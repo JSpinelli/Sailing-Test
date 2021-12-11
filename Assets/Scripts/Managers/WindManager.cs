@@ -3,6 +3,7 @@
 using UnityEditor;
 #endif
 
+[ExecuteInEditMode]
 public class WindManager : MonoBehaviour
 {
     public static WindManager instance;

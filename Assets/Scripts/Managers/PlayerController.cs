@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public static PlayerController Instance;
+    
     public static bool leftTrigger = false;
     public static bool rightTrigger = false;
     public static bool tillerGrabbed = false;
@@ -18,6 +22,36 @@ public class PlayerController : MonoBehaviour
     public static Vector2 cameraDir;
     public static Vector2 playerDir;
 
+    public static PlayerInput inputs;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Debug.Log("Should not be another class");
+            Destroy(this);
+        }
+    }
+    
+    private void Start()
+    {
+        inputs = GetComponent<PlayerInput>();
+    }
+
+    public void EnableUIInput()
+    {
+        inputs.SwitchCurrentActionMap("UI");
+        //inputs.actions["UI"].Enable();
+    }
+    
+    public void EnableBoatInput()
+    {
+        inputs.SwitchCurrentActionMap("Boat");
+    }
 
     public void LeftTrigger(InputAction.CallbackContext cx)
     {
@@ -38,12 +72,6 @@ public class PlayerController : MonoBehaviour
     public void Interaction(InputAction.CallbackContext cx)
     {
         interactionButton = cx.ReadValueAsButton();
-    }
-
-
-    public void Reload(InputAction.CallbackContext cx)
-    {
-        SceneManager.LoadScene("Tutorial Island");
     }
 
     public void RightBumper(InputAction.CallbackContext cx)

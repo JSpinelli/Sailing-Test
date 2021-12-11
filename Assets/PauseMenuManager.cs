@@ -1,15 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
-public class MainMenuManager : MonoBehaviour
+public class PauseMenuManager : MonoBehaviour
 {
-
     public GameObject startMenu;
     public GameObject controls;
 
     public GameObject backButton;
-    public GameObject startButton;
+    public GameObject resumeButton;
     public EventSystem eventSystem;
 
 
@@ -18,12 +18,7 @@ public class MainMenuManager : MonoBehaviour
         startMenu.SetActive(true);
         controls.SetActive(false);
     }
-
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Tutorial Island");
-    }
-
+    
     public void ShowControls()
     {
         startMenu.SetActive(false);
@@ -35,7 +30,7 @@ public class MainMenuManager : MonoBehaviour
     {
         startMenu.SetActive(true);
         controls.SetActive(false);
-        eventSystem.SetSelectedGameObject(startButton);
+        eventSystem.SetSelectedGameObject(resumeButton);
     }
 
     public void ExitGame()

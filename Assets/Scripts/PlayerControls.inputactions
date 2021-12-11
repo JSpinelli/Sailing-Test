@@ -264,6 +264,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "21fe0fc5-adf1-4113-825e-e8d3609ce9cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -271,6 +279,17 @@
                     "name": "",
                     "id": "2fdd7eae-f20d-4795-95c5-f25f0c6c2f67",
                     "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d68f043d-7f3a-48b1-9b0f-253581368a9b",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -297,6 +316,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21ab1925-6626-47d5-ba4e-77a99cec6a76",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

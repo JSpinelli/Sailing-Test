@@ -7,7 +7,7 @@ public class Vane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 newWind = new Vector3(WindManager.instance.wind.x, 0, WindManager.instance.wind.y);
+        Vector3 newWind = new Vector3(0, 0, 1);
         transform.forward = newWind;
     }
 }

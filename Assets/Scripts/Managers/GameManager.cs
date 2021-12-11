@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,13 +21,6 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        // if (PlayerController.paused)
-        //     Pause();
-    }
 
     public void Pause()
     {
@@ -34,13 +28,21 @@ public class GameManager : MonoBehaviour
         if (gamePaused)        
         {
             UIManager.Instance.ShowPauseMenu();
+            PlayerController.Instance.EnableUIInput();
             Time.timeScale = 0;
         }
         else
         {
             UIManager.Instance.HidePauseMenu();
+            PlayerController.Instance.EnableBoatInput();
             Time.timeScale = 1;
         }
+    }
+
+    public void ReloadScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Tutorial Island");
     }
 
     public void ExitGame()

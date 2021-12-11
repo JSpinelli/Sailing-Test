@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityAtoms.BaseAtoms;
@@ -47,6 +48,11 @@ public class UIManager : MonoBehaviour
             Debug.Log("Should not be another class");
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        HidePauseMenu();
     }
 
     void Update()
