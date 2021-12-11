@@ -243,7 +243,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "761f4f7d-44ff-48f0-9215-f7cbb49df35b",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -251,7 +251,7 @@
                 },
                 {
                     "name": "Select",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "5e89e35e-eab9-451d-9abf-9ddf5ddde79d",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -259,7 +259,7 @@
                 },
                 {
                     "name": "Back",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "1c270a7c-26e3-4b2f-bfa6-4c37b381afae",
                     "expectedControlType": "Button",
                     "processors": "",

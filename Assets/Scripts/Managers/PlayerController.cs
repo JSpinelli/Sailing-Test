@@ -93,6 +93,6 @@ public class PlayerController : MonoBehaviour
     public void Pause(InputAction.CallbackContext cx)
     {
         if (cx.performed)
-            paused = !paused;
+            GameManager.Instance.Pause();
     }
 }

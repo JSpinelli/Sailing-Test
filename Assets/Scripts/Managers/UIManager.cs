@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI leftStickText;
     public GameObject mainSailControls;
     public GameObject frontSailControls;
+    public GameObject pauseMenu;
+    public GameObject normalUI;
     
     public IntReference speedVal;
     public FloatReference mainSailRope;
@@ -141,6 +143,18 @@ public class UIManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void ShowPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+        normalUI.SetActive(false);
+    }
+    
+    public void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+        normalUI.SetActive(true);
     }
 
     public void PointOfSailingViz(bool active)
