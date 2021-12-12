@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     public GameObject frontSailControls;
     public GameObject pauseMenu;
     public GameObject normalUI;
+
+    public GameObject controls;
     
     public IntReference speedVal;
     public FloatReference mainSailRope;
@@ -37,6 +39,8 @@ public class UIManager : MonoBehaviour
     public BoolReference frontSailWorking;
     public StringReference pointOfSailing;
 
+    private bool currentControls = false;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -53,6 +57,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         HidePauseMenu();
+        controls.SetActive(false);
     }
 
     void Update()
@@ -161,6 +166,12 @@ public class UIManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         normalUI.SetActive(true);
+    }
+
+    public void ShowControls()
+    {
+        currentControls = !currentControls;
+        controls.SetActive(currentControls);
     }
 
     public void PointOfSailingViz(bool active)

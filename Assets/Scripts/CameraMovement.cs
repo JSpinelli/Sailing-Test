@@ -26,6 +26,8 @@ public class CameraMovement : MonoBehaviour
     public Camera cam;
     public Transform boat;
 
+    public bool movementEnabled = false;
+
     private void Awake()
     {
         cameraPivot = transform;
@@ -58,12 +60,15 @@ public class CameraMovement : MonoBehaviour
 
         cameraHead.localRotation = Quaternion.Euler(pitchAngle, 0, 0);
         cameraHead.localPosition = Vector3.up * Mathf.Lerp(minHeight, maxHeight, tForHeight);
-        
-        Vector3 movement = Quaternion.Euler(0, cam.transform.eulerAngles.y - boat.transform.eulerAngles.y, 0) * new Vector3(PlayerController.playerDir.x * walkSpeed * Time.deltaTime, 0, PlayerController.playerDir.y * walkSpeed * Time.deltaTime);
-        movement = transform.localPosition + movement;
-        movement.x = Mathf.Clamp(movement.x, -2, 2);
-        movement.z = Mathf.Clamp(movement.z, -7, 7);
-        transform.localPosition = movement;
+
+        if (movementEnabled)
+        {
+            Vector3 movement = Quaternion.Euler(0, cam.transform.eulerAngles.y - boat.transform.eulerAngles.y, 0) * new Vector3(PlayerController.playerDir.x * walkSpeed * Time.deltaTime, 0, PlayerController.playerDir.y * walkSpeed * Time.deltaTime);
+            movement = transform.localPosition + movement;
+            movement.x = Mathf.Clamp(movement.x, -2, 2);
+            movement.z = Mathf.Clamp(movement.z, -7, 7);
+            transform.localPosition = movement;
+        }
 
     }
 }

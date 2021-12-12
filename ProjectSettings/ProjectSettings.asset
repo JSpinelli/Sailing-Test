@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0.0.1
+  bundleVersion: 1.0.4
   preloadedAssets:
   - {fileID: 11400000, guid: 2aa0bb8eb5249ed4eb5c19c7813aa73f, type: 2}
   metroInputSource: 0
@@ -156,11 +156,11 @@ PlayerSettings:
   applicationIdentifier:
     Standalone: com.JulianSpinelli.FromtheInk
   buildNumber:
-    Standalone: 1
-    iPhone: 1
+    Standalone: 4
+    iPhone: 4
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 5
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -601,7 +601,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: CLAYXELS_URP;CLAYXELS_RETOPO;AMPLIFY_SHADER_EDITOR
+    1: BUILD_TYPE_RELEASE;BUILD_PLATFORM_PC;BUILD_ARCH_WINDOWSX86;CLAYXELS_URP;CLAYXELS_RETOPO;AMPLIFY_SHADER_EDITOR
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

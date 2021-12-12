@@ -22,7 +22,7 @@ MonoBehaviour:
     binaryNameFormat: '{0}.app'
   variants:
   - variantName: macOS Architecture
-    selectedIndex: 0
+    selectedIndex: 2
     values:
     - Intelx64
     - Apple Silicon
@@ -105,12 +105,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basicSettings:
     baseBuildFolder: Builds
-    buildPath: $VERSION/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE
+    buildPath: $VERSION/$PLATFORM
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 1
-    buildVersion: 1.0.0.1
-    versionTemplate: 1.0.0.$BUILD
+    buildCounter: 4
+    buildVersion: 1.0.4
+    versionTemplate: 1.0.$BUILD
     autoGenerate: 1
     syncWithPlayerSettings: 0
   _releaseTypeList:
@@ -131,15 +131,15 @@ MonoBehaviour:
     - {fileID: -1933788700241271917}
   _projectConfigurations:
     configSet:
-      _Buckets: 00000000ffffffff0400000002000000ffffffff0300000001000000
-      _HashCodes: d5542d7595803a14b3f3dc63510e9f592d6dfd480000000000000000
-      _Next: ffffffffffffffffffffffffffffffffffffffff0000000000000000
+      _Buckets: ffffffffffffffff0400000002000000ffffffff0300000001000000
+      _HashCodes: ceee4e3995803a14b3f3dc63510e9f592d6dfd480000000000000000
+      _Next: ffffffff00000000ffffffffffffffffffffffff0000000000000000
       _Count: 5
       _Version: 5
       _FreeList: -1
       _FreeCount: 0
       _Keys:
-      - Release/macOS/macOS (Intelx64,App)
+      - Release/macOS/macOS (Universal,App)
       - Release/macOS
       - Release/PC/Windows x86 (App)
       - Release/PC
@@ -151,7 +151,7 @@ MonoBehaviour:
         childKeys: []
       - enabled: 1
         childKeys:
-        - Release/macOS/macOS (Intelx64,App)
+        - Release/macOS/macOS (Universal,App)
       - enabled: 1
         childKeys: []
       - enabled: 1
@@ -222,7 +222,7 @@ MonoBehaviour:
     clauses: []
   pathToButlerExe: D:\Projects Unity\butler-windows-amd64\butler.exe
   nameOfItchUser: julian-spinelli
-  nameOfItchGame: From The Ink Of The Oceans
+  nameOfItchGame: from-the-ink-of-the-oceans
   useGeneratedBuildVersion: 1
   channelName: $PLATFORM-$ARCHITECTURE
   showUploadProgress: 1
