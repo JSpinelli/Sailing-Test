@@ -88,11 +88,9 @@ public class BoatManager : MonoBehaviour
         _currentSpeed = mainSailContribution.Value + frontSailContribution.Value;
         _currentSpeed = _currentSpeed * WindManager.instance.windMagnitude;
 
-        Vector3 forceDir =
-            transform.forward * (_currentSpeed * speedFactor);
-        _rigidbody.AddForce(
-            forceDir, ForceMode.Force
-        );
+        Vector3 forceDir = transform.forward * (_currentSpeed * speedFactor);
+        
+        _rigidbody.AddForce(forceDir, ForceMode.Force);
 
         if (torqueEnabled)
         {

@@ -14,6 +14,16 @@
         "com.unity-atoms.unity-atoms-ui",
         "com.unity-atoms.unity-atoms-input-system"
       ]
+    },
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.github.superunitybuild.buildactions",
+        "com.github.superunitybuild.buildtool",
+        "com.littlebigfun.addressable-importer",
+        "com.openupm"
+      ]
     }
   ],
   "dependencies": {
@@ -67,6 +77,9 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.littlebigfun.addressable-importer": "0.11.0",
+    "com.github.superunitybuild.buildtool": "5.0.1",
+    "com.github.superunitybuild.buildactions": "2.1.1"
   }
 }

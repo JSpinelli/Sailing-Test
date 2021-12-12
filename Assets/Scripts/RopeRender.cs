@@ -19,6 +19,8 @@ public class RopeRender : MonoBehaviour
     public LineRenderer _lineRenderer;
     public float magnitude;
 
+    public float normalWidth = 0.2f;
+
     private void Start()
     {
         _animKeys = new Keyframe[amountOfKeys];
@@ -40,26 +42,36 @@ public class RopeRender : MonoBehaviour
 
     private void Update()
     {
-        if (Mathf.Abs(ropeDiff.Value) > tolerance)
+        if (ropeDiff.Value > tolerance)
         {
             LerpingCurvesFunction();
-        }
-        else
+        }        
+        
+        if (ropeDiff.Value < -tolerance)
         {
-            currentCurve = tight;
+            _lineRenderer.startWidth = normalWidth / 2;
+            _lineRenderer.endWidth = normalWidth / 2;
         }
+
+        if (ropeDiff.Value < tolerance && ropeDiff > -tolerance)
+        {
+            _lineRenderer.startWidth = normalWidth;
+            _lineRenderer.endWidth = normalWidth;
+        }
+
 
         if (lerpEnabled)
             currentCurve = loose;
 
         float distance = Vector3.Distance(target.position,transform.position);
         Vector3 direction = (target.position - transform.position).normalized;
-        for (int i = 0; i < _lineRenderer.positionCount; i++)
+        for (int i = 0; i < _lineRenderer.positionCount-1; i++)
         {
             float step = ((float)i / _lineRenderer.positionCount);
             Vector3 pos = transform.position + (direction * ((step) * distance));
             pos.y = pos.y + currentCurve.Evaluate(step) * magnitude;
             _lineRenderer.SetPosition(i, pos);
         }
+        _lineRenderer.SetPosition(_lineRenderer.positionCount-1,target.position);
     }
 }
