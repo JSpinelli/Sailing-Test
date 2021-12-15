@@ -10,6 +10,7 @@ public class Sail : MonoBehaviour
     
     public FloatReference rope;
     public FloatReference ropeDiff;
+    public FloatReference sailAngle;
 
     public float tolerance = 2;
     
@@ -23,7 +24,7 @@ public class Sail : MonoBehaviour
         _angle = Vector3.Angle(transform.forward, ship.forward);
         ropeDiff.Value = rope.Value - _angle;
         _yRot = transform.localRotation.y;
-        
+        sailAngle.Value = _yRot;
         // WENT TO FAR
         if (ropeDiff.Value  < -tolerance)
         {

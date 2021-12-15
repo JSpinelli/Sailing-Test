@@ -97,7 +97,7 @@ Material:
     - _FoamProcedural: 1
     - _FoamScale: 1.11
     - _FoamSharpness: 0.984
-    - _FoamSpeed: 0.29
+    - _FoamSpeed: 0.08
     - _FoamStretchX: 2.81
     - _FoamStretchY: 2.48
     - _FoamTexture: 1
@@ -112,9 +112,9 @@ Material:
     - _ProceduralFoam: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RefractionAmplitude: 0.0067
-    - _RefractionFrequency: 10.7
-    - _RefractionScale: 1
+    - _RefractionAmplitude: 0
+    - _RefractionFrequency: 7.6
+    - _RefractionScale: 2.64
     - _RefractionSpeed: 0.4
     - _RefractionStrength: 0.01
     - _ShadowStrength: 0.74

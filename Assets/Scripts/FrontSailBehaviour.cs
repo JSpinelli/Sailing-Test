@@ -73,6 +73,12 @@ public class FrontSailBehaviour : MonoBehaviour
             }
         }
 
+        if (GameManager.Instance.autoFrontSailPositioning)
+        {
+            frontSailContribution.Value = 1;
+            frontSailWorking.Value = true;
+            return;
+        }
         float force = SailForce();
         if (frontSailSpread.x <= force && force <= frontSailSpread.y)
         {

@@ -12,12 +12,10 @@ public class TutorialIslandManager : MonoBehaviour
     public static TutorialIslandManager Instance;
     
     public List<GameObject> rings;
-    private bool _finishedRings = false;
     public GameObject island;
     public Vector2 startingWind;
     public float startingMagnitude;
-    public float timeToDeactivateGate;
-
+    public float tutorialTimer;
     public float initialXLenght;
     public float initialZLenght;
     public float initialXAmp;
@@ -30,7 +28,9 @@ public class TutorialIslandManager : MonoBehaviour
     public StringReference pointOfSailing;
     
     public bool startTutorial = true;
-    
+
+
+    private float _tutorialCounter;
     private void Awake()
     {
         if (Instance == null)
@@ -45,6 +45,7 @@ public class TutorialIslandManager : MonoBehaviour
     }
     void Start()
     {
+        _tutorialCounter = 0;
         if (startTutorial)
         {
             GameManager.Instance.autoFrontSailPositioning = true;
@@ -67,11 +68,19 @@ public class TutorialIslandManager : MonoBehaviour
     {
         if (pointOfSailing.Value == "In Irons")
         {
-            text.gameObject.SetActive(true);
-            text.text = " I can't sail towards the wind, I need to adjust my position ";
+            if (_tutorialCounter < tutorialTimer)
+            {
+                _tutorialCounter += Time.deltaTime;
+            }
+            else
+            {
+                text.gameObject.SetActive(true);
+                text.text = " I can't sail towards the wind, I need to adjust my position ";
+            }
         }
         else
         {
+            _tutorialCounter = 0;
             text.gameObject.SetActive(false);
             text.text = "";
         }
@@ -84,12 +93,12 @@ public class TutorialIslandManager : MonoBehaviour
         {
             GameManager.Instance.autoMainSailPositioning = false;
             UIManager.Instance.SetActiveMainSailControls(true);
+            UIManager.Instance.PointOfSailingViz(true);
         }
         if ((index + 1) >= rings.Count)
         {
             GameManager.Instance.autoMainSailPositioning = false;
             UIManager.Instance.SetActiveMainSailControls(true);
-            _finishedRings = true;
             GameManager.Instance.autoFrontSailPositioning = false;
             UIManager.Instance.SetActiveFrontSailControls(true);
             UIManager.Instance.PointOfSailingViz(true);

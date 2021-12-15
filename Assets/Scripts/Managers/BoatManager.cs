@@ -4,32 +4,35 @@ using UnityEngine;
 public class BoatManager : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    private float _currentSpeed = 0;
-    private float _currentTillerPos = 0;
+    private float _currentSpeed;
+    
+    //Optimization variables
+    private Vector3 _myForward;
+    private Vector3 _myRight;
+    private float _velMagnitude;
 
     public float speedFactor = 50f;
     public float torqueModifier;
-    public float turningFactor = 0.5f;
     public float ropeStep = .5f;
-    public AnimationCurve tillerVelocity;
 
-    public bool autoSail = false;
-    public bool torqueEnabled = false;
+    public bool autoSail;
+    public bool torqueEnabled;
     [Range(0f, 1f)] public float mainSailContributionAuto;
     [Range(0f, 1f)] public float frontSailContributionAuto;
 
     public AudioSource ropeTight;
     public AudioSource ropeUnwind;
     public Transform tillerPos;
-    public Transform tillerOrigin;
-
-    public FloatReference tillerSensitivity;
+    
     public IntReference speed;
     public StringReference typeOfSailing;
     public FloatReference mainSailRope;
     public FloatReference frontSailRope;
     public FloatReference mainSailContribution;
     public FloatReference frontSailContribution;
+    public FloatReference frontSailAngle;
+    public FloatReference mainSailAngle;
+    public FloatReference currentTillerPos;
 
     [HideInInspector] public float dot2;
 
@@ -42,8 +45,10 @@ public class BoatManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 sailDirection = new Vector2(transform.forward.x, transform.forward.z);
-        Vector2 sailDirection2 = new Vector2(transform.right.x, transform.right.z);
+        _myForward = transform.forward;
+        _myRight = transform.right;
+        Vector2 sailDirection = new Vector2(_myForward.x, _myForward.z);
+        Vector2 sailDirection2 = new Vector2(_myRight.x, _myRight.z);
         float dot = Vector2.Dot(sailDirection.normalized, WindManager.instance.wind.normalized);
         //Direction of rotation of the hull
         dot2 = Vector2.Dot(sailDirection2.normalized, WindManager.instance.wind.normalized);
@@ -99,72 +104,33 @@ public class BoatManager : MonoBehaviour
                                   (1 - Mathf.Abs(dot3))));
         }
 
-        speed.Value = (int) (_rigidbody.velocity.magnitude * 100);
+        _velMagnitude = _rigidbody.velocity.magnitude;
+        speed.Value = (int) (_velMagnitude * 100);
 
-        TillerUpdate();
-        SailUpdateDegrees();
-    }
-
-    private void TillerUpdate()
-    {
-        if (PlayerController.tillerDir.x > 0 &&
-            (tillerPos.localRotation.eulerAngles.y < 80 || tillerPos.localRotation.eulerAngles.y > 275))
-        {
-            tillerPos.RotateAround(tillerOrigin.position, tillerOrigin.up,
-                PlayerController.tillerDir.x * tillerSensitivity.Value);
-        }
-
-        if (PlayerController.tillerDir.x < 0 &&
-            (tillerPos.localRotation.eulerAngles.y > 280 || tillerPos.localRotation.eulerAngles.y < 85))
-        {
-            tillerPos.RotateAround(tillerOrigin.position, tillerOrigin.up,
-                PlayerController.tillerDir.x * tillerSensitivity.Value);
-        }
-
-        _currentTillerPos = tillerPos.localRotation.y;
-        float tillerVal = Mathf.Sign(_currentTillerPos) * tillerVelocity.Evaluate(Mathf.Abs(_currentTillerPos));
+        //Boat Turning
         _rigidbody.AddForceAtPosition(
-            transform.right * (tillerVal * turningFactor * Mathf.Clamp(_rigidbody.velocity.magnitude, 10, 50)),
+            transform.right * (currentTillerPos * Mathf.Clamp(_velMagnitude, 10, 50)),
             tillerPos.position);
+        
+        SailUpdateDegrees();
     }
 
     private void SailUpdateDegrees()
     {
         if (PlayerController.leftTrigger)
         {
-            if (frontSailRope.Value >= 2)
-            {
-                frontSailRope.Value -= ropeStep;
-                if (!ropeTight.isPlaying)
-                {
-                    ropeTight.Play();
-                }
-
-                if (ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Stop();
-                }
-            }
-
-            if (frontSailRope.Value < 0.2) frontSailRope.Value = 2f;
+            if (frontSailAngle.Value < 0)
+                TakeRopeFrontSail();
+            else
+                GiveRopeFrontSail();
         }
-
 
         if (PlayerController.rightTrigger)
         {
-            if (frontSailRope.Value < 80)
-            {
-                frontSailRope.Value += ropeStep;
-                if (ropeTight.isPlaying)
-                {
-                    ropeTight.Stop();
-                }
-
-                if (!ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Play();
-                }
-            }
+            if (frontSailAngle.Value > 0)
+                TakeRopeFrontSail();
+            else
+                GiveRopeFrontSail();
         }
 
         if (!PlayerController.rightTrigger && !PlayerController.leftTrigger)
@@ -176,48 +142,100 @@ public class BoatManager : MonoBehaviour
         if (PlayerController.rightBumper)
         {
             PlayerController.rightBumper = false;
-            if (mainSailRope.Value < 52)
-            {
-                mainSailRope.Value += 10;
-                if (ropeTight.isPlaying)
-                {
-                    ropeTight.Stop();
-                }
-
-                if (!ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Play();
-                }
-            }
+            if (mainSailAngle.Value > 0)
+                TakeRopeMainSail();
+            else
+                GiveRopeMainSail();
         }
 
         if (PlayerController.leftBumper)
         {
             PlayerController.leftBumper = false;
-            if (mainSailRope.Value >= 2)
-            {
-                mainSailRope.Value -= 10;
-                if (mainSailRope.Value == 0)
-                {
-                    mainSailRope.Value = 2;
-                }
-
-                if (!ropeTight.isPlaying)
-                {
-                    ropeTight.Play();
-                }
-
-                if (ropeUnwind.isPlaying)
-                {
-                    ropeUnwind.Stop();
-                }
-            }
+            if (mainSailAngle.Value < 0)
+                TakeRopeMainSail();
+            else
+                GiveRopeMainSail();
         }
 
         if (!PlayerController.rightBumper && !PlayerController.leftBumper)
         {
             ropeTight.Stop();
             ropeUnwind.Stop();
+        }
+    }
+
+    private void GiveRopeFrontSail()
+    {
+        if (frontSailRope.Value < 80)
+        {
+            frontSailRope.Value += ropeStep;
+            if (ropeTight.isPlaying)
+            {
+                ropeTight.Stop();
+            }
+
+            if (!ropeUnwind.isPlaying)
+            {
+                ropeUnwind.Play();
+            }
+        }
+    }
+
+    private void TakeRopeFrontSail()
+    {
+        if (frontSailRope.Value >= 2)
+        {
+            frontSailRope.Value -= ropeStep;
+            if (!ropeTight.isPlaying)
+            {
+                ropeTight.Play();
+            }
+
+            if (ropeUnwind.isPlaying)
+            {
+                ropeUnwind.Stop();
+            }
+        }
+
+        if (frontSailRope.Value < 0.2) frontSailRope.Value = 2f;
+    }
+
+    private void GiveRopeMainSail()
+    {
+        if (mainSailRope.Value < 52)
+        {
+            mainSailRope.Value += 10;
+            if (ropeTight.isPlaying)
+            {
+                ropeTight.Stop();
+            }
+
+            if (!ropeUnwind.isPlaying)
+            {
+                ropeUnwind.Play();
+            }
+        }
+    }
+
+    private void TakeRopeMainSail()
+    {
+        if (mainSailRope.Value >= 2)
+        {
+            mainSailRope.Value -= 10;
+            if (mainSailRope.Value == 0)
+            {
+                mainSailRope.Value = 2;
+            }
+
+            if (!ropeTight.isPlaying)
+            {
+                ropeTight.Play();
+            }
+
+            if (ropeUnwind.isPlaying)
+            {
+                ropeUnwind.Stop();
+            }
         }
     }
 }
