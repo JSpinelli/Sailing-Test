@@ -16,7 +16,7 @@ public class FrontSailBehaviour : MonoBehaviour
     public AnimationCurve sailForceCurve;
     public BoolReference frontSailWorking;
     
-    private float curvePoint;
+    private float _curvePoint;
 
     void Update()
     {
@@ -75,16 +75,24 @@ public class FrontSailBehaviour : MonoBehaviour
 
         if (GameManager.Instance.autoFrontSailPositioning)
         {
-            frontSailContribution.Value = 1;
-            frontSailWorking.Value = true;
+            if (pointOfSail.Value != "In Irons")
+            {
+                frontSailContribution.Value = 1;
+                frontSailWorking.Value = true;
+            }
+            else
+            {
+                frontSailContribution.Value = 0;
+                frontSailWorking.Value = false;
+            }
             return;
         }
         float force = SailForce();
         if (frontSailSpread.x <= force && force <= frontSailSpread.y)
         {
-            curvePoint = (force - frontSailSpread.x) /
+            _curvePoint = (force - frontSailSpread.x) /
                          (frontSailSpread.y - frontSailSpread.x);
-            frontSailContribution.Value = sailForceCurve.Evaluate(curvePoint);
+            frontSailContribution.Value = sailForceCurve.Evaluate(_curvePoint);
             frontSailWorking.Value = true;
         }
         else

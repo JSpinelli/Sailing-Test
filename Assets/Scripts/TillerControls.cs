@@ -61,14 +61,14 @@ public class TillerControls : MonoBehaviour
     private void TillerUpdate()
     {
         if (PlayerController.tillerDir.x > 0 &&
-            (transform.localRotation.eulerAngles.y < 80 || transform.localRotation.eulerAngles.y > 275))
+            (transform.localRotation.eulerAngles.y < 60 || transform.localRotation.eulerAngles.y > 295))
         {
             transform.RotateAround(tillerOrigin.position, tillerOrigin.up,
                 PlayerController.tillerDir.x * tillerSensitivity.Value);
         }
 
         if (PlayerController.tillerDir.x < 0 &&
-            (transform.localRotation.eulerAngles.y > 280 || transform.localRotation.eulerAngles.y < 85))
+            (transform.localRotation.eulerAngles.y > 300 || transform.localRotation.eulerAngles.y < 65))
         {
             transform.RotateAround(tillerOrigin.position, tillerOrigin.up,
                 PlayerController.tillerDir.x * tillerSensitivity.Value);
