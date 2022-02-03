@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +12,10 @@ public class GameManager : MonoBehaviour
     public bool autoMainSailPositioning = true;
     public bool autoFrontSailPositioning = true;
     public bool gamePaused = false;
+    
+    
+    [HideInInspector]
+    public float timer;
     private void Awake()
     {
         if (Instance == null)
@@ -21,6 +28,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+
 
     public void Pause()
     {
@@ -39,6 +47,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ChangeGravity()
+    {
+        Physics.gravity = -Physics.gravity;
+    }
+
     public void ReloadScene()
     {
         Time.timeScale = 1;
@@ -50,3 +63,20 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(GameManager))]
+public class DrawGameManager: Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        GameManager manager = (GameManager)target;
+        if(GUILayout.Button("Change Gravity"))
+        {
+            manager.ChangeGravity();
+        }
+    }
+}
+#endif

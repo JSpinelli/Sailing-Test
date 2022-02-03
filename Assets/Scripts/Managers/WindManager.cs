@@ -27,6 +27,9 @@ public class WindManager : MonoBehaviour
     private Vector2 targetDirection;
     private float timeToFullTransition = 0;
 
+    public Vector2 startingWind;
+    public float startingMagnitude;
+
     private void Awake()
     {
         if (instance == null)
@@ -42,6 +45,8 @@ public class WindManager : MonoBehaviour
 
     private void Start()
     {
+        targetDirection = startingWind;
+        targetMagnitude = startingMagnitude;
         windChangeTimer = 0;
         timeToFullTransition = 0;
         if (randomizeStart)

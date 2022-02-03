@@ -15,6 +15,7 @@ public class BoatManager : MonoBehaviour
     public float torqueModifier;
     public float ropeStep = .5f;
 
+    private bool upside = true; 
     public bool autoSail;
     public bool torqueEnabled;
     [Range(0f, 1f)] public float mainSailContributionAuto;
@@ -113,6 +114,17 @@ public class BoatManager : MonoBehaviour
             tillerPos.position);
         
         SailUpdateDegrees();
+
+        if (PlayerController.interactionButton)
+        {
+            FlipBoat();
+            PlayerController.interactionButton = false;
+        }
+    }
+
+    public void FlipBoat()
+    {
+       TimeManager.Instance.TimeSwitch();
     }
 
     private void SailUpdateDegrees()
