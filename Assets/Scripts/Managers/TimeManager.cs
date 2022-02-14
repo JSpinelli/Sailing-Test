@@ -75,5 +75,6 @@ public class TimeManager : MonoBehaviour
     {
         goingForward.Value = !goingForward.Value;
         //Effect goes here
+        PostProcessingManager.Instance.TriggerTimeSwitchEffect();
     }
 }

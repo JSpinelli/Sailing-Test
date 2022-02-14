@@ -123,11 +123,18 @@ public class PlayerController : MonoBehaviour
     public void LookingGlass(InputAction.CallbackContext cx)
     {
         looking = cx.ReadValueAsButton();
+        if (cx.performed)
+        {
+            VisorManager.Instance.ActivateVisor();
+        }
     }
 
     public void Interaction(InputAction.CallbackContext cx)
     {
-        interactionButton = cx.ReadValueAsButton();
+        if (cx.performed)
+        {
+            TimeManager.Instance.TimeSwitch();
+        }
     }
 
     public void RightBumper(InputAction.CallbackContext cx)

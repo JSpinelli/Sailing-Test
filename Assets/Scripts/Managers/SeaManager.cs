@@ -1,20 +1,64 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class SeaManager : MonoBehaviour
 {
-    private GameObject[] tiles;
-
+    public GameObject myOceanTiles;
     public GameObject boat;
 
     private float xOffset;
     private float zOffset;
 
-    private void Update()
+    public int amountXTiles;
+    public int amountZTiles;
+    public GameObject tile;
+    public int tileSize;
+    
+    public void PlaceTiles()
     {
-        Vector3 newPos = new Vector3(boat.transform.position.x, 0, boat.transform.position.z);
-        transform.position = newPos;
+        DestroyTiles();
+        myOceanTiles = new GameObject("My Ocean Tiles");
+        myOceanTiles.transform.parent = transform;
+        
+        float positionX = (-amountXTiles * tileSize) / 2;
+        for (int i = 0; i < amountXTiles; i++)
+        {
+            float positionZ = -(amountZTiles * tileSize)/ 2;
+            for (int j = 0; j < amountZTiles; j++)
+            {
+                Instantiate(tile, new Vector3(positionX, 0, positionZ), Quaternion.identity, myOceanTiles.transform);
+                positionZ += tileSize;
+            }
+            positionX += tileSize;
+        }
+    }
+
+    public void DestroyTiles()
+    {
+        if (myOceanTiles == null) return;
+        DestroyImmediate(myOceanTiles);
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(SeaManager))]
+public class DrawSeaManager : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        SeaManager manager = (SeaManager) target;
+        if (GUILayout.Button("Position Sea Planes"))
+        {
+            manager.PlaceTiles();
+        }
+        
+        if (GUILayout.Button("Destroy Tiles"))
+        {
+            manager.DestroyTiles();
+        }
+    }
+}
+#endif
